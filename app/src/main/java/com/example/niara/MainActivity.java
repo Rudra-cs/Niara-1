@@ -15,6 +15,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -29,6 +30,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        TextView title=findViewById(R.id.AppTitle);
+
+        toolbar.setTitle("");
+
         setSupportActionBar(toolbar);
         drawerLayout = findViewById(R.id.drawer_layout);
 
@@ -39,9 +44,7 @@ public class MainActivity extends AppCompatActivity {
         bottom_nav.setOnNavigationItemSelectedListener(nav_listener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
 
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("NIARA");
-        }
+
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
 
     }
@@ -108,6 +111,9 @@ public class MainActivity extends AppCompatActivity {
 
                 case R.id.about_us:
                     fragment = new AboutUs();
+                    break;
+                case R.id.mycart:
+                    fragment = new MyCartFragment();
                     break;
             }
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();

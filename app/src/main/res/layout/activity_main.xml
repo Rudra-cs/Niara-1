@@ -11,18 +11,27 @@
     tools:context=".MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+<!--        <include-->
+<!--            layout="@layout/custom_toolbar"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:id="@+id/appBarLayout"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent">-->
+
+<!--        </include>-->
+
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appBarLayout"
-            android:elevation="3dp"
-            android:padding="0dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
+            android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
+            android:id="@+id/appBarLayout"
+            android:background="@drawable/bg2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -31,9 +40,22 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/ThemeOverlay.AppCompat.Light"
+                app:popupTheme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
+                style="@style/Toolbar"
                 android:minHeight="?attr/actionBarSize"
-                android:background="@drawable/bg2"/>
+                android:background="@drawable/bg2">
+
+                <TextView
+                    android:id="@+id/AppTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Niara"
+                    android:fontFamily="@font/russo_one"
+                    android:textColor="@color/white"
+                    android:textSize="30sp">
+
+                </TextView>
+            </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -56,7 +78,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

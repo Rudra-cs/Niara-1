@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E3C9CEFF"
 
     tools:context=".RegistrationActivity">
 
@@ -12,11 +13,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="68dp"
-        android:text="Registration"
+        android:text="Create Account"
         android:typeface="sans"
-        android:fontFamily="@font/bowlby_one_sc"
+        android:fontFamily="@font/russo_one"
         android:textStyle="bold"
-        android:textColor="#3E3A3A"
+        android:textColor="#3C3E3A"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -129,12 +130,12 @@
         </LinearLayout>
 
         <Button
-            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/bg1"
-            android:fontFamily="@font/bowlby_one_sc"
+            android:fontFamily="@font/russo_one"
+            android:padding="5dp"
             android:text="Register">
 
         </Button>
@@ -142,7 +143,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_marginTop="20dp">
 
             <TextView
                 android:layout_width="wrap_content"

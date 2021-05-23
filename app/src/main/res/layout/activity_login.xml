@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="#fff"
+    android:background="#E3C9CEFF"
     tools:context=".LoginActivity">
 
     <TextView
@@ -13,11 +13,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="68dp"
-        android:fontFamily="@font/aladin"
+        android:fontFamily="@font/russo_one"
         android:textStyle="bold"
         android:text="My Account"
 
-        android:textSize="50sp"
+        android:textSize="38sp"
         android:typeface="sans"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
