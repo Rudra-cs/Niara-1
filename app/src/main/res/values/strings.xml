@@ -4,4 +4,18 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <string name="chai">Masala Chai</string>
+    <string name="productImage">ProductImage</string>
+    <string name="niara_bbsr">Niara,BBSR</string>
+    <string name="price">1200</string>
+    <string name="price_strikeout"><strike>3200</strike></string>
+
+    <string-array name="food_list">
+        <item>Delicious</item>
+        <item>Snacks</item>
+        <item>Meals</item>
+        <item>Veg</item>
+        <item>Non-Veg</item>
+        <item>Grocery</item>
+    </string-array>
 </resources>

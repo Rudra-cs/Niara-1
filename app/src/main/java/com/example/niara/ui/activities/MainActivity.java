@@ -1,4 +1,4 @@
-package com.example.niara;
+package com.example.niara.ui.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -11,13 +11,18 @@ import androidx.fragment.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.niara.R;
+import com.example.niara.ui.fragments.AboutUs;
+import com.example.niara.ui.fragments.HomeFragment;
+import com.example.niara.ui.fragments.MyCartFragment;
+import com.example.niara.ui.fragments.ProductFragment;
+import com.example.niara.ui.fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
