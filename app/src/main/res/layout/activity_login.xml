@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:background="#E3C9CEFF"
-    tools:context=".LoginActivity">
+    tools:context=".ui.activities.LoginActivity">
 
     <TextView
         android:id="@+id/tv_myaccount"

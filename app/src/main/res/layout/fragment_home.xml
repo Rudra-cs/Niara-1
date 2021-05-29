@@ -3,12 +3,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment">
+    tools:context=".ui.fragments.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Home Fragment" />
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:orientation="vertical">
+       <androidx.recyclerview.widget.RecyclerView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:id="@+id/rc_categories_food"
+           android:orientation="horizontal"
+           android:layout_marginStart="@dimen/_3sdp"
+           />
+       <androidx.recyclerview.widget.RecyclerView
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:id="@+id/rc_food"
+           android:orientation="vertical"/>
+   </LinearLayout>
 
 </FrameLayout>

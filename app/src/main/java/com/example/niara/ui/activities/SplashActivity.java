@@ -1,4 +1,4 @@
-package com.example.niara;
+package com.example.niara.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,7 +9,8 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.TextView;
+
+import com.example.niara.R;
 
 public class SplashActivity extends AppCompatActivity {
     private static int splash_time=4000;
@@ -32,7 +33,7 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent i= new Intent(SplashActivity.this,LoginActivity.class);
+                Intent i= new Intent(SplashActivity.this, LoginActivity.class);
                 startActivity(i);
                 finish();
 

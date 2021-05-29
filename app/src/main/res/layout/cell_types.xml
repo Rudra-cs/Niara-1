@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_root_category"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_5sdp"
+    android:padding="@dimen/_4sdp"
+    android:background="@drawable/bg_category_unselected"
+    android:elevation="@dimen/_1sdp"
+    >
+
+    <TextView
+        android:id="@+id/tv_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_12ssp"
+        />
+
+</RelativeLayout>

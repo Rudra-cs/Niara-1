@@ -1,4 +1,4 @@
-package com.example.niara;
+package com.example.niara.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+
+import com.example.niara.R;
 
 public class LoginActivity extends AppCompatActivity {
     private SharedPreferences prefManager;

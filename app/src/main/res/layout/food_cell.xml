@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_216sdp"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_product"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_200sdp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        app:cardCornerRadius="@dimen/_16sdp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/iv_product"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_150sdp"
+                android:contentDescription="@string/productImage"
+                android:scaleType="centerCrop"/>
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/chai"
+                android:layout_below="@+id/iv_product"
+                android:fontFamily="@font/aclonica"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12ssp"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                />
+            <TextView
+                android:id="@+id/tv_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/niara_bbsr"
+                android:layout_below="@+id/tv_title"
+                android:fontFamily="@font/poppins_medium"
+                android:textSize="@dimen/_10ssp"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                />
+
+            <TextView
+                android:id="@+id/tv_price_strikeout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/price_strikeout"
+                android:layout_below="@+id/iv_product"
+                android:fontFamily="@font/poppins_medium"
+                android:textSize="@dimen/_10ssp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                />
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/price"
+                android:layout_below="@+id/iv_product"
+                android:fontFamily="@font/poppins_medium"
+                android:textSize="@dimen/_12ssp"
+                android:textColor="@color/black"
+                android:layout_toLeftOf="@+id/tv_price_strikeout"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                />
+            <TextView
+                android:id="@+id/tv_rupee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="₹"
+                android:layout_below="@+id/iv_product"
+                android:fontFamily="@font/poppins_medium"
+                android:textSize="@dimen/_12ssp"
+                android:textColor="@color/black"
+                android:layout_toLeftOf="@+id/tv_price"
+                android:layout_marginEnd="@dimen/_1sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                />
+
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

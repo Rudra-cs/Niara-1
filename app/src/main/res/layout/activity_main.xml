@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:background="#fff"
     android:id="@+id/drawer_layout"
-    tools:context=".MainActivity">
+    tools:context=".ui.activities.MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
