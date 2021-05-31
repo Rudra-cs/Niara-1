@@ -9,6 +9,10 @@
     <color name="white">#FFFFFFFF</color>
     <color name="status_bar">#E205AC0B</color>
 
+
+    <color name="home_background">#f2f5f8</color>
+    <color name="banner_background">#F1E9CE</color>
+
 <!--    Colors Main -->
     <color name="grey">#BBB6B6</color>
 </resources>

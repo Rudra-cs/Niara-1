@@ -3,16 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-
     <item android:title="Home"
         android:id="@+id/home"
         android:icon="@drawable/ic_home"
         app:showAsAction="withText"/>
 
-    <item android:title="Products"
-        android:icon="@drawable/ic_feeds"
-        android:id="@+id/products"
-        app:showAsAction="withText"/>
     <item android:title="MyCart"
         android:id="@+id/mycart"
         android:icon="@drawable/ic_cart"
@@ -20,11 +15,11 @@
 
     <item android:title="Profile"
         android:id="@+id/profile"
-        android:icon="@drawable/ic_user"
+        android:icon="@drawable/ic_baseline_account_circle_24"
         app:showAsAction="withText"/>
     <item android:title="About Us"
         android:id="@+id/about_us"
-        android:icon="@drawable/ic_about"
+        android:icon="@drawable/ic_baseline_chat_24"
         app:showAsAction="withText"/>
 
 

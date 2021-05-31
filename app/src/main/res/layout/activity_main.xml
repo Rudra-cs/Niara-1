@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#fff"
+    android:background="@color/home_background"
     android:id="@+id/drawer_layout"
     tools:context=".ui.activities.MainActivity">
 
@@ -14,16 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-<!--        <include-->
-<!--            layout="@layout/custom_toolbar"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:id="@+id/appBarLayout"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent">-->
 
-<!--        </include>-->
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
@@ -31,7 +22,7 @@
 
             android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
             android:id="@+id/appBarLayout"
-            android:background="@drawable/bg2"
+            android:background="@color/home_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -43,15 +34,15 @@
                 app:popupTheme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
                 style="@style/Toolbar"
                 android:minHeight="?attr/actionBarSize"
-                android:background="@drawable/bg2">
+                android:background="@color/white">
 
                 <TextView
                     android:id="@+id/AppTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Niara"
-                    android:fontFamily="@font/russo_one"
-                    android:textColor="@color/white"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textColor="@color/black"
                     android:textSize="30sp">
 
                 </TextView>
@@ -59,7 +50,17 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
+        <!--        <com.google.android.material.bottomnavigation.BottomNavigationView-->
+        <!--            android:id="@+id/bottomNavigationView"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:elevation="5dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            android:background="@color/home_background"-->
+        <!--            app:menu="@menu/bottom_nav_menu" />-->
+        <com.etebarian.meowbottomnavigation.MeowBottomNavigation
             android:id="@+id/bottomNavigationView"
             android:layout_width="match_parent"
             android:elevation="5dp"
@@ -67,13 +68,21 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:background="@drawable/bg1"
-            app:menu="@menu/bottom_nav_menu" />
+            app:mbn_circleColor="@color/white"
+            app:mbn_selectedIconColor="@color/black"
+            app:mbn_defaultIconColor="@color/white"
+            app:mbn_backgroundBottomColor="@color/black">
+
+        </com.etebarian.meowbottomnavigation.MeowBottomNavigation>
+
+
+
 
         <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:background="@color/home_background"
             app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -85,3 +94,4 @@
 
 
 </androidx.drawerlayout.widget.DrawerLayout>
+

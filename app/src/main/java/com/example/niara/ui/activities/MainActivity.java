@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 import com.example.niara.R;
 import com.example.niara.ui.fragments.AboutUs;
 import com.example.niara.ui.fragments.HomeFragment;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private SharedPreferences prefManager;
     private SharedPreferences.Editor editor;
+    MeowBottomNavigation meowBottomNavigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,17 +44,63 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         drawerLayout = findViewById(R.id.drawer_layout);
 
+        meowBottomNavigation=findViewById(R.id.bottomNavigationView);
+        meowBottomNavigation.add(new MeowBottomNavigation.Model(1,R.drawable.ic_home));
+        meowBottomNavigation.add(new MeowBottomNavigation.Model(2,R.drawable.ic_cart));
+        meowBottomNavigation.add(new MeowBottomNavigation.Model(3,R.drawable.ic_baseline_account_circle_24));
+        meowBottomNavigation.add(new MeowBottomNavigation.Model(4,R.drawable.ic_baseline_chat_24));
+
+        meowBottomNavigation.setOnClickMenuListener(new MeowBottomNavigation.ClickListener() {
+            @Override
+            public void onClickItem(MeowBottomNavigation.Model item) {
+
+            }
+        });
+        meowBottomNavigation.setOnShowListener(new MeowBottomNavigation.ShowListener() {
+            @Override
+            public void onShowItem(MeowBottomNavigation.Model item) {
+                Fragment fragment=null;
+                switch (item.getId()){
+                    case 1:
+                        fragment=new HomeFragment();
+                        break;
+
+                    case 3:
+                        fragment = new ProfileFragment();
+                        break;
+
+                    case 4:
+                        fragment = new AboutUs();
+                        break;
+                    case 2:
+                        fragment = new MyCartFragment();
+                        break;
+                }
+                loadfragment(fragment);
+            }
+        });
+        meowBottomNavigation.show(1,true);
+
+
+
         prefManager = getApplicationContext().getSharedPreferences("LOGIN", MODE_PRIVATE);
         editor = prefManager.edit();
 
-        BottomNavigationView bottom_nav = findViewById(R.id.bottomNavigationView);
-        bottom_nav.setOnNavigationItemSelectedListener(nav_listener);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+//        BottomNavigationView bottom_nav = findViewById(R.id.bottomNavigationView);
+//        bottom_nav.setOnNavigationItemSelectedListener(nav_listener);
+//        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
 
 
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
-
     }
+
+    private void loadfragment(Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container,fragment)
+                .commit();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.tool_menu, menu);
@@ -97,32 +145,29 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
-    private BottomNavigationView.OnNavigationItemSelectedListener nav_listener = new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-            Fragment fragment = null;
-            switch (menuItem.getItemId()){
-                case R.id.home:
-                    fragment = new HomeFragment();
-                    break;
+//    private BottomNavigationView.OnNavigationItemSelectedListener nav_listener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+//        @Override
+//        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+//            Fragment fragment = null;
+//            switch (menuItem.getItemId()){
+//                case R.id.home:
+//                    fragment = new HomeFragment();
+//                    break;
+//
+//                case R.id.profile:
+//                    fragment = new ProfileFragment();
+//                    break;
+//
+//                case R.id.about_us:
+//                    fragment = new AboutUs();
+//                    break;
+//                case R.id.mycart:
+//                    fragment = new MyCartFragment();
+//                    break;
+//            }
+//            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+//            return true;
+//        }
+//    };
 
-                case R.id.products:
-                    fragment = new ProductFragment();
-                    break;
-
-                case R.id.profile:
-                    fragment = new ProfileFragment();
-                    break;
-
-                case R.id.about_us:
-                    fragment = new AboutUs();
-                    break;
-                case R.id.mycart:
-                    fragment = new MyCartFragment();
-                    break;
-            }
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
-            return true;
-        }
-    };
 }
