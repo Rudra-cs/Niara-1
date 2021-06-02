@@ -9,6 +9,9 @@
     <string name="niara_bbsr">Niara,BBSR</string>
     <string name="price">1200</string>
     <string name="price_strikeout"><strike>3200</strike></string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
+    <string name="lorem"></string>
 
     <string-array name="food_list">
         <item>Delicious</item>

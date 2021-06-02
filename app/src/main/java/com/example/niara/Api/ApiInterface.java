@@ -12,5 +12,7 @@ public interface ApiInterface {
     @GET ("/ProdInfo/")
     Call<ArrayList<Food>> getFood();
 
+    @GET ("/CartInfo/")
+    Call<ArrayList<Food>> getCartDetails();
     
 }
