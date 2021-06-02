@@ -25,10 +25,13 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
 
     private Context context;
     private ArrayList<Food> foods;
+    private ItemClickListener clickListener;
 
-    public FoodAdapter(Context context, ArrayList<Food> foods) {
+
+    public FoodAdapter(Context context, ArrayList<Food> foods, ItemClickListener clickListener) {
         this.context = context;
         this.foods = foods;
+        this.clickListener = clickListener;
     }
 
     @NonNull
@@ -45,11 +48,17 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
         holder.mTvFoodTitle.setText(data.getTitle());
         holder.mTvPrice.setText(String.valueOf(data.getDiscounted_price()));
         holder.mTvStrikeoutPrice.setText(String.valueOf(data.getSelling_price()));
-
         holder.mTvStrikeoutPrice.setPaintFlags(holder.mTvStrikeoutPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
 //        Image Loading
         Glide.with(this.context).load(BASE_URL+data.getProduct_image()).into(holder.mIvFoodImg);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickListener.onItemClick(foods.get(position));
+            }
+        });
     }
 
     @Override
@@ -72,5 +81,8 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
             mTvPrice = itemView.findViewById(R.id.tv_price);
             mTvStrikeoutPrice = itemView.findViewById(R.id.tv_price_strikeout);
         }
+    }
+    public interface ItemClickListener {
+        void onItemClick(Food food);
     }
 }

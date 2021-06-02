@@ -1,13 +1,9 @@
 package com.example.niara.ui.fragments;
 
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.os.Build;
+import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.niara.Adapters.CategoryAdapter;
@@ -24,9 +19,8 @@ import com.example.niara.Adapters.FoodAdapter;
 import com.example.niara.Api.ApiClient;
 import com.example.niara.Api.ApiInterface;
 import com.example.niara.Model.Food;
+import com.example.niara.ui.activities.ProductDesc;
 import com.example.niara.R;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,7 +29,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeFragment extends Fragment implements CategoryAdapter.CategoryClickListener {
+public class HomeFragment extends Fragment implements CategoryAdapter.CategoryClickListener, FoodAdapter.ItemClickListener{
 
     private String categoryValue = "Delicious";
     private RecyclerView rcFoodItems;
@@ -110,7 +104,7 @@ public class HomeFragment extends Fragment implements CategoryAdapter.CategoryCl
 //                    Toast.makeText(getContext(), "server returned data", Toast.LENGTH_LONG).show();
                     progressDialog.hide();
                     ArrayList<Food> value = response.body();
-                    FoodAdapter foodAdapter = new FoodAdapter(getContext(),value);
+                    FoodAdapter foodAdapter = new FoodAdapter(getContext(),value,HomeFragment.this);
                     rcFoodItems.setAdapter(foodAdapter);
                 }
                 else {
@@ -143,5 +137,24 @@ public class HomeFragment extends Fragment implements CategoryAdapter.CategoryCl
     public void onCategoryClicked(String categoryname) {
         categoryValue = categoryname;
         loadFood();
+    }
+
+    @Override
+    public void onItemClick(Food food) {
+//        Fragment fragment = ProductDesciption.newInstance(food.getTitle(),String.valueOf(food.getSelling_price()));
+//        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+//   //     transaction.replace(R.id.fragment_container,fragment);
+//        transaction.hide(getActivity().getSupportFragmentManager().findFragmentByTag("main_fragment"));
+//        transaction.add(R.id.fragment_container,fragment);
+//        transaction.addToBackStack(null);
+//        transaction.commit();
+
+        Intent intent = new Intent(getActivity(), ProductDesc.class);
+        intent.putExtra("title",food.getTitle());
+        intent.putExtra("desc",food.getDescription());
+        intent.putExtra("price",String.valueOf(food.getSelling_price()));
+        intent.putExtra("image",food.getProduct_image());
+        startActivity(intent);
+
     }
 }
