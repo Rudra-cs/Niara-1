@@ -151,6 +151,7 @@
                         android:layout_width="0dp"
                         android:background="@drawable/buttoncard"
                         android:text="Register"
+                        android:onClick="registerUser1"
                         android:textColor="@color/white">
 
                     </Button>

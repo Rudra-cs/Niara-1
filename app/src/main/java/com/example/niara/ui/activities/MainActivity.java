@@ -10,7 +10,9 @@ import androidx.fragment.app.Fragment;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,31 +26,35 @@ import com.example.niara.ui.fragments.HomeFragment;
 import com.example.niara.ui.fragments.MyCartFragment;
 import com.example.niara.ui.fragments.ProductFragment;
 import com.example.niara.ui.fragments.ProfileFragment;
+import com.example.niara.ui.fragments.SettingsFragment;
+import com.example.niara.utils.NetworkChangeListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-    private DrawerLayout drawerLayout;
     private SharedPreferences prefManager;
     private SharedPreferences.Editor editor;
+    private DrawerLayout drawerLayout;
     MeowBottomNavigation meowBottomNavigation;
+
+    NetworkChangeListener networkChangeListener=new NetworkChangeListener();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        TextView title=findViewById(R.id.AppTitle);
+        TextView title = findViewById(R.id.AppTitle);
 
         toolbar.setTitle("");
 
-        setSupportActionBar(toolbar);
+        //setSupportActionBar(toolbar);
         drawerLayout = findViewById(R.id.drawer_layout);
 
-        meowBottomNavigation=findViewById(R.id.bottomNavigationView);
-        meowBottomNavigation.add(new MeowBottomNavigation.Model(1,R.drawable.ic_home));
-        meowBottomNavigation.add(new MeowBottomNavigation.Model(2,R.drawable.ic_cart));
-        meowBottomNavigation.add(new MeowBottomNavigation.Model(3,R.drawable.ic_baseline_account_circle_24));
-        meowBottomNavigation.add(new MeowBottomNavigation.Model(4,R.drawable.ic_baseline_chat_24));
+        meowBottomNavigation = findViewById(R.id.bottomNavigationView);
+        meowBottomNavigation.add(new MeowBottomNavigation.Model(1, R.drawable.ic_home));
+        meowBottomNavigation.add(new MeowBottomNavigation.Model(2, R.drawable.ic_cart));
+        meowBottomNavigation.add(new MeowBottomNavigation.Model(3, R.drawable.ic_baseline_account_circle_24));
+        meowBottomNavigation.add(new MeowBottomNavigation.Model(4, R.drawable.ic_baseline_settings_24));
 
         meowBottomNavigation.setOnClickMenuListener(new MeowBottomNavigation.ClickListener() {
             @Override
@@ -59,10 +65,10 @@ public class MainActivity extends AppCompatActivity {
         meowBottomNavigation.setOnShowListener(new MeowBottomNavigation.ShowListener() {
             @Override
             public void onShowItem(MeowBottomNavigation.Model item) {
-                Fragment fragment=null;
-                switch (item.getId()){
+                Fragment fragment = null;
+                switch (item.getId()) {
                     case 1:
-                        fragment=new HomeFragment();
+                        fragment = new HomeFragment();
                         break;
 
                     case 3:
@@ -70,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case 4:
-                        fragment = new AboutUs();
+                        fragment = new SettingsFragment();
                         break;
                     case 2:
                         fragment = new MyCartFragment();
@@ -79,95 +85,29 @@ public class MainActivity extends AppCompatActivity {
                 loadfragment(fragment);
             }
         });
-        meowBottomNavigation.show(1,true);
+        meowBottomNavigation.show(1, true);
 
-
-
-        prefManager = getApplicationContext().getSharedPreferences("LOGIN", MODE_PRIVATE);
-        editor = prefManager.edit();
-
-//        BottomNavigationView bottom_nav = findViewById(R.id.bottomNavigationView);
-//        bottom_nav.setOnNavigationItemSelectedListener(nav_listener);
-//        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
-
-
-        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
     }
 
     private void loadfragment(Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fragment_container,fragment,"main_fragment")
+                .replace(R.id.fragment_container, fragment)
                 .commit();
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.tool_menu, menu);
-        return true;
+    protected void onStart() {
+        IntentFilter filter1=new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListener,filter1);
+        super.onStart();
     }
+
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-
-            case R.id.logOut:
-                new AlertDialog.Builder(MainActivity.this).setTitle("Alert")
-                        .setMessage("Are you sure you want to Logout")
-                        .setPositiveButton("Done", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                editor.putBoolean("ISLOGGEDIN", false);
-                                editor.apply();
-                                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                                finish();
-                            }
-                        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                    }
-                }).show();
-                break;
-
-
-            case  R.id.about_us:
-                String data1 = "swaugatkumarbeura5@gmail.com";
-                Intent email=new Intent(Intent.ACTION_SEND);
-                email.putExtra(Intent.EXTRA_EMAIL,new String[]{data1});
-                email.putExtra(Intent.EXTRA_SUBJECT,"Help");
-                email.putExtra(Intent.EXTRA_TEXT,"HELLO GUYS, I have a trouble shooting in the app");
-                email.setType("message/rfc822");
-                startActivity(Intent.createChooser(email,"Email Client"));
-                break;
-            case R.id.Settings:
-                Toast.makeText(MainActivity.this, "settings changed", Toast.LENGTH_SHORT).show();
-                break;
-        }
-        return true;
+    protected void onStop() {
+        unregisterReceiver(networkChangeListener);
+        super.onStop();
     }
-//    private BottomNavigationView.OnNavigationItemSelectedListener nav_listener = new BottomNavigationView.OnNavigationItemSelectedListener() {
-//        @Override
-//        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-//            Fragment fragment = null;
-//            switch (menuItem.getItemId()){
-//                case R.id.home:
-//                    fragment = new HomeFragment();
-//                    break;
-//
-//                case R.id.profile:
-//                    fragment = new ProfileFragment();
-//                    break;
-//
-//                case R.id.about_us:
-//                    fragment = new AboutUs();
-//                    break;
-//                case R.id.mycart:
-//                    fragment = new MyCartFragment();
-//                    break;
-//            }
-//            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
-//            return true;
-//        }
-//    };
 
 }

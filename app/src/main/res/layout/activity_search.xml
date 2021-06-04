@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.HomeFragment">
+    tools:context=".ui.activities.SearchActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -41,36 +42,30 @@
                 android:layout_width="0dp"
                 android:layout_weight="0.8"
                 android:layout_height="match_parent"
-                android:gravity="center">
+                android:gravity="left">
 
-                <TextView
-                    android:id="@+id/tv_search"
+                <EditText
+                    android:id="@+id/et_search"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Your food awaiting for search!!"
+                    android:hint="Your food awaiting for search!!"
                     android:fontFamily="@font/poppins_medium"
                     android:textSize="@dimen/_12ssp"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white" />
 
             </LinearLayout>
 
 
 
         </LinearLayout>
-        <androidx.recyclerview.widget.RecyclerView
 
-            android:layout_marginTop="@dimen/_15sdp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/rc_categories_food"
-            android:orientation="horizontal"
-            android:layout_marginStart="@dimen/_3sdp"
-            />
         <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="@dimen/_12sdp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/rc_food"
             android:orientation="vertical"/>
     </LinearLayout>
 
-</FrameLayout>
+</LinearLayout>
