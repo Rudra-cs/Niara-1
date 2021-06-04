@@ -24,6 +24,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private EditText email;
     private EditText password;
     private EditText confirmpassword;
+    private String str;
 
 
     @Override
@@ -99,33 +100,25 @@ public class RegistrationActivity extends AppCompatActivity {
 
     }
 
+
+
     public void registerUser1(View view) {
-//        if (validatePassword()==true && validateUsername()==true && validateEmail()==true){
-//            UserRequest userRequest1=createUserRequest();
-//            registerUser(userRequest1);
-//        }else{
-//            Toast.makeText(RegistrationActivity.this,"Invalid Inputs"+token,Toast.LENGTH_SHORT).show();
-//        }
         UserRequest userRequest1=createUserRequest();
         registerUser(userRequest1);
 
-
     }
+
+
     public UserRequest createUserRequest(){
         UserRequest userRequest=new UserRequest();
         userRequest.setUsername(username.getText().toString());
         userRequest.setEmail(email.getText().toString());
         userRequest.setPassword(password.getText().toString());
-
         return userRequest;
-
-
     }
     public void gotohome() {
         SharedPreferences sharedPreferences=getSharedPreferences(LoginActivity.PREFS_NAME,0);
         SharedPreferences.Editor editor=sharedPreferences.edit();
-
-
         startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
         finish();
 
@@ -138,8 +131,9 @@ public class RegistrationActivity extends AppCompatActivity {
         userResponseCall.enqueue(new Callback<UserResponse>() {
             @Override
             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                response.body();
                 if ((response.isSuccessful())){
-                    Toast.makeText(RegistrationActivity.this,"User Registered Successfully ",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistrationActivity.this,"User Registered Successfully",Toast.LENGTH_SHORT).show();
                     gotohome();
 
                 }else{
@@ -149,8 +143,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<UserResponse> call, Throwable t) {
-                Toast.makeText(RegistrationActivity.this,"User Registered Successfully"+t.getLocalizedMessage(),Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(RegistrationActivity.this,"Error Occured"+t.getLocalizedMessage(),Toast.LENGTH_SHORT).show();
             }
         });
 

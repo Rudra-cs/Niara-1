@@ -53,8 +53,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void loginclicked(View view) {
-        LoginRequest loginRequest=creatLoginRequest();
-        loginUsertohome(loginRequest);
+        gotohome();
+//        LoginRequest loginRequest=creatLoginRequest();
+//        loginUsertohome(loginRequest);
     }
     public LoginRequest creatLoginRequest(){
         LoginRequest loginRequest=new LoginRequest();
