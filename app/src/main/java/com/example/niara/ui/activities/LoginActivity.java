@@ -23,8 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     public static final String PREFS_NAME = "PrefsFile";
     private SharedPreferences prefManager;
     private SharedPreferences.Editor editor;
-//    public EditText namelogin;
-//    public EditText passwordlogin;
+
     public String token;
     public EditText passwordlogin,namelogin;
 
@@ -32,14 +31,13 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        namelogin=findViewById(R.id.et_usernameLogin);
+        passwordlogin=findViewById(R.id.et_passwordLogin);
     }
 
     public void gotohome() {
         SharedPreferences sharedPreferences=getSharedPreferences(LoginActivity.PREFS_NAME,0);
         SharedPreferences.Editor editor=sharedPreferences.edit();
-         namelogin=findViewById(R.id.et_usernameLogin);
-         passwordlogin=findViewById(R.id.et_passwordLogin);
-
         editor.putBoolean("hasLoggedIn",true);
         editor.commit();
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
@@ -53,9 +51,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void loginclicked(View view) {
-        gotohome();
-//        LoginRequest loginRequest=creatLoginRequest();
-//        loginUsertohome(loginRequest);
+//        gotohome();
+        LoginRequest loginRequest=creatLoginRequest();
+        loginUsertohome(loginRequest);
     }
     public LoginRequest creatLoginRequest(){
         LoginRequest loginRequest=new LoginRequest();
@@ -67,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
     }
     private void loginUsertohome(LoginRequest loginRequest){
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<LoginToken> loginTokenCall=apiInterface.loginUser(loginRequest);
+        Call<LoginToken> loginTokenCall=apiInterface.loginUser(loginRequest.getUsername(),loginRequest.getPassword());
         loginTokenCall.enqueue(new Callback<LoginToken>() {
             @Override
             public void onResponse(Call<LoginToken> call, Response<LoginToken> response) {
