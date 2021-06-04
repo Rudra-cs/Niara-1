@@ -24,10 +24,10 @@ public interface ApiInterface {
     @POST("/apiregister/")
     Call<UserResponse> registerUser(@Body UserRequest userRequest);
 
-    @GET("/apilogin/")
-    Call<LoginRequest> validateLoginToken(@Body LoginToken loginToken);
+//    @GET("/apilogin/")
+//    Call<LoginRequest> validateLoginToken(@Body LoginToken loginToken);
 
-    @POST("/apilogin")
+    @POST("/apilogin/")
     Call<LoginToken> loginUser(@Body LoginRequest loginRequest);
 
 }

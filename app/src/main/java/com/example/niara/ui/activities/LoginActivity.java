@@ -23,9 +23,10 @@ public class LoginActivity extends AppCompatActivity {
     public static final String PREFS_NAME = "PrefsFile";
     private SharedPreferences prefManager;
     private SharedPreferences.Editor editor;
-    public EditText namelogin;
-    public EditText passwordlogin;
+//    public EditText namelogin;
+//    public EditText passwordlogin;
     public String token;
+    public EditText passwordlogin,namelogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,16 +37,13 @@ public class LoginActivity extends AppCompatActivity {
     public void gotohome() {
         SharedPreferences sharedPreferences=getSharedPreferences(LoginActivity.PREFS_NAME,0);
         SharedPreferences.Editor editor=sharedPreferences.edit();
-
-        namelogin=findViewById(R.id.et_username);
-        passwordlogin=findViewById(R.id.et_password);
+         namelogin=findViewById(R.id.et_usernameLogin);
+         passwordlogin=findViewById(R.id.et_passwordLogin);
 
         editor.putBoolean("hasLoggedIn",true);
         editor.commit();
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
         finish();
-
-
     }
 
     public void movetosignup(View view) {
@@ -55,42 +53,41 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void loginclicked(View view) {
-        gotohome();
-//        LoginRequest loginRequest1=creatLoginRequest();
-//        loginUser(loginRequest1);
+        LoginRequest loginRequest=creatLoginRequest();
+        loginUsertohome(loginRequest);
     }
-//    public LoginRequest creatLoginRequest(){
-//        LoginRequest loginRequest1=new LoginRequest();
-//        loginRequest1.setUsername(namelogin.getText().toString());
-//        loginRequest1.setPassword(passwordlogin.getText().toString());
-//
-//        return loginRequest1;
-//
-//
-//    }
-//    private void loginUser(LoginRequest loginRequest){
-//        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-//        Call<LoginToken> loginTokenCall=apiInterface.loginUser(loginRequest);
-//        loginTokenCall.enqueue(new Callback<LoginToken>() {
-//
-//            @Override
-//            public void onResponse(Call<LoginToken> call, Response<LoginToken> response) {
-//                if ((response.isSuccessful())){
-//                    token=response.body().getToken();
-//                    gotohome();
-//
-//
-//                }else{
-//                    Toast.makeText(LoginActivity.this,"login Failed",Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<LoginToken> call, Throwable t) {
-//                Toast.makeText(LoginActivity.this,"User login failed"+t.getLocalizedMessage(),Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
+    public LoginRequest creatLoginRequest(){
+        LoginRequest loginRequest=new LoginRequest();
+        loginRequest.setUsername(namelogin.getText().toString());
+        loginRequest.setPassword(passwordlogin.getText().toString());
+        return loginRequest;
+
+
+    }
+    private void loginUsertohome(LoginRequest loginRequest){
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        Call<LoginToken> loginTokenCall=apiInterface.loginUser(loginRequest);
+        loginTokenCall.enqueue(new Callback<LoginToken>() {
+            @Override
+            public void onResponse(Call<LoginToken> call, Response<LoginToken> response) {
+                if ((response.isSuccessful())){
+                    token=response.body().getToken();
+                    if(token!=null){
+                        gotohome();
+                    }else{
+                        Toast.makeText(LoginActivity.this,"Login Failed",Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(LoginActivity.this,"login Failed",Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginToken> call, Throwable t) {
+                Toast.makeText(LoginActivity.this,"User login failed"+t.getLocalizedMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
 
     
