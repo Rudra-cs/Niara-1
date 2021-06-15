@@ -33,6 +33,7 @@ import com.example.niara.utils.NetworkChangeListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -112,14 +113,15 @@ public class HomeFragment extends Fragment implements CategoryAdapter.CategoryCl
 
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
-        Call<ArrayList<Food>> getFoodItems = apiInterface.getFood();
+        HashMap<String, Object> queries = new HashMap<>();
+
+        Call<ArrayList<Food>> getFoodItems = apiInterface.getFoodSearch();
 
         getFoodItems.enqueue(new Callback<ArrayList<Food>>() {
             @Override
             public void onResponse(Call<ArrayList<Food>> call, Response<ArrayList<Food>> response) {
 
                 if (response.isSuccessful()) {
-//                    Toast.makeText(getContext(), "server returned data", Toast.LENGTH_LONG).show();
                     progressDialog.hide();
                     ArrayList<Food> value = response.body();
                     FoodAdapter foodAdapter = new FoodAdapter(getContext(),value,HomeFragment.this);
@@ -133,16 +135,11 @@ public class HomeFragment extends Fragment implements CategoryAdapter.CategoryCl
             @Override
             public void onFailure(Call<ArrayList<Food>> call, Throwable t) {
                 progressDialog.hide();
-//                Toast.makeText(getContext(), "network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
 
                 if (t instanceof IOException) {
-//                    Toast.makeText(getContext(), "this is an actual network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
-//                    Toast.makeText(HomeFragment.this, "Network Error. Please Retry :(", Toast.LENGTH_SHORT).show();
-                    // logging probably not necessary
+
                 }
                 else {
-//                    Toast.makeText(getContext(), "conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
-                    // todo log to some central bug tracking service
                     Log.e("Logs",t.toString());
                 }
             }
@@ -154,7 +151,226 @@ public class HomeFragment extends Fragment implements CategoryAdapter.CategoryCl
     @Override
     public void onCategoryClicked(String categoryname) {
         categoryValue = categoryname;
-        loadFood();
+        switch (categoryValue){
+            case "Delicious":
+                loadFood();
+                break;
+            case "Snacks":
+                loadSnacks();
+                break;
+            case "Meals":
+                loadMeals();
+                break;
+            case "Veg":
+                loadVeg();
+                break;
+            case "Non-Veg":
+                loadNonVeg();
+                break;
+            case "Grocery":
+                grocery();
+                break;
+            default:
+                loadFood();
+                break;
+        }
+    }
+
+    private void grocery() {
+        ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage("Getting your Food");
+        progressDialog.show();
+
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+
+        HashMap<String, Object> queries = new HashMap<>();
+
+        Call<ArrayList<Food>> getFoodItems = apiInterface.getGrocery();
+
+        getFoodItems.enqueue(new Callback<ArrayList<Food>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Food>> call, Response<ArrayList<Food>> response) {
+
+                if (response.isSuccessful()) {
+                    progressDialog.hide();
+                    ArrayList<Food> value = response.body();
+                    FoodAdapter foodAdapter = new FoodAdapter(getContext(),value,HomeFragment.this);
+                    rcFoodItems.setAdapter(foodAdapter);
+                }
+                else {
+                    Toast.makeText(getContext(), "Server Error", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Food>> call, Throwable t) {
+                progressDialog.hide();
+
+                if (t instanceof IOException) {
+
+                }
+                else {
+                    Log.e("Logs",t.toString());
+                }
+            }
+        });
+    }
+
+    private void loadNonVeg() {
+        ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage("Getting your Food");
+        progressDialog.show();
+
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+
+
+        Call<ArrayList<Food>> getFoodItems = apiInterface.getNonVeg();
+
+        getFoodItems.enqueue(new Callback<ArrayList<Food>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Food>> call, Response<ArrayList<Food>> response) {
+
+                if (response.isSuccessful()) {
+                    progressDialog.hide();
+                    ArrayList<Food> value = response.body();
+                    FoodAdapter foodAdapter = new FoodAdapter(getContext(),value,HomeFragment.this);
+                    rcFoodItems.setAdapter(foodAdapter);
+                }
+                else {
+                    Toast.makeText(getContext(), "Server Error", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Food>> call, Throwable t) {
+                progressDialog.hide();
+
+                if (t instanceof IOException) {
+
+                }
+                else {
+                    Log.e("Logs",t.toString());
+                }
+            }
+        });
+    }
+
+    private void loadVeg() {
+        ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage("Getting your Food");
+        progressDialog.show();
+
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+
+
+
+        Call<ArrayList<Food>> getFoodItems = apiInterface.getVeg();
+
+        getFoodItems.enqueue(new Callback<ArrayList<Food>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Food>> call, Response<ArrayList<Food>> response) {
+
+                if (response.isSuccessful()) {
+                    progressDialog.hide();
+                    ArrayList<Food> value = response.body();
+                    FoodAdapter foodAdapter = new FoodAdapter(getContext(),value,HomeFragment.this);
+                    rcFoodItems.setAdapter(foodAdapter);
+                }
+                else {
+                    Toast.makeText(getContext(), "Server Error", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Food>> call, Throwable t) {
+                progressDialog.hide();
+
+                if (t instanceof IOException) {
+
+                }
+                else {
+                    Log.e("Logs",t.toString());
+                }
+            }
+        });
+    }
+
+    private void loadMeals() {
+        ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage("Getting your Food");
+        progressDialog.show();
+
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+
+
+
+        Call<ArrayList<Food>> getFoodItems = apiInterface.getMeals();
+
+        getFoodItems.enqueue(new Callback<ArrayList<Food>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Food>> call, Response<ArrayList<Food>> response) {
+
+                if (response.isSuccessful()) {
+                    progressDialog.hide();
+                    ArrayList<Food> value = response.body();
+                    FoodAdapter foodAdapter = new FoodAdapter(getContext(),value,HomeFragment.this);
+                    rcFoodItems.setAdapter(foodAdapter);
+                }
+                else {
+                    Toast.makeText(getContext(), "Server Error", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Food>> call, Throwable t) {
+                progressDialog.hide();
+
+                if (t instanceof IOException) {
+
+                }
+                else {
+                    Log.e("Logs",t.toString());
+                }
+            }
+        });
+    }
+
+    private void loadSnacks() {
+        ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage("Getting your Food");
+        progressDialog.show();
+
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+
+        Call<ArrayList<Food>> getFoodItems = apiInterface.getSnacks();
+
+        getFoodItems.enqueue(new Callback<ArrayList<Food>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Food>> call, Response<ArrayList<Food>> response) {
+
+                if (response.isSuccessful()) {
+                    progressDialog.hide();
+                    ArrayList<Food> value = response.body();
+                    FoodAdapter foodAdapter = new FoodAdapter(getContext(),value,HomeFragment.this);
+                    rcFoodItems.setAdapter(foodAdapter);
+                }
+                else {
+                    Toast.makeText(getContext(), "Server Error", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Food>> call, Throwable t) {
+                progressDialog.hide();
+
+                if (t instanceof IOException) {
+
+                }
+                else {
+                    Log.e("Logs",t.toString());
+                }
+            }
+        });
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.example.niara.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import com.example.niara.Api.ApiInterface;
 import com.example.niara.Model.UserRequest;
 import com.example.niara.Model.UserResponse;
 import com.example.niara.R;
+import com.example.niara.utils.SessionManager;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,6 +27,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private EditText password;
     private EditText confirmpassword;
     private String str;
+    public String token;
 
 
     @Override
@@ -133,9 +136,14 @@ public class RegistrationActivity extends AppCompatActivity {
             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                 response.body();
                 if ((response.isSuccessful())){
-                    Toast.makeText(RegistrationActivity.this,"User Registered Successfully",Toast.LENGTH_SHORT).show();
-                    gotohome();
-
+                    token=response.body().getToken();
+                    if(token!=null){
+                        SessionManager sessionManager=new SessionManager(RegistrationActivity.this);
+                        sessionManager.createloginsession(token);
+                        gotohome();
+                    }else{
+                        Toast.makeText(RegistrationActivity.this,"Invalid Credentials",Toast.LENGTH_SHORT).show();
+                    }
                 }else{
                     Toast.makeText(RegistrationActivity.this,"Request Failed",Toast.LENGTH_SHORT).show();
                 }

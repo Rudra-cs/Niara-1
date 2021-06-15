@@ -61,7 +61,7 @@ public class ProductDesc extends AppCompatActivity {
         tvQuantity.setText(String.valueOf(1));
 
         String imageUrl = intent.getStringExtra("image");
-        Glide.with(this).load(BASE_URL + imageUrl).into(ivImage);
+        Glide.with(this).load(imageUrl).into(ivImage);
 
         btnPlus.setOnClickListener(new View.OnClickListener() {
             @Override

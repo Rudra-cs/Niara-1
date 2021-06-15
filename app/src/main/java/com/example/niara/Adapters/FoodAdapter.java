@@ -51,7 +51,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
         holder.mTvStrikeoutPrice.setPaintFlags(holder.mTvStrikeoutPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
 //        Image Loading
-        Glide.with(this.context).load(BASE_URL+data.getProduct_image()).into(holder.mIvFoodImg);
+        Glide.with(this.context).load(data.getProduct_image()).into(holder.mIvFoodImg);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

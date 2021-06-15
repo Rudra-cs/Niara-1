@@ -150,6 +150,36 @@
                     android:onClick="movetosignup"></TextView>
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/poppins_bold"
+                    android:padding="5dp"
+                    android:text="Need Help?"
+                    android:textSize="15dp"
+                    android:textStyle="bold"></TextView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="5dp"
+                    android:text="Click Here"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    android:onClick="movetofeedback"></TextView>
+            </LinearLayout>
+
+
+
         </LinearLayout>
 
 

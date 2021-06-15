@@ -75,7 +75,7 @@ public class SearchActivity extends AppCompatActivity {
 
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
-        Call<ArrayList<Food>> getFoodItems = apiInterface.getFood();
+        Call<ArrayList<Food>> getFoodItems = apiInterface.getFoodSearch();
 
         getFoodItems.enqueue(new Callback<ArrayList<Food>>() {
             @Override

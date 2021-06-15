@@ -9,7 +9,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.example.niara.utils.Config.BASE_URL;
 
-public class ApiClient {
+public class
+ApiClient {
 
     public static Retrofit getClient(){
         Retrofit client = null;

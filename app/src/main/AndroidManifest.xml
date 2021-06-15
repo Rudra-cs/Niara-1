@@ -10,8 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Niara"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ui.activities.ChangePasswordActivity"></activity>
+        <activity android:name=".ui.activities.CustomerFeedback"></activity>
         <activity android:name=".ui.activities.SearchActivity" />
-
         <activity android:name=".ui.activities.ProductDesc" />
         <activity android:name=".ui.activities.SplashActivity">
             <intent-filter>
@@ -23,10 +24,10 @@
         <activity android:name=".ui.activities.MainActivity" />
         <activity android:name=".ui.activities.RegistrationActivity" />
         <activity android:name=".ui.activities.LoginActivity" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
 

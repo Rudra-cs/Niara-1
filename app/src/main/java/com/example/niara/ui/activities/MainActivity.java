@@ -16,10 +16,15 @@ import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
+import com.example.niara.Api.ApiClient;
+import com.example.niara.Api.ApiInterface;
+import com.example.niara.Model.ChangePassword;
+import com.example.niara.Model.CustomerFeedbackModel;
 import com.example.niara.R;
 import com.example.niara.ui.fragments.AboutUs;
 import com.example.niara.ui.fragments.HomeFragment;
@@ -29,6 +34,10 @@ import com.example.niara.ui.fragments.ProfileFragment;
 import com.example.niara.ui.fragments.SettingsFragment;
 import com.example.niara.utils.NetworkChangeListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     private SharedPreferences prefManager;
@@ -110,4 +119,46 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
     }
 
+
+//    public void changepassword(View view) {
+//        ChangePassword changePassword=new ChangePassword();
+//        changePassword.setOld_password(fullname.getText().toString());
+//        changePassword.setNew_password(email.getText().toString());
+//
+//        sendFeedback(customerFeedbackModel);
+//
+//    }
+//
+//    public void submitForm(View view) {
+//        CustomerFeedbackModel customerFeedbackModel=new CustomerFeedbackModel();
+//        customerFeedbackModel.setName(fullname.getText().toString());
+//        customerFeedbackModel.setEmail(email.getText().toString());
+//        customerFeedbackModel.setPhone(phone.getText().toString());
+//        customerFeedbackModel.setDesc(textArea.getText().toString());
+//
+//        sendFeedback(customerFeedbackModel);
+//
+//    }
+//
+//    private void sendFeedback(CustomerFeedbackModel customerFeedbackModel) {
+//        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+//        Call<CustomerFeedbackModel> customerFeedbackCall=apiInterface.sendFeedback(customerFeedbackModel);
+//        customerFeedbackCall.enqueue(new Callback<CustomerFeedbackModel>() {
+//            @Override
+//            public void onResponse(Call<CustomerFeedbackModel> call, Response<CustomerFeedbackModel> response) {
+//                if (response.isSuccessful()){
+//                    Toast.makeText(CustomerFeedback.this,"Your Feedback has been sent",Toast.LENGTH_SHORT).show();
+//                }else {
+//                    Toast.makeText(CustomerFeedback.this,"Your Feedback couldn't be sent",Toast.LENGTH_SHORT).show();
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<CustomerFeedbackModel> call, Throwable t) {
+//                Toast.makeText(CustomerFeedback.this,"Something Went Wrong",Toast.LENGTH_SHORT).show();
+//
+//            }
+//        });
+//    }
 }
