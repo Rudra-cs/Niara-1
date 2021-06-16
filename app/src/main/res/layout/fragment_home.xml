@@ -12,8 +12,8 @@
         <LinearLayout
             android:id="@+id/search_bar"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_4sdp"
             android:layout_marginLeft="@dimen/_12sdp"
             android:layout_marginRight="@dimen/_12sdp"
             android:orientation="horizontal"
@@ -30,8 +30,8 @@
                 <ImageView
 
                     android:id="@+id/search_bar_img"
-                    android:layout_width="@dimen/_35sdp"
-                    android:layout_height="@dimen/_35sdp"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
                     android:src="@drawable/ic_baseline_search_24">
 
                 </ImageView>
@@ -59,7 +59,7 @@
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
 
-            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_6sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/rc_categories_food"

@@ -2,7 +2,9 @@ package com.example.niara.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,9 +14,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.niara.Api.ApiClient;
+import com.example.niara.Api.ApiInterface;
+import com.example.niara.Model.Cart;
 import com.example.niara.R;
+import com.example.niara.utils.SessionManager;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.example.niara.utils.Config.BASE_URL;
+import static com.example.niara.utils.SessionManager.KEY_TOKEN;
+import static com.example.niara.utils.SessionManager.USERNAME;
 
 public class ProductDesc extends AppCompatActivity {
 
@@ -23,6 +35,7 @@ public class ProductDesc extends AppCompatActivity {
     private TextView tvDesc;
     private TextView tvQuantity;
     private TextView tvHeadTitle;
+    private int tvProdId;
 
     private Button btnPlus;
     private Button btnAddToCart;
@@ -32,6 +45,8 @@ public class ProductDesc extends AppCompatActivity {
     private ImageView ivImage;
     private ImageView btnBack;
 
+    public  String token;
+    String user;
 
 
     @Override
@@ -59,9 +74,15 @@ public class ProductDesc extends AppCompatActivity {
         tvDesc.setText(intent.getStringExtra("desc"));
         tvHeadTitle.setText(intent.getStringExtra("title"));
         tvQuantity.setText(String.valueOf(1));
+        tvProdId = (intent.getIntExtra("prodId",1));
 
         String imageUrl = intent.getStringExtra("image");
         Glide.with(this).load(imageUrl).into(ivImage);
+
+//        Shared Preference
+        SharedPreferences preferences = getSharedPreferences("userLoginSessions", Context.MODE_PRIVATE);
+        token = preferences.getString("TOKEN",KEY_TOKEN);
+         user = preferences.getString("USERNAME",USERNAME);
 
         btnPlus.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,6 +128,7 @@ public class ProductDesc extends AppCompatActivity {
             }
         });
 
+//        BAck Button
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,12 +136,43 @@ public class ProductDesc extends AppCompatActivity {
             }
         });
 
+//        Add to Cart Function
         btnAddToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ProductDesc.this, "Added to Cart", Toast.LENGTH_SHORT).show();
+                try {
+//                    Cart Model
+                    Cart cartDetails = new Cart();
+                    cartDetails.setUser(user);
+                    cartDetails.setProduct(Integer.valueOf(tvQuantity.getText().toString()));
+                    cartDetails.setProduct(Integer.valueOf(tvProdId));
+
+                    ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+                    Call<Cart> pushToCart = apiInterface.sendCartFoodDetails(token,cartDetails);
+                    pushToCart.enqueue(new Callback<Cart>() {
+                        @Override
+                        public void onResponse(Call<Cart> call, Response<Cart> response) {
+                            if (response.isSuccessful()){
+                                Toast.makeText(ProductDesc.this, "Added to Cart", Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(ProductDesc.this, "Some Problem Occurred.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Cart> call, Throwable t) {
+                            Toast.makeText(ProductDesc.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+
+                }catch (Exception err){
+                    Toast.makeText(ProductDesc.this, "Error: "+err, Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
+
 
         btnBuy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,4 +182,5 @@ public class ProductDesc extends AppCompatActivity {
         });
 
     }
+
 }

@@ -381,6 +381,7 @@ public class HomeFragment extends Fragment implements CategoryAdapter.CategoryCl
         intent.putExtra("desc",food.getDescription());
         intent.putExtra("price",String.valueOf(food.getSelling_price()));
         intent.putExtra("image",food.getProduct_image());
+        intent.putExtra("prodId",food.getProdId());
         startActivity(intent);
 
     }
