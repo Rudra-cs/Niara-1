@@ -11,8 +11,9 @@ public class SessionManager {
     Context context;
 
     private static final String IS_LOGIN="ISLOGGEDIN";
-    public static final String KEY_FULLNAME="FULLNAME";
+    public static final String KEY_FULLNAME="FULLNAME";//registration fullname
     public static final String KEY_TOKEN="TOKEN";
+    public static final String USERNAME="USERNAME";
 
     public SessionManager(Context _context){
         context=_context;
@@ -20,9 +21,10 @@ public class SessionManager {
         editor=userSessions.edit();
     }
 
-    public void createloginsession(String token){
+    public void createloginsession(String token,String username){
         editor.putBoolean(IS_LOGIN,true);
         editor.putString(KEY_TOKEN,token);
+        editor.putString(USERNAME,username);
         editor.commit();
     }
 

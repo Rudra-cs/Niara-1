@@ -49,6 +49,6 @@ public interface ApiInterface {
     @POST("/CreateContactInfo/")
     Call<CustomerFeedbackModel> sendFeedback(@Body CustomerFeedbackModel customerFeedbackModel);
 
-    @PUT("/apichangepassword/")
+    @POST("/apichangepassword/")
     Call<ChangePassword> sendPasswordChangeRequest(@Body ChangePassword changePassword);
 }

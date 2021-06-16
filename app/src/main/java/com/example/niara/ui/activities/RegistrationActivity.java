@@ -128,7 +128,6 @@ public class RegistrationActivity extends AppCompatActivity {
 
     }
     public void registerUser(UserRequest userRequest){
-
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         Call<UserResponse> userResponseCall=apiInterface.registerUser(userRequest);
         userResponseCall.enqueue(new Callback<UserResponse>() {
@@ -139,7 +138,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     token=response.body().getToken();
                     if(token!=null){
                         SessionManager sessionManager=new SessionManager(RegistrationActivity.this);
-                        sessionManager.createloginsession(token);
+                        sessionManager.createloginsession(token,username.getText().toString());
                         gotohome();
                     }else{
                         Toast.makeText(RegistrationActivity.this,"Invalid Credentials",Toast.LENGTH_SHORT).show();
@@ -154,6 +153,5 @@ public class RegistrationActivity extends AppCompatActivity {
                 Toast.makeText(RegistrationActivity.this,"Error Occured"+t.getLocalizedMessage(),Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 }

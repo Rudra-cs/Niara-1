@@ -2,6 +2,7 @@ package com.example.niara.Model;
 
 public class ChangePassword {
     private String old_password;
+    private String new_password;
 
     public String getOld_password() {
         return old_password;
@@ -19,5 +20,5 @@ public class ChangePassword {
         this.new_password = new_password;
     }
 
-    private String new_password;
+
 }

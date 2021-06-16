@@ -84,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
                     token=response.body().getToken();
                     if(token!=null){
                         SessionManager sessionManager=new SessionManager(LoginActivity.this);
-                        sessionManager.createloginsession(token);
+                        sessionManager.createloginsession(token,namelogin.getText().toString());
                         gotohome();
                     }else{
                         Toast.makeText(LoginActivity.this,"Invalid Credentials",Toast.LENGTH_SHORT).show();

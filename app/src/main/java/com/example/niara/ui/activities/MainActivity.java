@@ -120,45 +120,5 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-//    public void changepassword(View view) {
-//        ChangePassword changePassword=new ChangePassword();
-//        changePassword.setOld_password(fullname.getText().toString());
-//        changePassword.setNew_password(email.getText().toString());
-//
-//        sendFeedback(customerFeedbackModel);
-//
-//    }
-//
-//    public void submitForm(View view) {
-//        CustomerFeedbackModel customerFeedbackModel=new CustomerFeedbackModel();
-//        customerFeedbackModel.setName(fullname.getText().toString());
-//        customerFeedbackModel.setEmail(email.getText().toString());
-//        customerFeedbackModel.setPhone(phone.getText().toString());
-//        customerFeedbackModel.setDesc(textArea.getText().toString());
-//
-//        sendFeedback(customerFeedbackModel);
-//
-//    }
-//
-//    private void sendFeedback(CustomerFeedbackModel customerFeedbackModel) {
-//        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-//        Call<CustomerFeedbackModel> customerFeedbackCall=apiInterface.sendFeedback(customerFeedbackModel);
-//        customerFeedbackCall.enqueue(new Callback<CustomerFeedbackModel>() {
-//            @Override
-//            public void onResponse(Call<CustomerFeedbackModel> call, Response<CustomerFeedbackModel> response) {
-//                if (response.isSuccessful()){
-//                    Toast.makeText(CustomerFeedback.this,"Your Feedback has been sent",Toast.LENGTH_SHORT).show();
-//                }else {
-//                    Toast.makeText(CustomerFeedback.this,"Your Feedback couldn't be sent",Toast.LENGTH_SHORT).show();
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<CustomerFeedbackModel> call, Throwable t) {
-//                Toast.makeText(CustomerFeedback.this,"Something Went Wrong",Toast.LENGTH_SHORT).show();
-//
-//            }
-//        });
-//    }
+
 }
