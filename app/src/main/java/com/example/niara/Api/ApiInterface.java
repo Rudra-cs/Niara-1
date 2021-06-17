@@ -1,4 +1,7 @@
 package com.example.niara.Api;
+
+
+import com.example.niara.Model.Cart;
 import com.example.niara.Model.ChangePassword;
 import com.example.niara.Model.CustomerFeedbackModel;
 import com.example.niara.Model.Food;
@@ -7,16 +10,13 @@ import com.example.niara.Model.UserRequest;
 import com.example.niara.Model.UserResponse;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
-import retrofit2.http.QueryMap;
 
 public interface ApiInterface {
 
@@ -51,4 +51,8 @@ public interface ApiInterface {
 
     @POST("/apichangepassword/")
     Call<ChangePassword> sendPasswordChangeRequest(@Body ChangePassword changePassword);
+
+    @POST("/CreateCartInfo/")
+    Call<Cart> sendCartFoodDetails(@Header("TOKEN") String token, @Body Cart cart);
+
 }

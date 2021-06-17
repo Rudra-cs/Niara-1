@@ -91,6 +91,7 @@
             android:layout_toLeftOf="@+id/btn_add"
             android:fontFamily="@font/poppins_medium"
             android:text="2"
+            android:padding="@dimen/_4sdp"
             android:textColor="@color/black"
             android:textSize="@dimen/_14ssp" />
 

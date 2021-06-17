@@ -2,6 +2,7 @@ package com.example.niara.Model;
 
 public class Food {
 
+    private int prodId;
     private String title;
     private int Product_quantity;
     private int selling_price;
@@ -11,9 +12,9 @@ public class Food {
     private String category;
     private String product_image;
 
-//Constructor
-
-    public Food(String title, int product_quantity, int selling_price, int discounted_price, String description, String brand, String category, String product_image) {
+//    Constructor
+    public Food(int prodId, String title, int product_quantity, int selling_price, int discounted_price, String description, String brand, String category, String product_image) {
+        this.prodId = prodId;
         this.title = title;
         Product_quantity = product_quantity;
         this.selling_price = selling_price;
@@ -24,7 +25,15 @@ public class Food {
         this.product_image = product_image;
     }
 
-//    Getters and Setters
+//  Getters and Setters
+
+    public int getProdId() {
+        return prodId;
+    }
+
+    public void setProdId(int prodId) {
+        this.prodId = prodId;
+    }
 
     public String getTitle() {
         return title;

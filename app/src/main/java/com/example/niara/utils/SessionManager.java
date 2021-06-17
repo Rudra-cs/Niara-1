@@ -43,7 +43,8 @@ public class SessionManager {
         }
     }
     public void logoutuserfromsession(){
-        editor.clear();editor.commit();
+        editor.clear();
+        editor.commit();
     }
 
     public void createloginsession() {
