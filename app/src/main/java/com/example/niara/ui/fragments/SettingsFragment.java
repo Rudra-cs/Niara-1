@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
@@ -106,6 +107,7 @@ public class SettingsFragment extends Fragment {
         changepasswordtv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(getContext(),"Login in to the site and then change your password",Toast.LENGTH_LONG).show();
                 startActivity(new Intent(getContext(), ChangePasswordActivity.class));
             }
         });

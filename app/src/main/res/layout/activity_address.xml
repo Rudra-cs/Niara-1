@@ -180,7 +180,7 @@
                 android:padding="@dimen/_5sdp"
                 android:textColor="@color/black"
                 android:layout_gravity="center"
-                android:textColorHint="@color/grey"
+                android:textColorHint="@color/black"
                 android:inputType="textEmailAddress">
 
             </EditText>
