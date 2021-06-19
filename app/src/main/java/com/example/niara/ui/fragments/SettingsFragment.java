@@ -14,6 +14,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.example.niara.R;
+import com.example.niara.ui.activities.AddressActivity;
 import com.example.niara.ui.activities.ChangePasswordActivity;
 import com.example.niara.ui.activities.CustomerFeedback;
 import com.example.niara.ui.activities.LoginActivity;
@@ -21,14 +22,16 @@ import com.example.niara.ui.activities.MainActivity;
 import com.example.niara.ui.activities.SearchActivity;
 import com.example.niara.utils.SessionManager;
 
+import java.util.HashMap;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link SettingsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class SettingsFragment extends Fragment {
-    public ImageView changepasswordiv;
-    public TextView changepasswordtv,feedback;
+    public TextView changepasswordtv,usernameSettings,feedback,addAddress;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -74,9 +77,24 @@ public class SettingsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_settings, container, false);
 
-        changepasswordtv=view.findViewById(R.id.tv_changepassword);
-        changepasswordiv=view.findViewById(R.id.iv_changepassword);
-        feedback=view.findViewById(R.id.tv_giveFeedback);
+        changepasswordtv=view.findViewById(R.id.tv_changepassword_settings);
+        feedback=view.findViewById(R.id.tv_feedback);
+        addAddress=view.findViewById(R.id.tv_Addresses);
+        usernameSettings=view.findViewById(R.id.tv_username_settings);
+
+        SessionManager sessionManager=new SessionManager(getContext());
+        String username=sessionManager.getUsername();
+        int userid=sessionManager.getUserid();
+        usernameSettings.setText(username);
+        TextView id=view.findViewById(R.id.tv_userid_settings);
+        id.setText(String.valueOf(userid));
+
+        addAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), AddressActivity.class));
+            }
+        });
 
         feedback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,27 +133,7 @@ public class SettingsFragment extends Fragment {
 
             }
         });
-        ImageView logoutimg=view.findViewById(R.id.iv_logout);
-        logoutimg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new AlertDialog.Builder(getContext()).setTitle("Alert")
-                        .setMessage("Are you sure you want to Logout")
-                        .setPositiveButton("Done", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                SessionManager sessionManager=new SessionManager(getContext());
-                                sessionManager.logoutuserfromsession();
-                                startActivity(new Intent(getContext(), LoginActivity.class));
-                            }
-                        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
 
-                    }
-                }).show();
-            }
-        });
 
         return view;
     }

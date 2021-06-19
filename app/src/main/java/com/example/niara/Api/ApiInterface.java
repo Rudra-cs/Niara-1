@@ -3,9 +3,11 @@ package com.example.niara.Api;
 
 import com.example.niara.Model.Cart;
 import com.example.niara.Model.ChangePassword;
+import com.example.niara.Model.CreateCustomerInfo;
 import com.example.niara.Model.CustomerFeedbackModel;
 import com.example.niara.Model.Food;
 import com.example.niara.Model.LoginToken;
+import com.example.niara.Model.UserInfo;
 import com.example.niara.Model.UserRequest;
 import com.example.niara.Model.UserResponse;
 
@@ -34,6 +36,12 @@ public interface ApiInterface {
     Call<ArrayList<Food>> getNonVeg();
     @GET ("/ProdInfo/grocery/")
     Call<ArrayList<Food>> getGrocery();
+
+    @POST("/CreateCustomerInfo/")
+    Call<CreateCustomerInfo> sendCustomerinfo(@Body CreateCustomerInfo createCustomerInfo);
+
+    @GET("/UserInfo/")
+    Call <ArrayList<UserInfo>> getuserdetails();
 
     @GET ("/CartInfo/")
     Call<ArrayList<Food>> getCartDetails();

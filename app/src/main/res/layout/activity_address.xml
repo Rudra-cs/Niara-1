@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:background="@drawable/bg3"
+    android:focusableInTouchMode="true"
+    android:gravity="center"
+    tools:context=".ui.activities.AddressActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_50ssp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
+        android:fontFamily="@font/poppins_bold"
+        style="@style/TextAppearance.AppCompat.Widget.PopupMenu.Header"
+        android:text="Add Your Address"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_20sdp"
+        android:id="@+id/title">
+
+    </TextView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:padding="@dimen/_20sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Full Name:"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12sdp">
+
+            </TextView>
+            <EditText
+                android:id="@+id/fullname_et_address"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:background="@drawable/bg4"
+                android:hint="@string/full_name"
+                android:padding="@dimen/_5sdp"
+                android:textColor="@color/black"
+                android:layout_gravity="center"
+                android:textColorHint="@color/grey">
+
+            </EditText>
+
+            <TextView
+                android:fontFamily="@font/poppins_medium"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your locality:"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12sdp">
+
+            </TextView>
+
+            <EditText
+                android:id="@+id/et_locality_address"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:background="@drawable/bg4"
+                android:hint="locality"
+                android:padding="@dimen/_5sdp"
+                android:textColor="@color/black"
+                android:layout_gravity="center"
+                android:textColorHint="@color/grey"
+                android:inputType="textEmailAddress">
+
+            </EditText>
+
+
+            <TextView
+                android:fontFamily="@font/poppins_medium"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your city:"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12sdp">
+
+            </TextView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+                <Spinner
+                    android:id="@+id/planets_spinner_city"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp" />
+            </LinearLayout>
+
+
+            <TextView
+                android:fontFamily="@font/poppins_medium"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Zipcode:"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12sdp">
+
+            </TextView>
+            <EditText
+                android:id="@+id/zipcode"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:background="@drawable/bg4"
+                android:hint="zipcode"
+                android:padding="@dimen/_5sdp"
+                android:textColor="@color/black"
+                android:layout_gravity="center"
+                android:textColorHint="@color/grey"
+                android:inputType="textEmailAddress">
+
+            </EditText>
+
+            <TextView
+                android:fontFamily="@font/poppins_medium"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mobile:"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12sdp">
+
+            </TextView>
+            <EditText
+                android:id="@+id/mobile"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:background="@drawable/bg4"
+                android:hint="Mobile"
+                android:padding="@dimen/_5sdp"
+                android:textColor="@color/black"
+                android:layout_gravity="center"
+                android:textColorHint="@color/grey"
+                android:inputType="textEmailAddress">
+
+            </EditText>
+            <TextView
+                android:fontFamily="@font/poppins_medium"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="State:"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12sdp">
+
+            </TextView>
+            <EditText
+                android:id="@+id/state"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:background="@drawable/bg4"
+                android:hint="Odisha"
+                android:padding="@dimen/_5sdp"
+                android:textColor="@color/black"
+                android:layout_gravity="center"
+                android:textColorHint="@color/grey"
+                android:inputType="textEmailAddress">
+
+            </EditText>
+
+
+
+
+
+            <Button
+                android:id="@+id/submitform"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Submit Form"
+                android:fontFamily="@font/poppins_bold"
+                android:background="@drawable/bg3round"
+                android:outlineSpotShadowColor="@color/white"
+                android:textColor="#fff"
+                android:layout_margin="@dimen/_10sdp"
+                android:onClick="submitForm"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         meowBottomNavigation = findViewById(R.id.bottomNavigationView);
         meowBottomNavigation.add(new MeowBottomNavigation.Model(1, R.drawable.ic_home));
         meowBottomNavigation.add(new MeowBottomNavigation.Model(2, R.drawable.ic_cart));
-        meowBottomNavigation.add(new MeowBottomNavigation.Model(3, R.drawable.ic_baseline_account_circle_24));
+        meowBottomNavigation.add(new MeowBottomNavigation.Model(3, R.drawable.ic_order));
         meowBottomNavigation.add(new MeowBottomNavigation.Model(4, R.drawable.ic_baseline_settings_24));
 
         meowBottomNavigation.setOnClickMenuListener(new MeowBottomNavigation.ClickListener() {

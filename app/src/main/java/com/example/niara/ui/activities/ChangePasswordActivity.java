@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -20,44 +23,51 @@ import retrofit2.Response;
 
 public class ChangePasswordActivity extends AppCompatActivity {
     EditText newpassword,oldpassword;
+    WebView webView;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
-        newpassword=findViewById(R.id.newpassword_cp);
-        oldpassword=findViewById(R.id.oldpassword_cp);
-    }
+        webView=findViewById(R.id.webview_password);
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webView.setWebViewClient(new WebViewClient());
+        webView.loadUrl("http://pratikmansingh.host/passwordchange/");
 
-    public void submit(View view) {
-        ChangePassword changePassword=new ChangePassword();
-        changePassword.setOld_password(oldpassword.getText().toString());
-        changePassword.setNew_password(newpassword.getText().toString());
 
-        sendFeedback(changePassword);
 
     }
 
-    private void sendFeedback(ChangePassword changePassword) {
-        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<ChangePassword> changePasswordCall=apiInterface.sendPasswordChangeRequest(changePassword);
-        changePasswordCall.enqueue(new Callback<ChangePassword>() {
-
-            @Override
-            public void onResponse(Call<ChangePassword> call, Response<ChangePassword> response) {
-                Log.d("res", "onResponse: ");
-                if (response.isSuccessful()){
-                    Toast.makeText(ChangePasswordActivity.this,"Your Password Has Been Changed",Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(ChangePasswordActivity.this,"Your Request couldn't be sent",Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ChangePassword> call, Throwable t) {
-                Toast.makeText(ChangePasswordActivity.this,"Something Went Wrong",Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+//    public void submit(View view) {
+//        ChangePassword changePassword=new ChangePassword();
+//        changePassword.setOld_password(oldpassword.getText().toString());
+//        changePassword.setNew_password(newpassword.getText().toString());
+//
+//        sendFeedback(changePassword);
+//
+//    }
+//
+//    private void sendFeedback(ChangePassword changePassword) {
+//        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+//        Call<ChangePassword> changePasswordCall=apiInterface.sendPasswordChangeRequest(changePassword);
+//        changePasswordCall.enqueue(new Callback<ChangePassword>() {
+//
+//            @Override
+//            public void onResponse(Call<ChangePassword> call, Response<ChangePassword> response) {
+//                Log.d("res", "onResponse: ");
+//                if (response.isSuccessful()){
+//                    Toast.makeText(ChangePasswordActivity.this,"Your Password Has Been Changed",Toast.LENGTH_SHORT).show();
+//                }else {
+//                    Toast.makeText(ChangePasswordActivity.this,"Your Request couldn't be sent",Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ChangePassword> call, Throwable t) {
+//                Toast.makeText(ChangePasswordActivity.this,"Something Went Wrong",Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 }

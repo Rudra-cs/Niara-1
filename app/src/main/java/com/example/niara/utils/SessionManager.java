@@ -14,6 +14,7 @@ public class SessionManager {
     public static final String KEY_FULLNAME="FULLNAME";//registration fullname
     public static final String KEY_TOKEN="TOKEN";
     public static final String USERNAME="USERNAME";
+    public static final String USERID="USERID";
 
     public SessionManager(Context _context){
         context=_context;
@@ -21,14 +22,15 @@ public class SessionManager {
         editor=userSessions.edit();
     }
 
-    public void createloginsession(String token,String username){
+    public void createloginsession(String token,String username,int userid){
         editor.putBoolean(IS_LOGIN,true);
         editor.putString(KEY_TOKEN,token);
         editor.putString(USERNAME,username);
+        editor.putInt(USERID,userid);
         editor.commit();
     }
 
-    public HashMap<String,String> getuserdetail(){
+    public HashMap<String,String> getuserdetail(String username, Object o){
         HashMap<String,String> userdata=new HashMap<String, String>();
         userdata.put(KEY_TOKEN,userSessions.getString(KEY_TOKEN,null));
         return userdata;
@@ -47,6 +49,11 @@ public class SessionManager {
         editor.commit();
     }
 
-    public void createloginsession() {
+    public String getUsername(){
+        return userSessions.getString(USERNAME,null);
+    }
+
+    public int getUserid(){
+        return userSessions.getInt(USERID,-1);
     }
 }

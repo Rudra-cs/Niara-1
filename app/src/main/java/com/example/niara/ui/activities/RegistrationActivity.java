@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -28,6 +29,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private EditText confirmpassword;
     private String str;
     public String token;
+    private int id;
 
 
     @Override
@@ -114,9 +116,9 @@ public class RegistrationActivity extends AppCompatActivity {
 
     public UserRequest createUserRequest(){
         UserRequest userRequest=new UserRequest();
-        userRequest.setUsername(username.getText().toString());
+        userRequest.setUsername(username.getText().toString().trim());
         userRequest.setEmail(email.getText().toString());
-        userRequest.setPassword(password.getText().toString());
+        userRequest.setPassword(password.getText().toString().trim());
         return userRequest;
     }
     public void gotohome() {
@@ -136,9 +138,11 @@ public class RegistrationActivity extends AppCompatActivity {
                 response.body();
                 if ((response.isSuccessful())){
                     token=response.body().getToken();
+                    Log.d("userdetails", String.valueOf(response.body().getUser()));
+                    id=response.body().getUser().getId();
                     if(token!=null){
                         SessionManager sessionManager=new SessionManager(RegistrationActivity.this);
-                        sessionManager.createloginsession(token,username.getText().toString());
+                        sessionManager.createloginsession(token,username.getText().toString(),id);
                         gotohome();
                     }else{
                         Toast.makeText(RegistrationActivity.this,"Invalid Credentials",Toast.LENGTH_SHORT).show();

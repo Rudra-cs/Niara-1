@@ -10,16 +10,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Niara"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.activities.ChangePasswordActivity"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity android:name=".ui.activities.CustomerFeedback"
+        <activity android:name=".ui.activities.AddressActivity"></activity>
+        <activity
+            android:name=".ui.activities.ChangePasswordActivity"
             android:screenOrientation="portrait"></activity>
-        <activity android:name=".ui.activities.SearchActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activities.ProductDesc"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activities.SplashActivity"
+        <activity
+            android:name=".ui.activities.CustomerFeedback"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activities.SearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activities.ProductDesc"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activities.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,19 +32,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activities.MainActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activities.RegistrationActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activities.LoginActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activities.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activities.RegistrationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activities.LoginActivity"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

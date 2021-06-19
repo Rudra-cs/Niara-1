@@ -3,189 +3,423 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg3"
+    android:background="@color/home_background"
     tools:context=".ui.fragments.SettingsFragment"
     android:orientation="vertical"
     android:focusableInTouchMode="true"
     android:gravity="center">
 
 
-
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:padding="@dimen/_20sdp">
-
+        android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/_50ssp"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentLeft="true"
-                android:fontFamily="@font/poppins_bold"
-                style="@style/TextAppearance.AppCompat.Widget.PopupMenu.Header"
-                android:text="Settings"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_28sdp"
-                android:id="@+id/title">
-
-            </TextView>
-
+            android:layout_height="@dimen/_140sdp"
+            android:orientation="horizontal"
+            android:background="@drawable/bg7"
+            android:weightSum="1"
+            android:id="@+id/profilesection">
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_10sdp"
-                android:elevation="@dimen/_5sdp"
-                android:outlineSpotShadowColor="@color/white"
-                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.35"
+                android:layout_gravity="center"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="@dimen/_80sdp"
+                    android:src="@drawable/ic_profile"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.65"
+                android:layout_gravity="center"
                 android:gravity="center"
-                android:background="@drawable/bg5">
-                <androidx.cardview.widget.CardView
-                    android:layout_marginTop="@dimen/_15sdp"
+                android:orientation="vertical">
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_height="match_parent">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:weightSum="1"
-                        android:layout_marginBottom="@dimen/_10sdp"
-                        android:id="@+id/Ll_logout">
-
-                        <LinearLayout
-                            android:gravity="center"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.35">
-                            <ImageView
-                                android:layout_marginTop="@dimen/_3sdp"
-                                android:id="@+id/iv_logout"
-                                android:layout_gravity="center"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:src="@drawable/ic_baseline_exit_to_app_24"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:gravity="center"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.65"
-                            android:layout_gravity="center">
-                            <TextView
-                                android:id="@+id/tv_logout"
-                                android:gravity="left"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:text="Logout"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/_15sdp"/>
-                        </LinearLayout>
-
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-                <androidx.cardview.widget.CardView
-                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_height="wrap_content"
+                    android:text="Hello"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:textSize="@dimen/_20ssp"
+                    android:fontFamily="@font/poppins_medium"/>
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:weightSum="1"
-                        android:layout_marginBottom="@dimen/_10sdp"
-                        android:id="@+id/Ll_changepassword">
-
-                        <LinearLayout
-                            android:gravity="center"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.35">
-                            <ImageView
-                                android:layout_marginTop="@dimen/_3sdp"
-                                android:id="@+id/iv_changepassword"
-                                android:layout_gravity="center"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:src="@drawable/ic_baseline_exit_to_app_24"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:gravity="center"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.65"
-                            android:layout_gravity="center">
-                            <TextView
-                                android:id="@+id/tv_changepassword"
-                                android:layout_gravity="center"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:text="Change Password"
-
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/_15sdp"/>
-                        </LinearLayout>
-
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-                <androidx.cardview.widget.CardView
-                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_height="wrap_content"
+                    android:text="Username"
+                    android:id="@+id/tv_username_settings"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:textSize="@dimen/_20ssp"
+                    android:fontFamily="@font/poppins_medium"/>
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:text="id"
+                    android:id="@+id/tv_userid_settings"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:textSize="@dimen/_20ssp"
+                    android:fontFamily="@font/poppins_medium"/>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:weightSum="1"
-                        android:layout_marginBottom="@dimen/_10sdp"
-                        android:id="@+id/Ll_feedback">
-
-                        <LinearLayout
-                            android:gravity="center"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.35">
-                            <ImageView
-                                android:layout_marginTop="@dimen/_3sdp"
-                                android:id="@+id/iv_feedback"
-                                android:layout_gravity="center"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:src="@drawable/ic_baseline_exit_to_app_24"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:gravity="center"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.65"
-                            android:layout_gravity="center">
-                            <TextView
-                                android:id="@+id/tv_giveFeedback"
-                                android:gravity="left"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:text="Give Feedback"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/_15sdp"/>
-                        </LinearLayout>
-
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
             </LinearLayout>
 
+        </LinearLayout>
+
+
+
+
+        <TextView
+            android:id="@+id/myaccount"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My Account"
+            android:layout_below="@+id/profilesection"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textSize="@dimen/_20ssp"
+            android:textStyle="bold"/>
+        <LinearLayout
+            android:id="@+id/logout_section"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/myaccount"
+            android:orientation="horizontal"
+            android:background="@drawable/bg8"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:weightSum="1">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_weight="0.3"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:src="@drawable/ic_baseline_exit_to_app_24"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_weight="0.7"
+                android:gravity="center"
+                android:layout_marginLeft="0dp">
+                <TextView
+                    android:id="@+id/tv_logout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Logout"
+                    android:textSize="@dimen/_15ssp"
+                    android:textColor="@color/black"/>
+
+            </LinearLayout>
 
 
         </LinearLayout>
 
-    </ScrollView>
+        <LinearLayout
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/logout_section"
+            android:orientation="horizontal"
+            android:id="@+id/password_section"
+            android:background="@drawable/bg8"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:weightSum="1">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_weight="0.3"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:src="@drawable/ic_password"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_weight="0.7"
+                android:gravity="center"
+                android:layout_marginLeft="0dp">
+                <TextView
+                    android:id="@+id/tv_changepassword_settings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Change Password"
+                    android:textSize="@dimen/_15ssp"
+                    android:textColor="@color/black"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/password_section"
+            android:orientation="horizontal"
+            android:id="@+id/myaddresses"
+            android:background="@drawable/bg8"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:weightSum="1">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_weight="0.3"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:src="@drawable/ic_home"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_weight="0.7"
+                android:gravity="center"
+                android:layout_marginLeft="0dp">
+                <TextView
+                    android:id="@+id/tv_Addresses"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="My Addresses"
+                    android:textSize="@dimen/_15ssp"
+                    android:textColor="@color/black"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/myaddresses"
+            android:orientation="horizontal"
+            android:id="@+id/feedback_section"
+            android:background="@drawable/bg8"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:weightSum="1">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_weight="0.3"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:src="@drawable/ic_baseline_chat_24"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_weight="0.7"
+                android:gravity="center"
+                android:layout_marginLeft="0dp">
+                <TextView
+                    android:id="@+id/tv_feedback"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Give Your Feedbacks"
+                    android:textSize="@dimen/_15ssp"
+                    android:textColor="@color/black"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+
+
+
+<!--    <ScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentLeft="true"-->
+<!--        android:layout_alignParentTop="true"-->
+<!--        android:layout_centerInParent="true"-->
+<!--        android:padding="@dimen/_20sdp">-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical">-->
+
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="@dimen/_50ssp"-->
+<!--                android:layout_alignParentRight="true"-->
+<!--                android:layout_alignParentLeft="true"-->
+<!--                android:fontFamily="@font/poppins_bold"-->
+<!--                style="@style/TextAppearance.AppCompat.Widget.PopupMenu.Header"-->
+<!--                android:text="Settings"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="@dimen/_28sdp"-->
+<!--                android:id="@+id/title">-->
+
+<!--            </TextView>-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_margin="@dimen/_10sdp"-->
+<!--                android:elevation="@dimen/_5sdp"-->
+<!--                android:outlineSpotShadowColor="@color/white"-->
+<!--                android:orientation="vertical"-->
+<!--                android:gravity="center"-->
+<!--                android:background="@drawable/bg5">-->
+<!--                <androidx.cardview.widget.CardView-->
+<!--                    android:layout_marginTop="@dimen/_15sdp"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_height="match_parent">-->
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:weightSum="1"-->
+<!--                        android:layout_marginBottom="@dimen/_10sdp"-->
+<!--                        android:id="@+id/Ll_logout">-->
+
+<!--                        <LinearLayout-->
+<!--                            android:gravity="center"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:layout_weight="0.35">-->
+<!--                            <ImageView-->
+<!--                                android:layout_marginTop="@dimen/_3sdp"-->
+<!--                                android:id="@+id/iv_logout"-->
+<!--                                android:layout_gravity="center"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                android:src="@drawable/ic_baseline_exit_to_app_24"/>-->
+<!--                        </LinearLayout>-->
+<!--                        <LinearLayout-->
+<!--                            android:gravity="center"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:layout_weight="0.65"-->
+<!--                            android:layout_gravity="center">-->
+<!--                            <TextView-->
+<!--                                android:id="@+id/tv_logout"-->
+<!--                                android:gravity="left"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                android:text="Logout"-->
+<!--                                android:textColor="@color/black"-->
+<!--                                android:textSize="@dimen/_15sdp"/>-->
+<!--                        </LinearLayout>-->
+
+<!--                    </LinearLayout>-->
+<!--                </androidx.cardview.widget.CardView>-->
+<!--                <androidx.cardview.widget.CardView-->
+<!--                    android:layout_marginTop="@dimen/_15sdp"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent">-->
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:weightSum="1"-->
+<!--                        android:layout_marginBottom="@dimen/_10sdp"-->
+<!--                        android:id="@+id/Ll_changepassword">-->
+
+<!--                        <LinearLayout-->
+<!--                            android:gravity="center"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:layout_weight="0.35">-->
+<!--                            <ImageView-->
+<!--                                android:layout_marginTop="@dimen/_3sdp"-->
+<!--                                android:id="@+id/iv_changepassword"-->
+<!--                                android:layout_gravity="center"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                android:src="@drawable/ic_baseline_exit_to_app_24"/>-->
+<!--                        </LinearLayout>-->
+<!--                        <LinearLayout-->
+<!--                            android:gravity="center"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:layout_weight="0.65"-->
+<!--                            android:layout_gravity="center">-->
+<!--                            <TextView-->
+<!--                                android:id="@+id/tv_changepassword"-->
+<!--                                android:layout_gravity="center"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                android:text="Change Password"-->
+
+<!--                                android:textColor="@color/black"-->
+<!--                                android:textSize="@dimen/_15sdp"/>-->
+<!--                        </LinearLayout>-->
+
+<!--                    </LinearLayout>-->
+<!--                </androidx.cardview.widget.CardView>-->
+<!--                <androidx.cardview.widget.CardView-->
+<!--                    android:layout_marginTop="@dimen/_15sdp"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent">-->
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:weightSum="1"-->
+<!--                        android:layout_marginBottom="@dimen/_10sdp"-->
+<!--                        android:id="@+id/Ll_feedback">-->
+
+<!--                        <LinearLayout-->
+<!--                            android:gravity="center"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:layout_weight="0.35">-->
+<!--                            <ImageView-->
+<!--                                android:layout_marginTop="@dimen/_3sdp"-->
+<!--                                android:id="@+id/iv_feedback"-->
+<!--                                android:layout_gravity="center"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                android:src="@drawable/ic_baseline_exit_to_app_24"/>-->
+<!--                        </LinearLayout>-->
+<!--                        <LinearLayout-->
+<!--                            android:gravity="center"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:layout_weight="0.65"-->
+<!--                            android:layout_gravity="center">-->
+<!--                            <TextView-->
+<!--                                android:id="@+id/tv_giveFeedback"-->
+<!--                                android:gravity="left"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                android:text="Give Feedback"-->
+<!--                                android:textColor="@color/black"-->
+<!--                                android:textSize="@dimen/_15sdp"/>-->
+<!--                        </LinearLayout>-->
+
+<!--                    </LinearLayout>-->
+<!--                </androidx.cardview.widget.CardView>-->
+<!--            </LinearLayout>-->
+
+
+
+<!--        </LinearLayout>-->
+
+<!--    </ScrollView>-->
 
 
 
