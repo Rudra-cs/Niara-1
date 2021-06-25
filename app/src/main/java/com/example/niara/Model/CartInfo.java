@@ -1,9 +1,18 @@
 package com.example.niara.Model;
 
-public class Cart {
+public class CartInfo {
+    private int id;
     private int user;
     private int product;
     private int quantity;
+
+    public int getCartId() {
+        return id;
+    }
+
+    public void setCartId(int id) {
+        this.id = id;
+    }
 
     public int getUser() {
         return user;

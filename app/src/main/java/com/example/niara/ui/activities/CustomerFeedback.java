@@ -81,7 +81,6 @@ public class CustomerFeedback extends AppCompatActivity {
                 }else {
                     Toast.makeText(CustomerFeedback.this,"Your Feedback couldn't be sent",Toast.LENGTH_SHORT).show();
                 }
-
             }
 
             @Override
