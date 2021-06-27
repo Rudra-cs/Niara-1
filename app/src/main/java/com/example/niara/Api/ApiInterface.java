@@ -19,10 +19,12 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -77,5 +79,11 @@ public interface ApiInterface {
 
     @GET("/CartInfo/")
     Call<ArrayList<CartInfo>> getCartDetails();
+
+    @PATCH("/CartInfo/{id}")
+    Call<CartInfo> updateCartItems(@Path("id") int id , @Body CartInfo cartInfo);
+
+    @DELETE("/CartInfo/{id}")
+    Call<Void> deleteCartItems(@Path("id") int id );
 
 }

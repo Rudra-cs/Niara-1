@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.niara.Adapters.CartAdapter;
@@ -37,6 +39,9 @@ public class MyCartFragment extends Fragment {
     public  static ArrayList<JSONObject> productList;
     public  static ArrayList<JSONObject> cartProducts;
     public int userCart;
+    public TextView tvSubtotal;
+    public TextView tvTotal;
+    public Button btnCheckout;
 
 
     private static final String ARG_PARAM1 = "param1";
@@ -73,22 +78,28 @@ public class MyCartFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_cart, container, false);
+
         SessionManager sessionManager = new SessionManager(getContext());
         userCart = sessionManager.getUserid();
-        ProgressDialog progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage("Loading Cart");
-        progressDialog.show();
+
+        tvSubtotal = view.findViewById(R.id.tv_subTotal);
+        tvTotal = view.findViewById(R.id.tv_total_price);
+        btnCheckout = view.findViewById(R.id.btn_checkout);
+
         rcFoodCart = view.findViewById(R.id.rc_food_cart);
         rcFoodCart.setLayoutManager(new LinearLayoutManager(this.getContext(),RecyclerView.VERTICAL,false));
 
-        getUserFromCart();
+        getUserFromCart(tvTotal,tvSubtotal,btnCheckout);
 
-        progressDialog.hide();
+
         return view;
     }
 
 
-    public void getUserFromCart() {
+    public void getUserFromCart(TextView tvTotal, TextView tvSubtotal, Button btnCheckout) {
+        ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage("Loading Cart");
+        progressDialog.show();
 
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         Call<ArrayList<CartInfo>> getUserCart = apiInterface.getCartDetails();
@@ -112,8 +123,8 @@ public class MyCartFragment extends Fragment {
                             }
                         }
                     }
-                    getProduct(userCartDetailsList);
-
+                    getProduct(userCartDetailsList,tvTotal,tvSubtotal,btnCheckout);
+                    progressDialog.hide();
                 } else {
                     Log.e("CartDetails", "Network Error or Callback Error");
                 }
@@ -128,7 +139,7 @@ public class MyCartFragment extends Fragment {
 
     }
 
-    private void getProduct(ArrayList<JSONObject> userCartDetailsList)  {
+    private void getProduct(ArrayList<JSONObject> userCartDetailsList, TextView tvTotal, TextView tvSubtotal, Button btnCheckout)  {
         if (userCartDetailsList.size()!=0){
             ApiInterface apiInterfaceCart = ApiClient.getClient().create(ApiInterface.class);
             productList =  new ArrayList<>();
@@ -162,7 +173,7 @@ public class MyCartFragment extends Fragment {
                                 if (productList.size() == userCartDetailsList.size()){
 //                                    Log.d("CartList", "Response:" + productList.toString());
 //                                    Log.d("CartList", "Response:" + userCartDetailsList.size() + " and " + productList.size());
-                                    loadRecView(userCartDetailsList,productList);
+                                    loadRecView(userCartDetailsList,productList,tvTotal,tvSubtotal,btnCheckout);
                                 }
                             }else{
                                 Log.e("CartDetails","Network Error Response");
@@ -185,10 +196,11 @@ public class MyCartFragment extends Fragment {
 
     }
 
-    private void loadRecView(ArrayList<JSONObject> userCartDetailsList, ArrayList<JSONObject> productList) {
+    private void loadRecView(ArrayList<JSONObject> userCartDetailsList, ArrayList<JSONObject> productList, TextView tvTotal, TextView tvSubtotal, Button btnCheckout) {
 //        Log.d("CartList", "Response:" + userCartDetailsList.size() + " and " + productList.size());
 //        Log.d("CartList", "Response:" + userCartDetailsList.toString() + " and " + productList.toString());
         cartProducts = new ArrayList<>();
+        int subTotalPrice = 0,subTotal = 0;
 
         for (int i = 0;i<userCartDetailsList.size();i++){
             JSONObject object2 = new JSONObject();
@@ -207,18 +219,35 @@ public class MyCartFragment extends Fragment {
                 object2.put("category", productList.get(i).get("category"));
                 object2.put("product_image", productList.get(i).get("product_image"));
 
-
                 cartProducts.add(object2);
                 Log.d("CartList", "Response:" + cartProducts.toString());
-
 //                                    Log.d("CartList", "Response:" + productList.size()+response.body().getId());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+            try {
+                subTotalPrice = Integer.parseInt(cartProducts.get(i).getString("quantity")) * Integer.parseInt(cartProducts.get(i).getString("discounted_price")) ;
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            subTotal = subTotal + subTotalPrice;
         }
-//        Log.d("CartList", "Response:" + cartProducts.toString());
+//        Log.d("CartListLong", "Response:" + subTotal);
+//        Price
+        tvSubtotal.setText(String.valueOf(subTotal));
+        tvTotal.setText(String.valueOf(subTotal+70));
+
         CartAdapter cartAdapter = new CartAdapter(getContext(),cartProducts);
         rcFoodCart.setAdapter(cartAdapter);
+
+        btnCheckout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Integer.parseInt(String.valueOf(tvTotal))>70){
+                    Toast.makeText(getContext(), "Checkout", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
     }
 }
