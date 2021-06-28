@@ -26,6 +26,7 @@ import retrofit2.Response;
 
 import static com.example.niara.utils.Config.BASE_URL;
 import static com.example.niara.utils.SessionManager.KEY_TOKEN;
+import static com.example.niara.utils.SessionManager.USERID;
 import static com.example.niara.utils.SessionManager.USERNAME;
 
 public class ProductDesc extends AppCompatActivity {
@@ -46,7 +47,7 @@ public class ProductDesc extends AppCompatActivity {
     private ImageView btnBack;
 
     public  String token;
-    String user;
+    int user;
 
 
     @Override
@@ -74,7 +75,10 @@ public class ProductDesc extends AppCompatActivity {
         tvDesc.setText(intent.getStringExtra("desc"));
         tvHeadTitle.setText(intent.getStringExtra("title"));
         tvQuantity.setText(String.valueOf(1));
-        tvProdId = (intent.getIntExtra("prodId",1));
+        tvProdId = (intent.getIntExtra("id",1));
+
+//       Toast.makeText(this,tvQuantity.getText().toString(),Toast.LENGTH_SHORT).show();
+//        Log.d("HEllo", tvQuantity.getText().toString()+ tvProdId);
 
         String imageUrl = intent.getStringExtra("image");
         Glide.with(this).load(imageUrl).into(ivImage);
@@ -82,7 +86,8 @@ public class ProductDesc extends AppCompatActivity {
 //        Shared Preference
         SharedPreferences preferences = getSharedPreferences("userLoginSessions", Context.MODE_PRIVATE);
         token = preferences.getString("TOKEN",KEY_TOKEN);
-         user = preferences.getString("USERNAME",USERNAME);
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+         user =  sessionManager.getUserid();
 
         btnPlus.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,9 +149,9 @@ public class ProductDesc extends AppCompatActivity {
 //                    Cart Model
                     Cart cartDetails = new Cart();
                     cartDetails.setUser(user);
-                    cartDetails.setProduct(Integer.valueOf(tvQuantity.getText().toString()));
+                    cartDetails.setQuantity(Integer.valueOf(tvQuantity.getText().toString()));
                     cartDetails.setProduct(Integer.valueOf(tvProdId));
-
+//                    Log.d("Details","User :"+ user + " quantity : " + tvQuantity.getText().toString() + " PRODID: " + tvProdId);
                     ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
                     Call<Cart> pushToCart = apiInterface.sendCartFoodDetails(token,cartDetails);
                     pushToCart.enqueue(new Callback<Cart>() {

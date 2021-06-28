@@ -113,16 +113,17 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.isSuccessful()){
                     userInfoArrayList=response.body();
                     for (i=0;i<userInfoArrayList.size();i++){
-                        Log.d("userinfoarray",userInfoArrayList.get(i).getUsername());
-                        Log.d("namelogin",namelogin.getText().toString());
-                        Log.d("idrudra", String.valueOf(userInfoArrayList.get(i).getId()));
+
+//                        Log.d("userinfoarray",userInfoArrayList.get(i).getUsername());
+//                        Log.d("namelogin",namelogin.getText().toString());
+//                        Log.d("idrudra", String.valueOf(userInfoArrayList.get(i).getId()));
 
 
                         rudra=namelogin.getText().toString().trim();
                         rudrausername=userInfoArrayList.get(i).getUsername();
 
                         Boolean b=rudra.equals(rudrausername);
-                        Log.d("booleanB",b.toString()+rudra+rudrausername);
+//                        Log.d("booleanB",b.toString()+rudra+rudrausername);
 
 
                         if (b!=false){

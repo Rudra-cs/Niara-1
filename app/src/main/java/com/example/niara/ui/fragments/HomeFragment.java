@@ -2,13 +2,9 @@ package com.example.niara.ui.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,12 +20,9 @@ import com.example.niara.Adapters.FoodAdapter;
 import com.example.niara.Api.ApiClient;
 import com.example.niara.Api.ApiInterface;
 import com.example.niara.Model.Food;
-import com.example.niara.ui.activities.LoginActivity;
-import com.example.niara.ui.activities.MainActivity;
 import com.example.niara.ui.activities.ProductDesc;
 import com.example.niara.R;
 import com.example.niara.ui.activities.SearchActivity;
-import com.example.niara.utils.NetworkChangeListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -381,7 +374,7 @@ public class HomeFragment extends Fragment implements CategoryAdapter.CategoryCl
         intent.putExtra("desc",food.getDescription());
         intent.putExtra("price",String.valueOf(food.getSelling_price()));
         intent.putExtra("image",food.getProduct_image());
-        intent.putExtra("prodId",food.getProdId());
+        intent.putExtra("id",food.getId());
         startActivity(intent);
 
     }
