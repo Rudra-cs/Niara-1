@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -141,6 +142,8 @@ public class RegistrationActivity extends AppCompatActivity {
                     Log.d("userdetails", String.valueOf(response.body().getUser()));
                     id=response.body().getUser().getId();
                     if(token!=null){
+                        Button btn = (Button)findViewById(R.id.register_button);
+                        btn.setEnabled(false);
                         SessionManager sessionManager=new SessionManager(RegistrationActivity.this);
                         sessionManager.createloginsession(token,username.getText().toString(),id);
                         gotohome();

@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -88,6 +89,9 @@ public class LoginActivity extends AppCompatActivity {
                     token=response.body().getToken();
                     if(token!=null){
                         getuseridaftertoken();
+                        Button btn = (Button)findViewById(R.id.login_button);
+                        btn.setEnabled(false);
+
 
                     }else{
                         Toast.makeText(LoginActivity.this,"Invalid Credentials",Toast.LENGTH_SHORT).show();

@@ -146,6 +146,7 @@
                         android:layout_weight="1"
                         android:fontFamily="sans-serif-black"/>
                     <Button
+                        android:id="@+id/register_button"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:layout_width="0dp"

@@ -8,6 +8,7 @@ import com.example.niara.Model.CreateCustomerInfo;
 import com.example.niara.Model.CustomerFeedbackModel;
 import com.example.niara.Model.Food;
 import com.example.niara.Model.LoginToken;
+import com.example.niara.Model.OrderInfo;
 import com.example.niara.Model.UserInfo;
 import com.example.niara.Model.UserRequest;
 import com.example.niara.Model.UserResponse;
@@ -85,5 +86,12 @@ public interface ApiInterface {
 
     @DELETE("/CartInfo/{id}")
     Call<Void> deleteCartItems(@Path("id") int id );
+
+    @GET("/OrderInfo/")
+    Call <ArrayList<OrderInfo>> getOrderinfo();
+
+    @GET("/ProdInfo/{id}")
+    Call<Food> getFoodinfo(@Path("id") int prodId);
+
 
 }

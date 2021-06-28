@@ -1,43 +1,23 @@
 package com.example.niara.ui.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
-import com.example.niara.Api.ApiClient;
-import com.example.niara.Api.ApiInterface;
-import com.example.niara.Model.ChangePassword;
-import com.example.niara.Model.CustomerFeedbackModel;
 import com.example.niara.R;
-import com.example.niara.ui.fragments.AboutUs;
 import com.example.niara.ui.fragments.HomeFragment;
 import com.example.niara.ui.fragments.MyCartFragment;
-import com.example.niara.ui.fragments.ProductFragment;
-import com.example.niara.ui.fragments.ProfileFragment;
+import com.example.niara.ui.fragments.OrderFragment;
 import com.example.niara.ui.fragments.SettingsFragment;
 import com.example.niara.utils.NetworkChangeListener;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     private SharedPreferences prefManager;
@@ -71,6 +51,32 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        meowBottomNavigation.setOnReselectListener(new MeowBottomNavigation.ReselectListener() {
+            @Override
+            public void onReselectItem(MeowBottomNavigation.Model item) {
+                Fragment fragment = null;
+                switch (item.getId()) {
+                    case 1:
+                        fragment = new HomeFragment();
+                        break;
+
+                    case 3:
+                        fragment = new OrderFragment();
+                        break;
+
+                    case 4:
+                        fragment = new SettingsFragment();
+                        break;
+                    case 2:
+                        fragment = new MyCartFragment();
+                        break;
+                }
+                loadfragment(fragment);
+
+            }
+        });
+
         meowBottomNavigation.setOnShowListener(new MeowBottomNavigation.ShowListener() {
             @Override
             public void onShowItem(MeowBottomNavigation.Model item) {
@@ -81,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case 3:
-                        fragment = new ProfileFragment();
+                        fragment = new OrderFragment();
                         break;
 
                     case 4:

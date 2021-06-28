@@ -34,7 +34,7 @@ import retrofit2.Response;
 
 public class HomeFragment extends Fragment implements CategoryAdapter.CategoryClickListener, FoodAdapter.ItemClickListener{
 
-    private String categoryValue = "Delicious";
+    private String categoryValue = "Snacks";
     private RecyclerView rcFoodItems;
     private RecyclerView foodRecyclerView;
 
