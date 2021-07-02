@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -18,6 +20,7 @@ import com.example.niara.Api.ApiClient;
 import com.example.niara.Api.ApiInterface;
 import com.example.niara.Model.Food;
 import com.example.niara.R;
+import com.example.niara.utils.NetworkChangeListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,6 +30,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SearchActivity extends AppCompatActivity {
+    NetworkChangeListener networkChangeListener=new NetworkChangeListener();
+
     private RecyclerView rcFoodItems;
     private SearchFoodAdapter foodAdapter;
     public ArrayList<Food> value;
@@ -120,5 +125,18 @@ public class SearchActivity extends AppCompatActivity {
         intent.putExtra("image",food.getProduct_image());
         startActivity(intent);
 
+    }
+    @Override
+    protected void onStart() {
+        IntentFilter filter1=new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListener,filter1);
+        super.onStart();
+    }
+
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(networkChangeListener);
+        super.onStop();
     }
 }

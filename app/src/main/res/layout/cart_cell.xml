@@ -76,8 +76,8 @@
 
                 <Button
                     android:id="@+id/btn_add"
-                    android:layout_width="@dimen/_25sdp"
-                    android:layout_height="@dimen/_25sdp"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
                     android:layout_below="@+id/tv_food_cart_title"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="@dimen/_12sdp"
@@ -100,8 +100,8 @@
 
                 <Button
                     android:id="@+id/btn_minus"
-                    android:layout_width="@dimen/_25sdp"
-                    android:layout_height="@dimen/_25sdp"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
                     android:layout_below="@+id/tv_food_cart_title"
                     android:layout_toStartOf="@+id/tv_pdt_quantity"
                     android:fontFamily="@font/poppins_bold"

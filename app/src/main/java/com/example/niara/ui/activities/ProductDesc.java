@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +20,7 @@ import com.example.niara.Api.ApiClient;
 import com.example.niara.Api.ApiInterface;
 import com.example.niara.Model.Cart;
 import com.example.niara.R;
+import com.example.niara.utils.NetworkChangeListener;
 import com.example.niara.utils.SessionManager;
 
 import retrofit2.Call;
@@ -30,6 +33,8 @@ import static com.example.niara.utils.SessionManager.USERID;
 import static com.example.niara.utils.SessionManager.USERNAME;
 
 public class ProductDesc extends AppCompatActivity {
+    NetworkChangeListener networkChangeListener=new NetworkChangeListener();
+
 
     private TextView tvTitle;
     private TextView tvPrice;
@@ -186,6 +191,19 @@ public class ProductDesc extends AppCompatActivity {
             }
         });
 
+    }
+    @Override
+    protected void onStart() {
+        IntentFilter filter1=new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListener,filter1);
+        super.onStart();
+    }
+
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(networkChangeListener);
+        super.onStop();
     }
 
 }

@@ -26,6 +26,7 @@ import com.example.niara.Model.OrderInfo;
 import com.example.niara.Model.OrderInfoDisplay;
 import com.example.niara.R;
 import com.example.niara.ui.activities.SearchActivity;
+import com.example.niara.utils.SessionManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,11 +50,12 @@ import retrofit2.Response;
  */
 public class OrderFragment extends Fragment {
     ArrayList<JSONObject> orderlistdisplay;
+    ArrayList<OrderInfo> orderInfolist;
 
     SwipeRefreshLayout swipeRefreshLayout;
 
     private RecyclerView rcorders;
-    private int i,j,idp;
+    private int i,j;
     private int userid=7;
 
     private static final String ARG_PARAM1 = "param1";
@@ -91,6 +93,8 @@ public class OrderFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_order, container, false);
         swipeRefreshLayout=view.findViewById(R.id.swiperefreshOrderInfo);
 
+
+
         rcorders = view.findViewById(R.id.rc_order);
         rcorders.setLayoutManager(new LinearLayoutManager(this.getContext(),RecyclerView.VERTICAL,false));
 
@@ -114,7 +118,10 @@ public class OrderFragment extends Fragment {
         progressDialog.setMessage("Getting your Order details");
         progressDialog.show();
 
-        ArrayList<OrderInfo> orderInfolist=new ArrayList<>();
+//        SessionManager sessionManager=new SessionManager(getContext());
+//        userid=sessionManager.getUserid();
+
+        orderInfolist=new ArrayList<>();
         ApiInterface apiInterface1 = ApiClient.getClient().create(ApiInterface.class);
         Call<ArrayList<OrderInfo>> orderinforesponse = apiInterface1.getOrderinfo();
         orderinforesponse.enqueue(new Callback<ArrayList<OrderInfo>>() {
@@ -122,12 +129,16 @@ public class OrderFragment extends Fragment {
             public void onResponse(Call<ArrayList<OrderInfo>> call, Response<ArrayList<OrderInfo>> response) {
                 if (response.isSuccessful()){
 
+
                     for (i=0;i<response.body().size();i++){
-//                        Log.d("orderinfolistswag", String.valueOf((orderInfolist).get(i).getUser()));
+                        Log.d("iddeb", String.valueOf(userid));
+                        Log.d("orerinfo", String.valueOf(orderInfolist));
+                        Log.d("orderinfolistswag", String.valueOf((response.body().get(i).getUser())));
                         if (String.valueOf(userid)==String.valueOf((response.body()).get(i).getUser())){
+                            Log.d("some", String.valueOf(response.body().get(i).getProduct()));
                             orderInfolist.add(response.body().get(i));
-//                            Log.d("orderlistid", String.valueOf(orderInfolist.get(i).getProduct()));
-                            idp=orderInfolist.get(i).getProduct();
+                            Log.d("orderlistid", String.valueOf(orderInfolist.get(i).getProduct()));
+//                            idp=orderInfolist.get(i).getProduct();
                         }
 
                     }
@@ -144,7 +155,7 @@ public class OrderFragment extends Fragment {
                         }
                         int idp=orderInfolist.get(j).getProduct();
                         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-                        Call<Food> foodCall=apiInterface.getFoodinfo(idp);
+                        Call<Food> foodCall=apiInterface.getProductList(idp);
                         foodCall.enqueue(new Callback<Food>() {
                             @Override
                             public void onResponse(Call<Food> call, Response<Food> response1) {

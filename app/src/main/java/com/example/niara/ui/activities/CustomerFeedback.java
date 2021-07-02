@@ -2,6 +2,8 @@ package com.example.niara.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,6 +19,7 @@ import com.example.niara.Model.CustomerFeedbackModel;
 import com.example.niara.Model.LoginRequest;
 import com.example.niara.Model.LoginToken;
 import com.example.niara.R;
+import com.example.niara.utils.NetworkChangeListener;
 import com.example.niara.utils.SessionManager;
 
 import java.util.ArrayList;
@@ -28,6 +31,9 @@ import retrofit2.Response;
 
 public class CustomerFeedback extends AppCompatActivity {
     EditText textArea,fullname,email,phone;
+
+    NetworkChangeListener networkChangeListener=new NetworkChangeListener();
+
 
 
     @Override
@@ -89,5 +95,19 @@ public class CustomerFeedback extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        IntentFilter filter1=new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListener,filter1);
+        super.onStart();
+    }
+
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(networkChangeListener);
+        super.onStop();
     }
 }

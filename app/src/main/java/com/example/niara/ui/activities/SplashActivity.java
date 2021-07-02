@@ -15,7 +15,8 @@ import com.example.niara.R;
 import com.example.niara.ui.fragments.SettingsFragment;
 
 public class SplashActivity extends AppCompatActivity {
-    private static int splash_time=2000;
+    private static int splash_time=1000
+            ;
     Animation top_animation,bottom_animation;
     ImageView image;
 
@@ -31,24 +32,7 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-//                SharedPreferences sharedPreferences=getSharedPreferences(LoginActivity.PREFS_NAME,0);
-//                boolean hasLoggedin=sharedPreferences.getBoolean("hasLoggedIn",false);
-//
-////                SharedPreferences sharedPreferencestoken=getSharedPreferences(LoginActivity.PREFS_NAME,0);
-////                String hasLoggedintoken=sharedPreferences.getString("token","");
-//
-//                SharedPreferences sharedPreferences1=getSharedPreferences(SettingsFragment.PREFS_NAME,0);
-//                boolean hasLoggedins=sharedPreferences1.getBoolean("hasLoggedIn",true);
-//
-//                if (hasLoggedin==true && hasLoggedins==false ){
-//                    Intent i= new Intent(SplashActivity.this, MainActivity.class);
-//                    startActivity(i);
-//                    finish();
-//                }else{
-//                    Intent i= new Intent(SplashActivity.this, LoginActivity.class);
-//                    startActivity(i);
-//                    finish();
-//                }
+
                 Intent i= new Intent(SplashActivity.this,LoginActivity.class);
                 startActivity(i);
                 finish();

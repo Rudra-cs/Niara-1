@@ -1,6 +1,7 @@
 package com.example.niara.ui.fragments;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -21,6 +22,10 @@ import com.example.niara.Api.ApiInterface;
 import com.example.niara.Model.CartInfo;
 import com.example.niara.Model.Food;
 import com.example.niara.R;
+import com.example.niara.ui.activities.LoginActivity;
+import com.example.niara.ui.activities.MainActivity;
+import com.example.niara.ui.activities.PaymentActivity;
+import com.example.niara.ui.activities.ProductDesc;
 import com.example.niara.utils.SessionManager;
 
 import org.json.JSONException;
@@ -240,11 +245,14 @@ public class MyCartFragment extends Fragment {
         CartAdapter cartAdapter = new CartAdapter(getContext(),cartProducts);
         rcFoodCart.setAdapter(cartAdapter);
 
+
         btnCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Integer.parseInt(String.valueOf(tvTotal))>70){
-                    Toast.makeText(getContext(), "Checkout", Toast.LENGTH_SHORT).show();
+                if (Integer.valueOf(tvTotal.getText().toString())>70){
+                    Intent intent = new Intent(getContext(), PaymentActivity.class);
+                    intent.putExtra("amount",tvTotal.getText().toString());
+                    startActivity(intent);
                 }
             }
         });

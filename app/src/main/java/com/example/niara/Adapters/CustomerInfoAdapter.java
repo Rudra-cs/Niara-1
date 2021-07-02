@@ -1,0 +1,90 @@
+package com.example.niara.Adapters;
+
+import android.content.Context;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.niara.Model.Address;
+import com.example.niara.Model.Food;
+import com.example.niara.R;
+import com.example.niara.utils.Config;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
+
+public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapter.CustomerInfoViewHodler> {
+    private Context context;
+    private List<Address> customerinfolist;
+    private ItemClickListener clickListener;
+
+
+    public CustomerInfoAdapter(Context context, List<Address> customerinfolist,ItemClickListener clickListener) {
+        this.context = context;
+        this.customerinfolist = customerinfolist;
+        this.clickListener=clickListener;
+
+    }
+
+
+
+    @NonNull
+    @NotNull
+    @Override
+    public CustomerInfoViewHodler onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+        return new CustomerInfoViewHodler(LayoutInflater.from(context).inflate(R.layout.address_cell, parent, false));
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull @NotNull CustomerInfoAdapter.CustomerInfoViewHodler holder, int position) {
+        Address address=customerinfolist.get(position);
+        holder.name.setText("Name: "+address.getName());
+        holder.locality.setText("locality: "+address.getLocality());
+        holder.city.setText("city: "+address.getCity());
+        holder.zipcode.setText("zipcode: "+address.getZipcode());
+        holder.mobile.setText("mobile: "+address.getMobile());
+        holder.state.setText("state: "+address.getState());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickListener.onItemClick(customerinfolist.get(position));
+                Log.d("customer123", String.valueOf(customerinfolist));
+            }
+        });
+
+
+    }
+    public void getAllCustomersInfo(List<Address> customerinfolist){
+        this.customerinfolist=customerinfolist;
+    }
+
+    @Override
+    public int getItemCount() {
+        return customerinfolist.size();
+    }
+
+    public static class CustomerInfoViewHodler extends RecyclerView.ViewHolder{
+        public TextView name,locality,city,zipcode,mobile,state;
+        public CustomerInfoViewHodler(@NonNull @NotNull View itemView) {
+            super(itemView);
+
+            name=itemView.findViewById(R.id.name);
+            locality=itemView.findViewById(R.id.locality);
+            city=itemView.findViewById(R.id.city);
+            zipcode=itemView.findViewById(R.id.zipcode);
+            mobile=itemView.findViewById(R.id.mobile);
+            state=itemView.findViewById(R.id.state);
+
+        }
+    }
+    public interface ItemClickListener {
+        void onItemClick(Address address);
+    }
+
+}

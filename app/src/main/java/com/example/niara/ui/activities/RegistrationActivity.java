@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +19,7 @@ import com.example.niara.Api.ApiInterface;
 import com.example.niara.Model.UserRequest;
 import com.example.niara.Model.UserResponse;
 import com.example.niara.R;
+import com.example.niara.utils.NetworkChangeListener;
 import com.example.niara.utils.SessionManager;
 
 import retrofit2.Call;
@@ -24,6 +27,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RegistrationActivity extends AppCompatActivity {
+
     private EditText username;
     private EditText email;
     private EditText password;
@@ -31,6 +35,9 @@ public class RegistrationActivity extends AppCompatActivity {
     private String str;
     public String token;
     private int id;
+
+    NetworkChangeListener networkChangeListener=new NetworkChangeListener();
+
 
 
     @Override
@@ -103,6 +110,7 @@ public class RegistrationActivity extends AppCompatActivity {
     public void movetologin(View view) {
         Intent intent=new Intent(RegistrationActivity.this, LoginActivity.class);
         startActivity(intent);
+        finish();
 
     }
 
@@ -160,5 +168,18 @@ public class RegistrationActivity extends AppCompatActivity {
                 Toast.makeText(RegistrationActivity.this,"Error Occured"+t.getLocalizedMessage(),Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    @Override
+    protected void onStart() {
+        IntentFilter filter1=new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListener,filter1);
+        super.onStart();
+    }
+
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(networkChangeListener);
+        super.onStop();
     }
 }

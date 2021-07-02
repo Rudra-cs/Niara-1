@@ -72,8 +72,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                         addItems.enqueue(new Callback<CartInfo>() {
                             @Override
                             public void onResponse(Call<CartInfo> call, Response<CartInfo> response) {
-                                Toast.makeText(v.getContext(), "Hello Add",Toast.LENGTH_SHORT).show();
-                                notifyDataSetChanged();
+                                if (response.isSuccessful()){
+                                    Toast.makeText(v.getContext(), "Hello Plus",Toast.LENGTH_SHORT).show();
+                                    notifyDataSetChanged();
+                                }else {
+                                    Toast.makeText(v.getContext(), "Hello Error",Toast.LENGTH_SHORT).show();
+                                }
                             }
 
                             @Override
@@ -97,15 +101,20 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 try {
                     if((Integer) data.get("quantity") > 0) {
                         CartInfo cartInfo = new CartInfo();
-                        cartInfo.setQuantity((Integer) data.get("quantity") - 1);
+                        int q= (int) data.get("quantity");
+                        cartInfo.setQuantity(q- 1);
                         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
                         Call<CartInfo> addItems = apiInterface.updateCartItems((Integer) data.get("id"),cartInfo);
 
                         addItems.enqueue(new Callback<CartInfo>() {
                             @Override
                             public void onResponse(Call<CartInfo> call, Response<CartInfo> response) {
-                                Toast.makeText(v.getContext(), "Hello Minus",Toast.LENGTH_SHORT).show();
-                                notifyDataSetChanged();
+                                if (response.isSuccessful()){
+                                    Toast.makeText(v.getContext(), "Hello Minus",Toast.LENGTH_SHORT).show();
+                                    notifyDataSetChanged();
+                                }else {
+                                    Toast.makeText(v.getContext(), "Hello Error",Toast.LENGTH_SHORT).show();
+                                }
                             }
 
                             @Override

@@ -1,10 +1,12 @@
 package com.example.niara.Api;
 
 
+import com.example.niara.Model.Address;
 import com.example.niara.Model.Cart;
 import com.example.niara.Model.CartInfo;
 import com.example.niara.Model.ChangePassword;
 import com.example.niara.Model.CreateCustomerInfo;
+import com.example.niara.Model.CreateOrderInfo;
 import com.example.niara.Model.CustomerFeedbackModel;
 import com.example.niara.Model.Food;
 import com.example.niara.Model.LoginToken;
@@ -61,6 +63,9 @@ public interface ApiInterface {
     @GET("/UserInfo/")
     Call<ArrayList<UserInfo>> getuserdetails();
 
+    @GET("/CustomerInfo/")
+    Call<List<Address>> getAllCustomers();
+
     @POST("/apiregister/")
     Call<UserResponse> registerUser(@Body UserRequest userRequest);
 
@@ -81,17 +86,19 @@ public interface ApiInterface {
     @GET("/CartInfo/")
     Call<ArrayList<CartInfo>> getCartDetails();
 
-    @PATCH("/CartInfo/{id}")
+    @PATCH("/CartInfo/{id}/")
     Call<CartInfo> updateCartItems(@Path("id") int id , @Body CartInfo cartInfo);
 
-    @DELETE("/CartInfo/{id}")
+    @DELETE("/CartInfo/{id}/")
     Call<Void> deleteCartItems(@Path("id") int id );
 
+    // Order Details Api
     @GET("/OrderInfo/")
     Call <ArrayList<OrderInfo>> getOrderinfo();
 
-    @GET("/ProdInfo/{id}")
-    Call<Food> getFoodinfo(@Path("id") int prodId);
+    @POST("/CreateOrderInfo/")
+
+    Call<CreateOrderInfo> sendOrder(@Body CreateOrderInfo createOrderInfo);
 
 
 }

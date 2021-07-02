@@ -1,7 +1,11 @@
 package com.example.niara.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,16 +17,28 @@ import android.widget.Toast;
 
 import com.example.niara.Api.ApiClient;
 import com.example.niara.Api.ApiInterface;
+import com.example.niara.Model.Address;
 import com.example.niara.Model.CreateCustomerInfo;
-import com.example.niara.Model.CustomerFeedbackModel;
 import com.example.niara.R;
+import com.example.niara.Repository.CustomerInfoRepository;
+import com.example.niara.ViewModel.CustomerInfoViewModel;
+import com.example.niara.utils.NetworkChangeListener;
 import com.example.niara.utils.SessionManager;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AddressActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class CreateCusstomerInfoActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    NetworkChangeListener networkChangeListener=new NetworkChangeListener();
+
+
     Spinner spinner;
     public String city;
     private EditText fullname,mobile,zipcode,locality;
@@ -85,16 +101,33 @@ public class AddressActivity extends AppCompatActivity implements AdapterView.On
             @Override
             public void onResponse(Call<CreateCustomerInfo> call, Response<CreateCustomerInfo> response) {
                 if (response.isSuccessful()){
-                    Toast.makeText(AddressActivity.this,"Your Address has been added",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateCusstomerInfoActivity.this,"Your Address has been added",Toast.LENGTH_SHORT).show();
+
                 }else {
-                    Toast.makeText(AddressActivity.this,"Your Address couldn't be added",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateCusstomerInfoActivity.this,"Your Address couldn't be added",Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<CreateCustomerInfo> call, Throwable t) {
-                Toast.makeText(AddressActivity.this,"Something Went Wrong",Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreateCusstomerInfoActivity.this,"Something Went Wrong",Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+    @Override
+    protected void onStart() {
+        IntentFilter filter1=new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListener,filter1);
+        super.onStart();
+    }
+
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(networkChangeListener);
+        super.onStop();
+    }
+
+
 }

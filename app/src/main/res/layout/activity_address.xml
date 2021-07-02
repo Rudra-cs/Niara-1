@@ -9,7 +9,7 @@
     android:background="@drawable/bg3"
     android:focusableInTouchMode="true"
     android:gravity="center"
-    tools:context=".ui.activities.AddressActivity">
+    tools:context=".ui.activities.CreateCusstomerInfoActivity">
 
     <TextView
         android:layout_width="wrap_content"

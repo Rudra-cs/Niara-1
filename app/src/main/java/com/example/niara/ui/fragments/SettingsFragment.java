@@ -2,12 +2,10 @@ package com.example.niara.ui.fragments;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,15 +13,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.example.niara.R;
-import com.example.niara.ui.activities.AddressActivity;
+import com.example.niara.ui.activities.CreateCusstomerInfoActivity;
 import com.example.niara.ui.activities.ChangePasswordActivity;
 import com.example.niara.ui.activities.CustomerFeedback;
 import com.example.niara.ui.activities.LoginActivity;
-import com.example.niara.ui.activities.MainActivity;
-import com.example.niara.ui.activities.SearchActivity;
 import com.example.niara.utils.SessionManager;
-
-import java.util.HashMap;
 
 
 public class SettingsFragment extends Fragment {
@@ -75,7 +69,7 @@ public class SettingsFragment extends Fragment {
         addAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), AddressActivity.class));
+                startActivity(new Intent(getContext(), CreateCusstomerInfoActivity.class));
             }
         });
 
