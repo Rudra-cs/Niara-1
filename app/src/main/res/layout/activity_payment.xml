@@ -41,6 +41,161 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:layout_margin="@dimen/_4sdp">
+
+            <TextView
+                android:id="@+id/tv_sub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:text="Subtotal"
+                android:textSize="@dimen/_12ssp"
+                android:textColor="@android:color/black"
+
+                />
+
+            <TextView
+                android:id="@+id/tv_rupees"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:text="Rs."
+                android:layout_toLeftOf="@+id/tv_subTotal"
+                android:textSize="@dimen/_12ssp"
+                android:textColor="@android:color/black"
+
+                />
+            <TextView
+                android:id="@+id/tv_subTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:text="0"
+                android:layout_alignParentEnd="true"
+                android:textSize="@dimen/_12ssp"
+                android:textColor="@android:color/black"
+
+                />
+
+            <TextView
+                android:id="@+id/tv_del"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:text="Delivery"
+                android:textSize="@dimen/_12ssp"
+                android:layout_below="@+id/tv_sub"
+                android:textColor="@android:color/black"
+
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:text="Rs."
+                android:layout_toLeftOf="@+id/tv_delivery_price"
+                android:textSize="@dimen/_12ssp"
+                android:layout_below="@+id/tv_subTotal"
+                android:textColor="@android:color/black"
+
+                />
+            <TextView
+                android:id="@+id/tv_delivery_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_below="@+id/tv_subTotal"
+                android:text="70"
+                android:layout_alignParentEnd="true"
+                android:textSize="@dimen/_12ssp"
+                android:textColor="@android:color/black"
+
+                />
+
+            <TextView
+                android:id="@+id/tv_tot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:text="Total"
+                android:fontFamily="@font/poppins_bold"
+                android:textSize="@dimen/_14ssp"
+                android:layout_below="@+id/tv_del"
+                android:textColor="@android:color/black"
+
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:text="Rs."
+                android:fontFamily="@font/poppins_bold"
+                android:layout_toLeftOf="@+id/tvamount"
+                android:textSize="@dimen/_14ssp"
+                android:layout_below="@+id/tv_delivery_price"
+                android:textColor="@android:color/black"
+
+                />
+            <TextView
+                android:id="@+id/tvamount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_below="@+id/tv_delivery_price"
+                android:text="70"
+                android:fontFamily="@font/poppins_bold"
+                android:layout_alignParentEnd="true"
+                android:textSize="@dimen/_14ssp"
+                android:textColor="@android:color/black"
+                />
+
+            <TextView
+                android:id="@+id/tv_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="**Once ordered it can't be cancelled after 5 mins."
+                android:textColor="@color/black"
+                android:fontFamily="@font/poppins_medium"
+                android:layout_below="@id/tv_tot"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginEnd="@dimen/_4sdp"/>
+
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Your Address "
+        android:textStyle="bold"
+        android:layout_margin="@dimen/_5sdp">
+
+    </TextView>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rc_address"
         android:layout_width="match_parent"
@@ -49,16 +204,21 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
-    <TextView
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/tvamount"
-        android:layout_width="wrap_content"
+    <Button
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:id="@+id/addAddressbutton"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="100"
-        android:fontFamily="@font/poppins_bold"
-        android:textSize="@dimen/_20sdp">
+        android:background="@color/black"
+        android:text="Add Address"
+        android:textColor="@color/white">
 
-    </TextView>
+    </Button>
+
+
     <Button
         android:layout_margin="@dimen/_10sdp"
         android:id="@+id/paybutton"
@@ -69,6 +229,7 @@
         android:textColor="@color/white">
 
     </Button>
+
 
 
 </LinearLayout>

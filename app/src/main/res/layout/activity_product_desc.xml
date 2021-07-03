@@ -184,7 +184,7 @@
                         android:layout_height="match_parent"
                         android:background="#E8E6E6"
                         android:fontFamily="@font/poppins_medium"
-                        android:text="Buy Now"
+                        android:text="My Cart"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_15ssp" />
                 </androidx.cardview.widget.CardView>

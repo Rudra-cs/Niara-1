@@ -252,6 +252,7 @@ public class MyCartFragment extends Fragment {
                 if (Integer.valueOf(tvTotal.getText().toString())>70){
                     Intent intent = new Intent(getContext(), PaymentActivity.class);
                     intent.putExtra("amount",tvTotal.getText().toString());
+                    intent.putExtra("subtotalamount",tvSubtotal.getText().toString());
                     startActivity(intent);
                 }
             }

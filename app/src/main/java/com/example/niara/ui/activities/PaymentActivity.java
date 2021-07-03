@@ -48,7 +48,8 @@ import retrofit2.Response;
 public class PaymentActivity extends AppCompatActivity implements PaymentResultWithDataListener,CustomerInfoAdapter.ItemClickListener {
     NetworkChangeListener networkChangeListener=new NetworkChangeListener();
     private int userCart;
-    private TextView tvAmount;
+    private TextView tvAmount,tv_subtotal;
+    private Button addAddress;
 
     private CustomerInfoViewModel customerInfoViewModel;
     private CustomerInfoRepository customerInfoRepository;
@@ -71,7 +72,9 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
 
         Intent intent = getIntent();
         tvAmount=findViewById(R.id.tvamount);
+        tv_subtotal=findViewById(R.id.tv_subTotal);
         tvAmount.setText(intent.getStringExtra("amount"));
+        tv_subtotal.setText(intent.getStringExtra("subtotalamount"));
 
 
 
@@ -80,17 +83,18 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
         recyclerView=findViewById(R.id.rc_address);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(),RecyclerView.HORIZONTAL, false));
 
-        customerInfolist=new ArrayList<>();
-        cartInfoArrayList=new ArrayList<>();
+
 
         loadAddress();
+
+        customerInfolist=new ArrayList<>();
+        cartInfoArrayList=new ArrayList<>();
 
         customerInfoRepository=new CustomerInfoRepository(getApplication());
         customerInfoViewModel=new ViewModelProvider(this).get(CustomerInfoViewModel.class);
         customerInfoViewModel.getAllCustomerInfo().observe(this, new Observer<List<Address>>() {
             @Override
             public void onChanged(List<Address> addressArrayList) {
-                Log.d("customer123", String.valueOf(customerInfolist));
                 recyclerView.setAdapter(new CustomerInfoAdapter(PaymentActivity.this,customerInfolist,PaymentActivity.this::onItemClick));
             }
         });
@@ -102,8 +106,15 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
         paybutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 startPayment(String.valueOf(amount));
+            }
+        });
+
+        addAddress=findViewById(R.id.addAddressbutton);
+        addAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(PaymentActivity.this, CreateCusstomerInfoActivity.class));
             }
         });
     }
@@ -115,17 +126,11 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
             @Override
             public void onResponse(Call<List<Address>> call, Response<List<Address>> response) {
                 if (response.isSuccessful()){
-                    Toast.makeText(PaymentActivity.this,"address success",Toast.LENGTH_SHORT).show();
                     SessionManager sessionManager=new SessionManager(PaymentActivity.this);
                     int userid=sessionManager.getUserid();
-                    Log.d("userid",String.valueOf(userid));
-
-//                    customerInfolist=new ArrayList<>();
                     for (i=0;i<response.body().size();i++){
-//                        Log.d("responsesingle", String.valueOf((response.body()).get(i).getUser()));
                         if (String.valueOf(userid)==String.valueOf((response.body()).get(i).getUser())){
                             customerInfolist.add(response.body().get(i));
-//                            Log.d("booleanresponse", "true");
 //
                             Log.d("addresslistsingle", String.valueOf(customerInfolist));
                         }else{
@@ -210,9 +215,9 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
 
     @Override
     public void onPaymentSuccess(String s, PaymentData paymentData) {
-        Log.d("stringresponse", String.valueOf(paymentData.getOrderId()));
-        Log.d("stringresponse1", String.valueOf(paymentData.getPaymentId()));
-        Log.d("stringresponse3", String.valueOf(paymentData.getSignature()));
+//        Log.d("stringresponse", String.valueOf(paymentData.getOrderId()));
+//        Log.d("stringresponse1", String.valueOf(paymentData.getPaymentId()));
+//        Log.d("stringresponse3", String.valueOf(paymentData.getSignature()));
         SessionManager sessionManager = new SessionManager(getApplicationContext());
         userCart = sessionManager.getUserid();
         Toast.makeText(PaymentActivity.this,"Payment Successful",Toast.LENGTH_SHORT).show();
@@ -229,10 +234,7 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
 
                         }
                     }
-                    Log.d("cartinfoarraylist1", String.valueOf(cartInfoArrayList));
-                    Log.d("swaugat123", String.valueOf(CustomerID));
                     for (int j=0;j<cartInfoArrayList.size();j++){
-                        Log.d("cartinfoarraylist2", String.valueOf(cartInfoArrayList));
                         CreateOrderInfo createOrderInfo=new CreateOrderInfo();
                         createOrderInfo.setUser(userCart);
                         createOrderInfo.setCustomer(CustomerID);
@@ -244,20 +246,17 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
 
                         CreateOrder(createOrderInfo);
                         int k=cartInfoArrayList.get(j).getCartId();
-                        Log.d("valueofk",String.valueOf(k));
                         DeleteCart(cartInfoArrayList.get(j).getCartId());
 
 
                     }
 
                 } else {
-                    Log.e("CartDetails", "Network Error or Callback Error");
+                    Toast.makeText(PaymentActivity.this,"Something went wrong",Toast.LENGTH_SHORT).show();
                 }
-                Log.d("cartinfoarraylist3", String.valueOf(cartInfoArrayList));
             }
             @Override
             public void onFailure(Call<ArrayList<CartInfo>> call, Throwable t) {
-                Log.e("CartDetails", "Something Went Wrong: " + t.toString());
             }
         });
 

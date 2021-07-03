@@ -50,13 +50,14 @@ import retrofit2.Response;
  */
 public class OrderFragment extends Fragment {
     ArrayList<JSONObject> orderlistdisplay;
+    ArrayList<JSONObject> infosofOrder;
     ArrayList<OrderInfo> orderInfolist;
 
     SwipeRefreshLayout swipeRefreshLayout;
 
     private RecyclerView rcorders;
     private int i,j;
-    private int userid=7;
+    private int userid;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -118,42 +119,60 @@ public class OrderFragment extends Fragment {
         progressDialog.setMessage("Getting your Order details");
         progressDialog.show();
 
-//        SessionManager sessionManager=new SessionManager(getContext());
-//        userid=sessionManager.getUserid();
+        SessionManager sessionManager=new SessionManager(getContext());
+        userid=sessionManager.getUserid();
 
         orderInfolist=new ArrayList<>();
+        infosofOrder=new ArrayList<>();
         ApiInterface apiInterface1 = ApiClient.getClient().create(ApiInterface.class);
         Call<ArrayList<OrderInfo>> orderinforesponse = apiInterface1.getOrderinfo();
         orderinforesponse.enqueue(new Callback<ArrayList<OrderInfo>>() {
             @Override
             public void onResponse(Call<ArrayList<OrderInfo>> call, Response<ArrayList<OrderInfo>> response) {
-                if (response.isSuccessful()){
-
+                if (response.isSuccessful() && response.body()!=null){
 
                     for (i=0;i<response.body().size();i++){
+                        JSONObject ob=new JSONObject();
                         Log.d("iddeb", String.valueOf(userid));
-                        Log.d("orerinfo", String.valueOf(orderInfolist));
                         Log.d("orderinfolistswag", String.valueOf((response.body().get(i).getUser())));
                         if (String.valueOf(userid)==String.valueOf((response.body()).get(i).getUser())){
-                            Log.d("some", String.valueOf(response.body().get(i).getProduct()));
-                            orderInfolist.add(response.body().get(i));
-                            Log.d("orderlistid", String.valueOf(orderInfolist.get(i).getProduct()));
+
+                            try {
+                                ob.put("status",response.body().get(i).getStatus());
+                                ob.put("quantity",response.body().get(i).getQuantity());
+                                ob.put("ordered_date",response.body().get(i).getOrdered_date());
+                                ob.put("product",response.body().get(i).getProduct());
+                                infosofOrder.add(ob);
+                                Log.d("heroswag", String.valueOf(ob));
+                                Log.d("some", String.valueOf(infosofOrder));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+//
+//                            orderInfolist.add(response.body().get(i));
+//                            Log.d("orderlistid", String.valueOf(orderInfolist.get(i).getProduct()));
 //                            idp=orderInfolist.get(i).getProduct();
                         }
+                        Log.d("something", String.valueOf(infosofOrder));
 
                     }
-                    Log.d("orderlistid", String.valueOf(orderInfolist));
+                    Log.d("orderlistid", String.valueOf(infosofOrder));
                     orderlistdisplay=new ArrayList<>();
-                    for (j=0;j<orderInfolist.size();j++){
+                    for (j=0;j<infosofOrder.size();j++){
                         JSONObject ob=new JSONObject();
                         try {
-                            ob.put("status",orderInfolist.get(j).getStatus());
-                            ob.put("quantity",orderInfolist.get(j).getQuantity());
-                            ob.put("ordered_date",orderInfolist.get(j).getOrdered_date());
+                            ob.put("status",infosofOrder.get(j).get("status"));
+                            ob.put("quantity",infosofOrder.get(j).get("quantity"));
+                            ob.put("ordered_date",infosofOrder.get(j).get("ordered_date"));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        int idp=orderInfolist.get(j).getProduct();
+                        int idp= 0;
+                        try {
+                            idp = (int) infosofOrder.get(j).get("product");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
                         Call<Food> foodCall=apiInterface.getProductList(idp);
                         foodCall.enqueue(new Callback<Food>() {
@@ -170,7 +189,7 @@ public class OrderFragment extends Fragment {
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
-                                    if (orderlistdisplay.size()==orderInfolist.size()){
+                                    if (orderlistdisplay.size()==infosofOrder.size()){
                                         Log.d("listdisplay", String.valueOf(orderlistdisplay));
                                         displayOrderListInRecyclerView(orderlistdisplay);
                                     }

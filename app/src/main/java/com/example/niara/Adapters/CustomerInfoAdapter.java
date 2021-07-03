@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +25,7 @@ public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapte
     private List<Address> customerinfolist;
     private ItemClickListener clickListener;
 
+    private int selectedPostion;
 
     public CustomerInfoAdapter(Context context, List<Address> customerinfolist,ItemClickListener clickListener) {
         this.context = context;
@@ -31,8 +33,6 @@ public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapte
         this.clickListener=clickListener;
 
     }
-
-
 
     @NonNull
     @NotNull
@@ -44,17 +44,17 @@ public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapte
     @Override
     public void onBindViewHolder(@NonNull @NotNull CustomerInfoAdapter.CustomerInfoViewHodler holder, int position) {
         Address address=customerinfolist.get(position);
-        holder.name.setText("Name: "+address.getName());
-        holder.locality.setText("locality: "+address.getLocality());
-        holder.city.setText("city: "+address.getCity());
-        holder.zipcode.setText("zipcode: "+address.getZipcode());
-        holder.mobile.setText("mobile: "+address.getMobile());
-        holder.state.setText("state: "+address.getState());
+        holder.name.setText(address.getName());
+        holder.locality.setText(address.getLocality());
+        holder.city.setText(address.getCity());
+        holder.zipcode.setText(address.getZipcode());
+        holder.mobile.setText(address.getMobile());
+        holder.state.setText(address.getState());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 clickListener.onItemClick(customerinfolist.get(position));
-                Log.d("customer123", String.valueOf(customerinfolist));
+                Toast.makeText(v.getContext(), "Address selected :"+customerinfolist.get(position).getLocality(),Toast.LENGTH_SHORT).show();
             }
         });
 

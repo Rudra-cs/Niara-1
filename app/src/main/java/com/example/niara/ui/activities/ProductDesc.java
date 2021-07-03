@@ -20,6 +20,7 @@ import com.example.niara.Api.ApiClient;
 import com.example.niara.Api.ApiInterface;
 import com.example.niara.Model.Cart;
 import com.example.niara.R;
+import com.example.niara.ui.fragments.MyCartFragment;
 import com.example.niara.utils.NetworkChangeListener;
 import com.example.niara.utils.SessionManager;
 
@@ -187,7 +188,6 @@ public class ProductDesc extends AppCompatActivity {
         btnBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ProductDesc.this, "Added to Checkout", Toast.LENGTH_SHORT).show();
             }
         });
 
