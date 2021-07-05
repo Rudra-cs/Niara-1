@@ -84,9 +84,9 @@
                     android:layout_below="@+id/tv_food_order_status"
                     android:layout_marginEnd="@dimen/_4sdp"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_11ssp"
+                    android:textSize="@dimen/_10ssp"
                     android:maxLines="1"
-                    android:maxLength="16"
+                    android:maxLength="10"
                     android:ellipsize="end"
                     />
 

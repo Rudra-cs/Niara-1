@@ -1,6 +1,7 @@
 package com.example.niara.Adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,24 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     private Context context;
     private ArrayList<JSONObject> cartInfo;
 
+    public void refreshlist(JSONObject jsonObject){
+        if (cartInfo!=null && cartInfo.size()>0){
+            for (JSONObject ob:cartInfo){
+                if (ob.optInt("id")==jsonObject.optInt("id")){
+                    try{
+//                        ob.getInt("quantity")=jsonObject.getInt("quantity");
+                        cartInfo.remove(ob);
+                        cartInfo.add(jsonObject);
+                        notifyDataSetChanged();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+        }
+    }
+
     public CartAdapter(Context context, ArrayList<JSONObject> cartInfo) {
         this.context = context;
         this.cartInfo = cartInfo;
@@ -51,6 +70,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         JSONObject data = cartInfo.get(position);
 
         try {
+            Log.i("orderid "+ data.get("id"),"position "+position );
             holder.mTvCartFoodQuantity.setText(String.valueOf(data.get("quantity")));
             holder.mTvCartFoodTitle.setText(String.valueOf(data.get("title")));
             holder.mTvCartFoodPrice.setText(String.valueOf((Integer) data.get("discounted_price")* (Integer) data.get("quantity")));
@@ -130,9 +150,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             }
         });
 
+
         holder.mBtnRemove.setOnClickListener(v -> {
             ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
             try {
+                Log.d("orderid", String.valueOf(data.get("id")));
                 Call<Void> removeCartItems = apiInterface.deleteCartItems((Integer) data.get("id"));
                 Toast.makeText(v.getContext(), String.valueOf(data.get("id")),Toast.LENGTH_SHORT).show();
                 removeCartItems.enqueue(new Callback<Void>() {

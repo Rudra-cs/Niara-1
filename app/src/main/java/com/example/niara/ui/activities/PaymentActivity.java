@@ -116,6 +116,7 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
             public void onClick(View view) {
                 startActivity(new Intent(PaymentActivity.this, CreateCusstomerInfoActivity.class));
             }
+
         });
     }
 
@@ -125,23 +126,19 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
         address.enqueue(new Callback<List<Address>>() {
             @Override
             public void onResponse(Call<List<Address>> call, Response<List<Address>> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful() && response.body()!=null){
                     SessionManager sessionManager=new SessionManager(PaymentActivity.this);
                     int userid=sessionManager.getUserid();
                     for (i=0;i<response.body().size();i++){
                         if (String.valueOf(userid)==String.valueOf((response.body()).get(i).getUser())){
                             customerInfolist.add(response.body().get(i));
-//
-                            Log.d("addresslistsingle", String.valueOf(customerInfolist));
                         }else{
-                            Log.d("booleanresponse", "false");
                         }
                     }
-                    Log.d("addresslist", String.valueOf(customerInfolist));
                     customerInfoRepository.insert(customerInfolist);
 
                 }else{
-                    Toast.makeText(PaymentActivity.this,"address error",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PaymentActivity.this,"address not found",Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -248,7 +245,6 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
                         int k=cartInfoArrayList.get(j).getCartId();
                         DeleteCart(cartInfoArrayList.get(j).getCartId());
 
-
                     }
 
                 } else {
@@ -282,7 +278,6 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
     }
 
     private void CreateOrder(CreateOrderInfo createOrderInfo) {
-        Log.d("createorder123", String.valueOf(createOrderInfo.getUser()));
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         Call<CreateOrderInfo> createOrderInfoCall=apiInterface.sendOrder(createOrderInfo);
         createOrderInfoCall.enqueue(new Callback<CreateOrderInfo>() {
@@ -290,9 +285,7 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
             @Override
             public void onResponse(Call<CreateOrderInfo> call, Response<CreateOrderInfo> response) {
                 if (response.isSuccessful()){
-//                    Log.d("createordersuccess","Successfully");
                 }else{
-//                    Log.d("createordersuccess","failed");
                 }
 
             }
@@ -306,7 +299,7 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
 
     @Override
     public void onPaymentError(int i, String s, PaymentData paymentData) {
-
+        Toast.makeText(PaymentActivity.this,"Payment Unsuccesfull",Toast.LENGTH_SHORT).show();
     }
 
 

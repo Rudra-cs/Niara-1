@@ -77,7 +77,7 @@ public class ProductDesc extends AppCompatActivity {
 
         Intent intent = getIntent();
         tvTitle.setText(intent.getStringExtra("title"));
-        tvPrice.setText(intent.getStringExtra("price"));
+        tvPrice.setText(intent.getStringExtra("discountedprice"));
         tvDesc.setText(intent.getStringExtra("desc"));
         tvHeadTitle.setText(intent.getStringExtra("title"));
         tvQuantity.setText(String.valueOf(1));
@@ -99,7 +99,7 @@ public class ProductDesc extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    String p = intent.getStringExtra("price");
+                    String p = intent.getStringExtra("discountedpriceprice");
                     int price = Integer.valueOf(p);
                     String q = tvQuantity.getText().toString();
                     int quantity = Integer.valueOf(q);
@@ -121,7 +121,7 @@ public class ProductDesc extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    String p = intent.getStringExtra("price");
+                    String p = intent.getStringExtra("discountedpriceprice");
                     int price = Integer.valueOf(p);
                     String q = tvQuantity.getText().toString();
                     int quantity = Integer.valueOf(q);

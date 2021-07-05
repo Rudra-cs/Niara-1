@@ -99,7 +99,7 @@ public class RegistrationActivity extends AppCompatActivity {
             password.setError("Field can not be empty");
             return false;
         } else if (!val.matches(checkPassword)) {
-            password.setError("Password should contain 4 characters!");
+            password.setError("Password should contain at least 4 characters,at least 1 lower case letter,at least 1upper case letter,at least 1 special character!");
             return false;
         } else {
             password.setError(null);
@@ -114,12 +114,13 @@ public class RegistrationActivity extends AppCompatActivity {
 
     }
 
-
-
     public void registerUser1(View view) {
-        UserRequest userRequest1=createUserRequest();
-        registerUser(userRequest1);
+        if ( validateUsername() && validateEmail() && validatePassword()){
+            UserRequest userRequest1=createUserRequest();
+            registerUser(userRequest1);
+            Toast.makeText(RegistrationActivity.this,"Please Wait for a moment while we are registering you",Toast.LENGTH_LONG).show();
 
+        }
     }
 
 
@@ -130,6 +131,7 @@ public class RegistrationActivity extends AppCompatActivity {
         userRequest.setPassword(password.getText().toString().trim());
         return userRequest;
     }
+
     public void gotohome() {
         SharedPreferences sharedPreferences=getSharedPreferences(LoginActivity.PREFS_NAME,0);
         SharedPreferences.Editor editor=sharedPreferences.edit();
@@ -147,7 +149,6 @@ public class RegistrationActivity extends AppCompatActivity {
                 response.body();
                 if ((response.isSuccessful())){
                     token=response.body().getToken();
-                    Log.d("userdetails", String.valueOf(response.body().getUser()));
                     id=response.body().getUser().getId();
                     if(token!=null){
                         Button btn = (Button)findViewById(R.id.register_button);
@@ -159,13 +160,13 @@ public class RegistrationActivity extends AppCompatActivity {
                         Toast.makeText(RegistrationActivity.this,"Invalid Credentials",Toast.LENGTH_SHORT).show();
                     }
                 }else{
-                    Toast.makeText(RegistrationActivity.this,"Request Failed",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistrationActivity.this,"Error Occured,Please Try Again",Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<UserResponse> call, Throwable t) {
-                Toast.makeText(RegistrationActivity.this,"Error Occured"+t.getLocalizedMessage(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegistrationActivity.this,"Error Occured While Registering,Please Try Again",Toast.LENGTH_SHORT).show();
             }
         });
     }

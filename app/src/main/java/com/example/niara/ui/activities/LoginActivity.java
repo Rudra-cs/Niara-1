@@ -2,6 +2,7 @@ package com.example.niara.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -54,7 +55,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void gotohome() {
-
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
         finish();
     }
@@ -62,14 +62,50 @@ public class LoginActivity extends AppCompatActivity {
     public void movetosignup(View view) {
         Intent intent=new Intent(LoginActivity.this, RegistrationActivity.class);
         startActivity(intent);
+    }
 
+    private boolean validateUsername() {
+        String val = namelogin.getText().toString().trim();
+        String checkspaces = "Aw{1,20}z";
+
+        if (val.isEmpty()) {
+            namelogin.setError("Field can not be empty");
+            return false;
+        }else {
+            namelogin.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validatePassword() {
+        String val = passwordlogin.getText().toString().trim();
+        String checkPassword = "^" +
+                "(?=.*[0-9])" +         //at least 1 digit
+                "(?=.*[a-z])" +         //at least 1 lower case letter
+                "(?=.*[A-Z])" +         //at least 1 upper case letter
+                "(?=.*[a-zA-Z])" +      //any letter
+                "(?=.*[@#$%^&+=])" +    //at least 1 special character
+                "(?=S+$)" +           //no white spaces
+                ".{6,}" +               //at least 4 characters
+                "$";
+
+        if (val.isEmpty()) {
+            passwordlogin.setError("Field can not be empty");
+            return false;
+        } else {
+            passwordlogin.setError(null);
+            return true;
+        }
     }
 
     public void loginclicked(View view) {
-        LoginRequest loginRequest=creatLoginRequest();
-        loginUsertohome(loginRequest);
-    }
+        if (validateUsername() && validatePassword()){
+            Toast.makeText(LoginActivity.this,"Please wait for a moment while logging you in",Toast.LENGTH_LONG).show();
+            LoginRequest loginRequest=creatLoginRequest();
+            loginUsertohome(loginRequest);
+        }
 
+    }
 
     public LoginRequest creatLoginRequest(){
         LoginRequest loginRequest=new LoginRequest();
@@ -77,7 +113,6 @@ public class LoginActivity extends AppCompatActivity {
         loginRequest.setPassword(passwordlogin.getText().toString());
         return loginRequest;
     }
-
 
     private void loginUsertohome(LoginRequest loginRequest){
 
@@ -93,24 +128,23 @@ public class LoginActivity extends AppCompatActivity {
                         getuseridaftertoken();
                         Button btn = (Button)findViewById(R.id.login_button);
                         btn.setEnabled(false);
-
-
                     }else{
                         Toast.makeText(LoginActivity.this,"Invalid Credentials",Toast.LENGTH_SHORT).show();
                     }
                 }else{
-                    Toast.makeText(LoginActivity.this,"Invalid Credentials",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this,"Login error occured,try again",Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<LoginToken> call, Throwable t) {
-                Toast.makeText(LoginActivity.this,"User login error"+t.getLocalizedMessage(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this,"Login error occured,try again",Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void getuseridaftertoken() {
+
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         Call<ArrayList<UserInfo>> userinfo = apiInterface.getuserdetails();
         userinfo.enqueue(new Callback<ArrayList<UserInfo>>() {
@@ -119,25 +153,15 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.isSuccessful()){
                     userInfoArrayList=response.body();
                     for (i=0;i<userInfoArrayList.size();i++){
-
-//                        Log.d("userinfoarray",userInfoArrayList.get(i).getUsername());
-//                        Log.d("namelogin",namelogin.getText().toString());
-//                        Log.d("idrudra", String.valueOf(userInfoArrayList.get(i).getId()));
-
-
                         rudra=namelogin.getText().toString().trim();
                         rudrausername=userInfoArrayList.get(i).getUsername();
 
                         Boolean b=rudra.equals(rudrausername);
-//                        Log.d("booleanB",b.toString()+rudra+rudrausername);
-
 
                         if (b!=false){
                             id=userInfoArrayList.get(i).getId();
-                            Log.d("useridrudra", String.valueOf(id));
                             SessionManager sessionManager=new SessionManager(LoginActivity.this);
                             sessionManager.createloginsession(token,namelogin.getText().toString(),id);
-                            Toast.makeText(LoginActivity.this, "user id:"+id, Toast.LENGTH_SHORT).show();
                             gotohome();
                         }
 
@@ -160,7 +184,6 @@ public class LoginActivity extends AppCompatActivity {
 
     public void movetofeedback(View view) {
         startActivity(new Intent(LoginActivity.this, CustomerFeedback.class));
-
     }
 
     @Override

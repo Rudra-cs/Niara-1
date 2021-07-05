@@ -41,8 +41,8 @@ public class MyCartFragment extends Fragment {
 
     public RecyclerView rcFoodCart;
     public static ArrayList<JSONObject> userCartDetailsList;
-    public  static ArrayList<JSONObject> productList;
-    public  static ArrayList<JSONObject> cartProducts;
+    public static ArrayList<JSONObject> productList;
+    public static ArrayList<JSONObject> cartProducts;
     public int userCart;
     public TextView tvSubtotal;
     public TextView tvTotal;
@@ -128,8 +128,8 @@ public class MyCartFragment extends Fragment {
                             }
                         }
                     }
-                    getProduct(userCartDetailsList,tvTotal,tvSubtotal,btnCheckout);
-                    progressDialog.hide();
+                    getProduct(userCartDetailsList,tvTotal,tvSubtotal,btnCheckout,progressDialog);
+//                    progressDialog.hide();
                 } else {
                     Log.e("CartDetails", "Network Error or Callback Error");
                 }
@@ -144,7 +144,7 @@ public class MyCartFragment extends Fragment {
 
     }
 
-    private void getProduct(ArrayList<JSONObject> userCartDetailsList, TextView tvTotal, TextView tvSubtotal, Button btnCheckout)  {
+    private void getProduct(ArrayList<JSONObject> userCartDetailsList, TextView tvTotal, TextView tvSubtotal, Button btnCheckout, ProgressDialog progressDialog)  {
         if (userCartDetailsList.size()!=0){
             ApiInterface apiInterfaceCart = ApiClient.getClient().create(ApiInterface.class);
             productList =  new ArrayList<>();
@@ -157,8 +157,8 @@ public class MyCartFragment extends Fragment {
                         @Override
                         public void onResponse(Call<Food> call, Response<Food> response) {
                             if(response.isSuccessful()){
+                                progressDialog.hide();
                                 assert response.body() != null;
-//                                Log.d("CartItems", "Response:"+response.body().getTitle());
                                 JSONObject object = new JSONObject();
                                 try {
                                     object.put("id", response.body().getId());
@@ -181,13 +181,11 @@ public class MyCartFragment extends Fragment {
                                     loadRecView(userCartDetailsList,productList,tvTotal,tvSubtotal,btnCheckout);
                                 }
                             }else{
-                                Log.e("CartDetails","Network Error Response");
                             }
                         }
 
                         @Override
                         public void onFailure(Call<Food> call, Throwable t) {
-                            Log.e("CartDetails","Network Error or Callback Error For Product"+t.toString());
                         }
                     });
                 } catch (JSONException e) {
@@ -202,8 +200,6 @@ public class MyCartFragment extends Fragment {
     }
 
     private void loadRecView(ArrayList<JSONObject> userCartDetailsList, ArrayList<JSONObject> productList, TextView tvTotal, TextView tvSubtotal, Button btnCheckout) {
-//        Log.d("CartList", "Response:" + userCartDetailsList.size() + " and " + productList.size());
-//        Log.d("CartList", "Response:" + userCartDetailsList.toString() + " and " + productList.toString());
         cartProducts = new ArrayList<>();
         int subTotalPrice = 0,subTotal = 0;
 
@@ -237,8 +233,6 @@ public class MyCartFragment extends Fragment {
             }
             subTotal = subTotal + subTotalPrice;
         }
-//        Log.d("CartListLong", "Response:" + subTotal);
-//        Price
         tvSubtotal.setText(String.valueOf(subTotal));
         tvTotal.setText(String.valueOf(subTotal+70));
 

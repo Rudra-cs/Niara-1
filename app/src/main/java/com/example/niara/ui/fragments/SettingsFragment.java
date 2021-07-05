@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ public class SettingsFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private CustomerInfoDao customerInfoDao;
+    public LinearLayout logoutsection,changepasswordsection,addresssection,feedbacksection;
 
     private String mParam1;
     private String mParam2;
@@ -60,38 +62,13 @@ public class SettingsFragment extends Fragment {
         feedback=view.findViewById(R.id.tv_feedback);
         addAddress=view.findViewById(R.id.tv_Addresses);
         usernameSettings=view.findViewById(R.id.tv_username_settings);
+        logoutsection=view.findViewById(R.id.logout_section);
+        changepasswordsection=view.findViewById(R.id.password_section);
+        addresssection=view.findViewById(R.id.myaddresses);
+        feedbacksection=view.findViewById(R.id.feedback_section);
 
-        SessionManager sessionManager=new SessionManager(getContext());
-        String username=sessionManager.getUsername();
-        int userid=sessionManager.getUserid();
-        usernameSettings.setText(username);
-        TextView id=view.findViewById(R.id.tv_userid_settings);
-        id.setText(String.valueOf(userid));
 
-        addAddress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getContext(), CreateCusstomerInfoActivity.class));
-            }
-        });
-
-        feedback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getContext(), CustomerFeedback.class));
-            }
-        });
-
-        changepasswordtv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getContext(),"Login in to the site and then change your password",Toast.LENGTH_LONG).show();
-                startActivity(new Intent(getContext(), ChangePasswordActivity.class));
-            }
-        });
-
-        TextView tvlogout=view.findViewById(R.id.tv_logout);
-        tvlogout.setOnClickListener(new View.OnClickListener() {
+        logoutsection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new AlertDialog.Builder(getContext()).setTitle("Alert")
@@ -114,6 +91,30 @@ public class SettingsFragment extends Fragment {
             }
         });
 
+        changepasswordsection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(),"Login in to the site and then change your password",Toast.LENGTH_LONG).show();
+                startActivity(new Intent(getContext(), ChangePasswordActivity.class));
+            }
+        });
+
+        feedbacksection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), CustomerFeedback.class));
+            }
+        });
+
+        addresssection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), CreateCusstomerInfoActivity.class));
+            }
+        });
+        SessionManager sessionManager=new SessionManager(getContext());
+        String username=sessionManager.getUsername();
+        usernameSettings.setText(username);
 
         return view;
     }
