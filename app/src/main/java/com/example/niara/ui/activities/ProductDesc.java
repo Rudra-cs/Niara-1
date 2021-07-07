@@ -1,8 +1,11 @@
 package com.example.niara.ui.activities;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -67,8 +70,8 @@ public class ProductDesc extends AppCompatActivity {
         tvQuantity = findViewById(R.id.tv_pdt_quantity);
         tvHeadTitle = findViewById(R.id.tv_head_title);
 
-        btnPlus = findViewById(R.id.btn_add);
-        btnMinus = findViewById(R.id.btn_minus);
+        btnPlus = findViewById(R.id.btn_add1);
+        btnMinus = findViewById(R.id.btn_minus1);
         btnAddToCart = findViewById(R.id.btn_add_to_cart);
         btnBuy = findViewById(R.id.btn_buy_now);
 
@@ -83,13 +86,10 @@ public class ProductDesc extends AppCompatActivity {
         tvQuantity.setText(String.valueOf(1));
         tvProdId = (intent.getIntExtra("id",1));
 
-//       Toast.makeText(this,tvQuantity.getText().toString(),Toast.LENGTH_SHORT).show();
-//        Log.d("HEllo", tvQuantity.getText().toString()+ tvProdId);
 
         String imageUrl = intent.getStringExtra("image");
         Glide.with(this).load(imageUrl).into(ivImage);
 
-//        Shared Preference
         SharedPreferences preferences = getSharedPreferences("userLoginSessions", Context.MODE_PRIVATE);
         token = preferences.getString("TOKEN",KEY_TOKEN);
         SessionManager sessionManager = new SessionManager(getApplicationContext());
@@ -99,7 +99,7 @@ public class ProductDesc extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    String p = intent.getStringExtra("discountedpriceprice");
+                    String p = intent.getStringExtra("discountedprice");
                     int price = Integer.valueOf(p);
                     String q = tvQuantity.getText().toString();
                     int quantity = Integer.valueOf(q);
@@ -121,7 +121,7 @@ public class ProductDesc extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    String p = intent.getStringExtra("discountedpriceprice");
+                    String p = intent.getStringExtra("discountedprice");
                     int price = Integer.valueOf(p);
                     String q = tvQuantity.getText().toString();
                     int quantity = Integer.valueOf(q);
@@ -139,6 +139,7 @@ public class ProductDesc extends AppCompatActivity {
             }
         });
 
+
 //        BAck Button
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,12 +153,10 @@ public class ProductDesc extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-//                    Cart Model
                     Cart cartDetails = new Cart();
                     cartDetails.setUser(user);
                     cartDetails.setQuantity(Integer.valueOf(tvQuantity.getText().toString()));
                     cartDetails.setProduct(Integer.valueOf(tvProdId));
-//                    Log.d("Details","User :"+ user + " quantity : " + tvQuantity.getText().toString() + " PRODID: " + tvProdId);
                     ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
                     Call<Cart> pushToCart = apiInterface.sendCartFoodDetails(token,cartDetails);
                     pushToCart.enqueue(new Callback<Cart>() {
@@ -165,6 +164,7 @@ public class ProductDesc extends AppCompatActivity {
                         public void onResponse(Call<Cart> call, Response<Cart> response) {
                             if (response.isSuccessful()){
                                 Toast.makeText(ProductDesc.this, "Added to Cart", Toast.LENGTH_SHORT).show();
+
                             }else{
                                 Toast.makeText(ProductDesc.this, "Some Problem Occurred.", Toast.LENGTH_SHORT).show();
                             }
@@ -188,6 +188,41 @@ public class ProductDesc extends AppCompatActivity {
         btnBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                try {
+                    Cart cartDetails = new Cart();
+                    cartDetails.setUser(user);
+                    cartDetails.setQuantity(Integer.valueOf(tvQuantity.getText().toString()));
+                    cartDetails.setProduct(Integer.valueOf(tvProdId));
+                    ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+                    Call<Cart> pushToCart = apiInterface.sendCartFoodDetails(token,cartDetails);
+                    pushToCart.enqueue(new Callback<Cart>() {
+                        @Override
+                        public void onResponse(Call<Cart> call, Response<Cart> response) {
+                            if (response.isSuccessful()){
+                                Toast.makeText(ProductDesc.this, "Added to Cart,Proceeding to buy", Toast.LENGTH_SHORT).show();
+
+                            }else{
+                                Toast.makeText(ProductDesc.this, "Some Problem Occurred.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Cart> call, Throwable t) {
+                            Toast.makeText(ProductDesc.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+
+                }catch (Exception err){
+                    Toast.makeText(ProductDesc.this, "Error: "+err, Toast.LENGTH_SHORT).show();
+                }
+                Intent intent = new Intent(ProductDesc.this, MainActivity.class);
+                intent.putExtra("value", "true");
+                setResult(Activity.RESULT_OK, intent);
+                startActivityForResult(intent,101);
+                finish();
+
+
             }
         });
 

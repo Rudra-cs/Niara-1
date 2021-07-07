@@ -23,7 +23,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activities.ProductDesc"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat"/>
         <activity
             android:name=".ui.activities.SplashActivity"
             android:screenOrientation="portrait">

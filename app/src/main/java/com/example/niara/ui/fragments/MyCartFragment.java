@@ -191,7 +191,6 @@ public class MyCartFragment extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
         }else {
             Toast.makeText(getContext(),"Cart is Empty",Toast.LENGTH_LONG).show();
@@ -209,7 +208,6 @@ public class MyCartFragment extends Fragment {
                 object2.put("id", userCartDetailsList.get(i).get("id"));
                 object2.put("user", userCartDetailsList.get(i).get("user"));
                 object2.put("quantity", userCartDetailsList.get(i).get("quantity"));
-
                 object2.put("productId", productList.get(i).get("id"));
                 object2.put("title", productList.get(i).get("title"));
                 object2.put("Product_quantity", productList.get(i).get("Product_quantity"));
@@ -219,10 +217,7 @@ public class MyCartFragment extends Fragment {
                 object2.put("brand", productList.get(i).get("brand"));
                 object2.put("category", productList.get(i).get("category"));
                 object2.put("product_image", productList.get(i).get("product_image"));
-
                 cartProducts.add(object2);
-                Log.d("CartList", "Response:" + cartProducts.toString());
-//                                    Log.d("CartList", "Response:" + productList.size()+response.body().getId());
             } catch (JSONException e) {
                 e.printStackTrace();
             }

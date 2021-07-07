@@ -298,6 +298,12 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        loadAddress();
+    }
+
+    @Override
     public void onPaymentError(int i, String s, PaymentData paymentData) {
         Toast.makeText(PaymentActivity.this,"Payment Unsuccesfull",Toast.LENGTH_SHORT).show();
     }

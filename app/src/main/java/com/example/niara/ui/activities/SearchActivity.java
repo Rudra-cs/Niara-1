@@ -103,14 +103,11 @@ public class SearchActivity extends AppCompatActivity {
 //                Toast.makeText(getContext(), "network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
 
                 if (t instanceof IOException) {
-//                    Toast.makeText(getContext(), "this is an actual network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getApplicationContext(), "Network Error. Please Retry :(", Toast.LENGTH_SHORT).show();
-                    // logging probably not necessary
+//                   Toast.makeText(getApplicationContext(), "Network Error. Please Retry :(", Toast.LENGTH_SHORT).show();
+
                 }
                 else {
-//                    Toast.makeText(getContext(), "conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
-                    // todo log to some central bug tracking service
-                    Log.e("Logs",t.toString());
+//
                 }
             }
         });
@@ -122,21 +119,11 @@ public class SearchActivity extends AppCompatActivity {
         intent.putExtra("title",food.getTitle());
         intent.putExtra("desc",food.getDescription());
         intent.putExtra("price",String.valueOf(food.getSelling_price()));
+        intent.putExtra("discountedprice",String.valueOf(food.getDiscounted_price()));
         intent.putExtra("image",food.getProduct_image());
+        intent.putExtra("id",food.getId());
         startActivity(intent);
 
     }
-    @Override
-    protected void onStart() {
-        IntentFilter filter1=new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-        registerReceiver(networkChangeListener,filter1);
-        super.onStart();
-    }
 
-
-    @Override
-    protected void onStop() {
-        unregisterReceiver(networkChangeListener);
-        super.onStop();
-    }
 }

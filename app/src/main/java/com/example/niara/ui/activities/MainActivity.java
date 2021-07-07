@@ -1,14 +1,18 @@
 package com.example.niara.ui.activities;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
@@ -24,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences.Editor editor;
     private DrawerLayout drawerLayout;
     MeowBottomNavigation meowBottomNavigation;
-
     NetworkChangeListener networkChangeListener=new NetworkChangeListener();
 
     @Override
@@ -36,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar.setTitle("");
 
-        //setSupportActionBar(toolbar);
         drawerLayout = findViewById(R.id.drawer_layout);
 
         meowBottomNavigation = findViewById(R.id.bottomNavigationView);
@@ -102,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
         });
         meowBottomNavigation.show(1, true);
 
+
     }
 
     private void loadfragment(Fragment fragment) {
@@ -109,6 +112,19 @@ public class MainActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.fragment_container, fragment)
                 .commit();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 101) {
+            Log.d("successful","success");
+            if (resultCode == Activity.RESULT_OK) {
+                Fragment fragment = null;
+                fragment = new MyCartFragment();
+                loadfragment(fragment);
+            }
+        }
     }
 
     @Override

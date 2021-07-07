@@ -70,7 +70,7 @@
             android:textSize="@dimen/_16ssp" />
 
         <Button
-            android:id="@+id/btn_add"
+            android:id="@+id/btn_add1"
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
             android:layout_below="@+id/cv_pdt_img"
@@ -88,7 +88,7 @@
             android:layout_marginStart="@dimen/_4sdp"
             android:layout_marginTop="@dimen/_16sdp"
             android:layout_marginEnd="@dimen/_4sdp"
-            android:layout_toLeftOf="@+id/btn_add"
+            android:layout_toLeftOf="@+id/btn_add1"
             android:fontFamily="@font/poppins_medium"
             android:text="2"
             android:padding="@dimen/_4sdp"
@@ -96,7 +96,7 @@
             android:textSize="@dimen/_14ssp" />
 
         <Button
-            android:id="@+id/btn_minus"
+            android:id="@+id/btn_minus1"
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
             android:layout_below="@+id/cv_pdt_img"
