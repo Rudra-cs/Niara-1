@@ -107,7 +107,9 @@ public class MainActivity extends AppCompatActivity {
 
         Bundle extras=getIntent().getExtras();
         if (extras!=null){
-            meowBottomNavigation.show(2,true);
+            Fragment fragment = null;
+            fragment = new MyCartFragment();
+            loadfragment(fragment);
         }else{
             meowBottomNavigation.show(1, true);
         }

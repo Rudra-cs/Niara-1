@@ -11,8 +11,13 @@ import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +25,7 @@ import com.example.niara.Adapters.CustomerInfoAdapter;
 import com.example.niara.Api.ApiClient;
 import com.example.niara.Api.ApiInterface;
 import com.example.niara.Model.CartInfo;
+import com.example.niara.Model.CreateCustomerInfo;
 import com.example.niara.Model.CreateOrderInfo;
 import com.example.niara.Model.CustomerInfo;
 import com.example.niara.R;
@@ -38,11 +44,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PaymentActivity extends AppCompatActivity implements PaymentResultWithDataListener,CustomerInfoAdapter.ItemClickListener {
+public class PaymentActivity extends AppCompatActivity implements PaymentResultWithDataListener,CustomerInfoAdapter.ItemClickListener, AdapterView.OnItemSelectedListener {
     NetworkChangeListener networkChangeListener=new NetworkChangeListener();
     private int userCart;
     private TextView tvAmount,tv_subtotal;
     private Button addAddress;
+    public Boolean addressSelected=false;
 
 
     private RecyclerView recyclerView;
@@ -52,20 +59,45 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
     private int i,j;
     private int CustomerID;
     public RelativeLayout noaddress;
+    public LinearLayout selectaddressLL;
+
+    Spinner spinner;
+    public String city;
+    private EditText fullname,mobile,zipcode,locality;
 
     private static final String TAG = MainActivity.class.getSimpleName();
     public Button paybutton;
-    TextView tvamount;
+    TextView tvamount,tvselectaddres;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
 
+        //for address form
+        selectaddressLL=findViewById(R.id.addressformLL);
+        fullname=findViewById(R.id.fullname_et_address);
+        mobile=findViewById(R.id.mobile);
+        zipcode=findViewById(R.id.zipcode);
+        locality=findViewById(R.id.et_locality_address);
+        EditText state=findViewById(R.id.state);
+
+        state.setEnabled(false);
+        state.setFocusable(false);
+        state.setFocusableInTouchMode(false);
+        String[] city = { "Bhubaneswar", "Cuttack"};
+        spinner= findViewById(R.id.planets_spinner_city);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, city);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
+
+        //for bill
         Intent intent = getIntent();
         tvAmount=findViewById(R.id.tvamount);
         tv_subtotal=findViewById(R.id.tv_subTotal);
         tvAmount.setText(intent.getStringExtra("amount"));
+        tvselectaddres=findViewById(R.id.selectAddress_tv);
         tv_subtotal.setText(intent.getStringExtra("subtotalamount"));
         noaddress=findViewById(R.id.nothingaddedinaddress);
 
@@ -76,32 +108,38 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
         customerInfolist=new ArrayList<>();
         cartInfoArrayList=new ArrayList<>();
 
+        //for address
         recyclerView=findViewById(R.id.rc_address);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(),RecyclerView.HORIZONTAL, false));
         loadAddress();
-
-
         Checkout.preload(getApplicationContext());
         paybutton=findViewById(R.id.paybutton);
         tvamount=findViewById(R.id.tvamount);
         paybutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startPayment(String.valueOf(amount));
+                if (addressSelected){
+                    startPayment(String.valueOf(amount));
+                }else{
+                    Toast.makeText(PaymentActivity.this,"Please Select a addres to continue",Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
-
         addAddress=findViewById(R.id.addAddressbutton);
         addAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(PaymentActivity.this, CreateCusstomerInfoActivity.class));
+                selectaddressLL.setVisibility(View.VISIBLE);
             }
 
         });
     }
 
     private void loadAddress() {
+        if(customerInfolist!=null){
+            customerInfolist.clear();
+        }
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         Call<List<CustomerInfo>> address = apiInterface.getAllCustomers();
         address.enqueue(new Callback<List<CustomerInfo>>() {
@@ -156,7 +194,6 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
          */
         try {
             JSONObject options = new JSONObject();
-
             options.put("name", "Niara");
             options.put("description", "Reference No. #123456");
             options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.png");
@@ -170,7 +207,6 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
             retryObj.put("enabled", true);
             retryObj.put("max_count", 4);
             options.put("retry", retryObj);
-
             checkout.open(activity, options);
 
         } catch(Exception e) {
@@ -211,7 +247,6 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
                     for (int i = 0; i < response.body().size(); i++) {
                         if (response.body().get(i).getUser() == userCart) {
                             cartInfoArrayList.add(response.body().get(i));
-
                         }
                     }
                     for (int j=0;j<cartInfoArrayList.size();j++){
@@ -223,11 +258,9 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
                         createOrderInfo.setRozorpay_paymentId(paymentData.getPaymentId());
                         createOrderInfo.setRozorpay_orderId("0000000000000");
                         createOrderInfo.setRozorpay_signature("11111111111");
-
                         CreateOrder(createOrderInfo);
                         int k=cartInfoArrayList.get(j).getCartId();
                         DeleteCart(cartInfoArrayList.get(j).getCartId());
-
                     }
 
                 } else {
@@ -245,16 +278,11 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         Call<Void> deleteCartItems=apiInterface.deleteCartItems(cartId);
         deleteCartItems.enqueue(new Callback<Void>() {
-
-
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-
             }
-
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-
             }
         });
 
@@ -270,9 +298,7 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
                 if (response.isSuccessful()){
                 }else{
                 }
-
             }
-
             @Override
             public void onFailure(Call<CreateOrderInfo> call, Throwable t) {
 
@@ -283,7 +309,7 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
     @Override
     protected void onResume() {
         super.onResume();
-        loadAddress();
+
     }
 
     @Override
@@ -295,5 +321,60 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
     @Override
     public void onItemClick(CustomerInfo address) {
         CustomerID=address.getId();
+        addressSelected=true;
+        tvselectaddres.setVisibility(View.GONE);
+
+    }
+
+    public void submitForm(View view) {
+        CreateCustomerInfo createCustomerInfo=new CreateCustomerInfo();
+        createCustomerInfo.setName(fullname.getText().toString().trim());
+        createCustomerInfo.setCity(city);
+        createCustomerInfo.setLocality(locality.getText().toString().trim());
+        createCustomerInfo.setMobile(mobile.getText().toString().trim());
+        createCustomerInfo.setState("Odisha");
+        createCustomerInfo.setZipcode(zipcode.getText().toString().trim());
+        SessionManager sessionManager=new SessionManager(getApplicationContext());
+        int user=sessionManager.getUserid();
+        createCustomerInfo.setUser(user);
+
+        sendAddress(createCustomerInfo);
+        Log.d("addressuserdetails", String.valueOf(createCustomerInfo.getCity()));
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        city = adapterView.getItemAtPosition(i).toString();
+        Toast.makeText(adapterView.getContext(), city, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
+    private void sendAddress(CreateCustomerInfo createCustomerInfo) {
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        Call<CreateCustomerInfo> createCustomerInfoCall=apiInterface.sendCustomerinfo(createCustomerInfo);
+        Log.d("Createinfo", String.valueOf(createCustomerInfo));
+        createCustomerInfoCall.enqueue(new Callback<CreateCustomerInfo>() {
+            @Override
+            public void onResponse(Call<CreateCustomerInfo> call, Response<CreateCustomerInfo> response) {
+                if (response.isSuccessful()){
+                    Toast.makeText(PaymentActivity.this,"Your Address has been added",Toast.LENGTH_SHORT).show();
+                    loadAddress();
+                    selectaddressLL.setVisibility(View.GONE);
+                    addAddress.setVisibility(View.GONE);
+
+                }else {
+                    Toast.makeText(PaymentActivity.this,"Your Address couldn't be added",Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CreateCustomerInfo> call, Throwable t) {
+                Toast.makeText(PaymentActivity.this,"Something Went Wrong",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

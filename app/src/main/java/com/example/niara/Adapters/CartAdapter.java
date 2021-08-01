@@ -34,6 +34,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     private Context context;
     private ArrayList<JSONObject> cartInfo;
+    private CartClickListener cartClickListener;
 
     public void refreshlist(JSONObject jsonObject){
         if (cartInfo!=null && cartInfo.size()>0){
@@ -51,6 +52,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 }
             }
         }
+    }
+
+    public void setCartListener(CartAdapter.CartClickListener cartListener) {
+        this.cartClickListener = cartListener;
     }
 
     public CartAdapter(Context context, ArrayList<JSONObject> cartInfo) {
@@ -151,31 +156,38 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         });
 
 
-        holder.mBtnRemove.setOnClickListener(v -> {
-            ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-            try {
-                Log.d("orderid", String.valueOf(data.get("id")));
-                Call<Void> removeCartItems = apiInterface.deleteCartItems((Integer) data.get("id"));
-                Toast.makeText(v.getContext(), String.valueOf(data.get("id")),Toast.LENGTH_SHORT).show();
-                removeCartItems.enqueue(new Callback<Void>() {
-                    @Override
-                    public void onResponse(Call<Void> call, Response<Void> response) {
-                        if (response.isSuccessful()){
-                            Toast.makeText(v.getContext(), "Removed Successfully!!" + response.body(),Toast.LENGTH_SHORT).show();
-                            notifyDataSetChanged();
-                        }
-                    }
+//        holder.mBtnRemove.setOnClickListener(v -> {
+//            ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+//            try {
+//                Log.d("orderid", String.valueOf(data.get("id")));
+//                Call<Void> removeCartItems = apiInterface.deleteCartItems((Integer) data.get("id"));
+//                Toast.makeText(v.getContext(), String.valueOf(data.get("id")),Toast.LENGTH_SHORT).show();
+//                removeCartItems.enqueue(new Callback<Void>() {
+//                    @Override
+//                    public void onResponse(Call<Void> call, Response<Void> response) {
+//                        if (response.isSuccessful()){
+//                            Toast.makeText(v.getContext(), "Removed Successfully!!" + response.body(),Toast.LENGTH_SHORT).show();
+//                            notifyDataSetChanged();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<Void> call, Throwable t) {
+//                        Toast.makeText(v.getContext(), "Something Went Wrong",Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//
+//
+//        });
 
-                    @Override
-                    public void onFailure(Call<Void> call, Throwable t) {
-                        Toast.makeText(v.getContext(), "Something Went Wrong",Toast.LENGTH_SHORT).show();
-                    }
-                });
-            } catch (JSONException e) {
-                e.printStackTrace();
+        holder.mBtnRemove.setOnClickListener(view -> {
+            if (cartClickListener != null) {
+                cartClickListener.onRemoveListener(position);
+                notifyDataSetChanged();
             }
-
-
         });
 
     }
@@ -208,4 +220,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             mBtnRemove = itemView.findViewById(R.id.btn_remove);
         }
     }
+
+    public  interface  CartClickListener{
+        void onRemoveListener(int position);
+    }
+
 }

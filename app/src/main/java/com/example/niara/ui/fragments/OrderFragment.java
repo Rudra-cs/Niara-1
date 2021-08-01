@@ -111,8 +111,6 @@ public class OrderFragment extends Fragment {
 //            }
 //        });
 
-
-
         return view;
 
 
@@ -137,8 +135,6 @@ public class OrderFragment extends Fragment {
 
                     for (i=0;i<response.body().size();i++){
                         JSONObject ob=new JSONObject();
-                        Log.d("iddeb", String.valueOf(userid));
-                        Log.d("orderinfolistswag", String.valueOf((response.body().get(i).getUser())));
                         if (String.valueOf(userid)==String.valueOf((response.body()).get(i).getUser())){
 
                             try {

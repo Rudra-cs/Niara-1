@@ -41,7 +41,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MyCartFragment extends Fragment {
-
     public RecyclerView rcFoodCart;
     public static ArrayList<JSONObject> userCartDetailsList;
     public static ArrayList<JSONObject> productList;
@@ -100,8 +99,6 @@ public class MyCartFragment extends Fragment {
         cartscroll=view.findViewById(R.id.cartScroll);
         rcFoodCart = view.findViewById(R.id.rc_food_cart);
         rcFoodCart.setLayoutManager(new LinearLayoutManager(this.getContext(),RecyclerView.VERTICAL,false));
-
-
         return view;
     }
 
@@ -148,29 +145,32 @@ public class MyCartFragment extends Fragment {
                 Toast.makeText(getContext(),"Something Went Wrong",Toast.LENGTH_SHORT).show();
             }
         });
-
-
-
     }
 
     private void getProduct(ArrayList<JSONObject> userCartDetailsList, TextView tvTotal, TextView tvSubtotal, Button btnCheckout, ProgressDialog progressDialog)  {
         if (userCartDetailsList.size()!=0){
             ApiInterface apiInterfaceCart = ApiClient.getClient().create(ApiInterface.class);
             productList =  new ArrayList<>();
+            cartProducts = new ArrayList<>();
+            int subTotalPrice = 0,subTotal = 0;
             for (int i = 0; i < userCartDetailsList.size(); i++) {
-                try {
-                      int productId = (int) userCartDetailsList.get(i).get("product");
-                    Call<Food> getUserProduct = apiInterfaceCart.getProductList(productId);
 
+                try {
+                    int productId = (int) userCartDetailsList.get(i).get("product");
+                    JSONObject object = new JSONObject();
+                    object.put("id",userCartDetailsList.get(i).get("id"));
+                    object.put("user", userCartDetailsList.get(i).get("user"));
+                    object.put("quantity", userCartDetailsList.get(i).get("quantity"));
+                    Call<Food> getUserProduct = apiInterfaceCart.getProductList(productId);
                     getUserProduct.enqueue(new Callback<Food>() {
                         @Override
                         public void onResponse(Call<Food> call, Response<Food> response) {
                             if(response.isSuccessful()){
                                 progressDialog.hide();
                                 assert response.body() != null;
-                                JSONObject object = new JSONObject();
+
                                 try {
-                                    object.put("id", response.body().getId());
+                                    object.put("productId", response.body().getId());
                                     object.put("title", response.body().getTitle());
                                     object.put("Product_quantity", response.body().getProduct_quantity());
                                     object.put("selling_price", response.body().getSelling_price());
@@ -179,16 +179,13 @@ public class MyCartFragment extends Fragment {
                                     object.put("brand", response.body().getBrand());
                                     object.put("category", response.body().getCategory());
                                     object.put("product_image", response.body().getProduct_image());
-                                    productList.add(object);
-//                                    Log.d("CartList", "Response:" + productList.size()+response.body().getId());
+                                    cartProducts.add(object);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-                                if (productList.size() == userCartDetailsList.size()){
-//                                    Log.d("CartList", "Response:" + productList.toString());
-//                                    Log.d("CartList", "Response:" + userCartDetailsList.size() + " and " + productList.size());
-                                    loadRecView(userCartDetailsList,productList,tvTotal,tvSubtotal,btnCheckout);
-                                }
+
+                                Log.d("CartList", "Response:" + cartProducts.toString());
+                                loadRecView(cartProducts,tvTotal,tvSubtotal,btnCheckout);
                             }else{
                             }
                         }
@@ -211,29 +208,9 @@ public class MyCartFragment extends Fragment {
 
     }
 
-    private void loadRecView(ArrayList<JSONObject> userCartDetailsList, ArrayList<JSONObject> productList, TextView tvTotal, TextView tvSubtotal, Button btnCheckout) {
-        cartProducts = new ArrayList<>();
+    private void loadRecView(ArrayList<JSONObject> cartProducts,  TextView tvTotal, TextView tvSubtotal, Button btnCheckout) {
         int subTotalPrice = 0,subTotal = 0;
-
-        for (int i = 0;i<userCartDetailsList.size();i++){
-            JSONObject object2 = new JSONObject();
-            try {
-                object2.put("id", userCartDetailsList.get(i).get("id"));
-                object2.put("user", userCartDetailsList.get(i).get("user"));
-                object2.put("quantity", userCartDetailsList.get(i).get("quantity"));
-                object2.put("productId", productList.get(i).get("id"));
-                object2.put("title", productList.get(i).get("title"));
-                object2.put("Product_quantity", productList.get(i).get("Product_quantity"));
-                object2.put("selling_price", productList.get(i).get("selling_price"));
-                object2.put("discounted_price", productList.get(i).get("discounted_price"));
-                object2.put("description", productList.get(i).get("description"));
-                object2.put("brand", productList.get(i).get("brand"));
-                object2.put("category", productList.get(i).get("category"));
-                object2.put("product_image", productList.get(i).get("product_image"));
-                cartProducts.add(object2);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+        for (int i = 0;i<cartProducts.size();i++){
             try {
                 subTotalPrice = Integer.parseInt(cartProducts.get(i).getString("quantity")) * Integer.parseInt(cartProducts.get(i).getString("discounted_price")) ;
             } catch (JSONException e) {
@@ -246,6 +223,45 @@ public class MyCartFragment extends Fragment {
 
         CartAdapter cartAdapter = new CartAdapter(getContext(),cartProducts);
         rcFoodCart.setAdapter(cartAdapter);
+
+        cartAdapter.setCartListener(position -> {
+            ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+            try {
+                Toast.makeText(getContext(), String.valueOf(position)+" "+cartProducts.get(position).get("title")+" " + cartProducts.get(position).get("id") ,Toast.LENGTH_SHORT).show();
+                Call<Void> removeCartItems = apiInterface.deleteCartItems((Integer) cartProducts.get(position).get("id"));
+                Log.e("CartListRemove",  cartProducts.get(position).toString());
+                removeCartItems.enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        if (response.isSuccessful()){
+                            Toast.makeText(getContext(), "Removed Successfully!!",Toast.LENGTH_SHORT).show();
+                            cartProducts.remove(position);
+                            int subTotalPrice = 0,subTotal = 0;
+                            for(int j=0;j<cartProducts.size();j++){
+                                try {
+                                    subTotalPrice = Integer.parseInt(cartProducts.get(j).getString("quantity")) * Integer.parseInt(cartProducts.get(j).getString("discounted_price")) ;
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            subTotal = subTotal + subTotalPrice;
+                            tvSubtotal.setText(String.valueOf(subTotal));
+                            tvTotal.setText(String.valueOf(subTotal+70));
+//                            Log.e("CartListRemove",  cartProducts.get(position).toString());
+                            cartAdapter.notifyDataSetChanged();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        Toast.makeText(getContext(), "Something Went Wrong",Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }catch (JSONException e) {
+                e.printStackTrace();
+            }
+        });
+
 
 
         btnCheckout.setOnClickListener(new View.OnClickListener() {
