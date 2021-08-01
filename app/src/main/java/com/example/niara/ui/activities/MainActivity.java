@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         TextView title = findViewById(R.id.AppTitle);
 
@@ -102,7 +104,15 @@ public class MainActivity extends AppCompatActivity {
                 loadfragment(fragment);
             }
         });
-        meowBottomNavigation.show(1, true);
+
+        Bundle extras=getIntent().getExtras();
+        if (extras!=null){
+            meowBottomNavigation.show(2,true);
+        }else{
+            meowBottomNavigation.show(1, true);
+        }
+
+
 
 
     }

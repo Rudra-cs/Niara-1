@@ -11,21 +11,23 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.niara.Model.Food;
+import com.example.niara.Model.ItemInfo;
 import com.example.niara.R;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SearchFoodAdapter extends RecyclerView.Adapter<SearchFoodAdapter.SearchFoodViewHolder> {
     private Context context;
-    private ArrayList<Food> foods;
-    private FoodAdapter.ItemClickListener clickListener;
+    private List<ItemInfo> items;
+    private ItemClickListener clickListener;
 
 
-    public SearchFoodAdapter(Context context, ArrayList<Food> value, FoodAdapter.ItemClickListener clickListener) {
+    public SearchFoodAdapter(Context context,List<ItemInfo> value, ItemClickListener clickListener) {
         this.context = context;
-        this.foods = value;
+        this.items = value;
         this.clickListener = clickListener;
     }
 
@@ -39,7 +41,7 @@ public class SearchFoodAdapter extends RecyclerView.Adapter<SearchFoodAdapter.Se
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull SearchFoodViewHolder holder, int position) {
-        Food data = foods.get(position);
+        ItemInfo data = items.get(position);
 
         holder.mTvFoodTitle.setText(data.getTitle());
         holder.mTvPrice.setText(String.valueOf(data.getDiscounted_price()));
@@ -48,19 +50,21 @@ public class SearchFoodAdapter extends RecyclerView.Adapter<SearchFoodAdapter.Se
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickListener.onItemClick(foods.get(position));
+                clickListener.onItemClick(items.get(position));
             }
         });
+    }
+    public void getAllItemsInfo(List<ItemInfo> iteminfolist){
+        this.items=iteminfolist;
     }
 
     @Override
     public int getItemCount() {
-        return foods.size();
+        return items.size();
     }
-    public void filteredList(ArrayList<Food> filterList) {
-        foods=filterList;
+    public void filteredList(List<ItemInfo> filterList) {
+        items=filterList;
         notifyDataSetChanged();
-
     }
 
     public class SearchFoodViewHolder extends RecyclerView.ViewHolder {
@@ -77,6 +81,6 @@ public class SearchFoodAdapter extends RecyclerView.Adapter<SearchFoodAdapter.Se
         }
     }
     public interface ItemClickListener {
-        void onItemClick(Food food);
+        void onItemClick(ItemInfo food);
     }
 }

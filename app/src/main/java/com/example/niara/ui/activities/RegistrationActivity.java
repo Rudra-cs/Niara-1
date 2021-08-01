@@ -39,7 +39,6 @@ public class RegistrationActivity extends AppCompatActivity {
     NetworkChangeListener networkChangeListener=new NetworkChangeListener();
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,9 +97,6 @@ public class RegistrationActivity extends AppCompatActivity {
         if (val.isEmpty()) {
             password.setError("Field can not be empty");
             return false;
-        } else if (!val.matches(checkPassword)) {
-            password.setError("Password should contain at least 4 characters,at least 1 lower case letter,at least 1upper case letter,at least 1 special character!");
-            return false;
         } else {
             password.setError(null);
             return true;
@@ -111,7 +107,6 @@ public class RegistrationActivity extends AppCompatActivity {
         Intent intent=new Intent(RegistrationActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
-
     }
 
     public void registerUser1(View view) {

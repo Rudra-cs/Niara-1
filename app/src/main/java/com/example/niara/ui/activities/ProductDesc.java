@@ -38,23 +38,18 @@ import static com.example.niara.utils.SessionManager.USERNAME;
 
 public class ProductDesc extends AppCompatActivity {
     NetworkChangeListener networkChangeListener=new NetworkChangeListener();
-
-
     private TextView tvTitle;
     private TextView tvPrice;
     private TextView tvDesc;
     private TextView tvQuantity;
     private TextView tvHeadTitle;
     private int tvProdId;
-
     private Button btnPlus;
     private Button btnAddToCart;
     private Button btnMinus;
     private Button btnBuy;
-
     private ImageView ivImage;
     private ImageView btnBack;
-
     public  String token;
     int user;
 
@@ -188,41 +183,10 @@ public class ProductDesc extends AppCompatActivity {
         btnBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    Cart cartDetails = new Cart();
-                    cartDetails.setUser(user);
-                    cartDetails.setQuantity(Integer.valueOf(tvQuantity.getText().toString()));
-                    cartDetails.setProduct(Integer.valueOf(tvProdId));
-                    ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-                    Call<Cart> pushToCart = apiInterface.sendCartFoodDetails(token,cartDetails);
-                    pushToCart.enqueue(new Callback<Cart>() {
-                        @Override
-                        public void onResponse(Call<Cart> call, Response<Cart> response) {
-                            if (response.isSuccessful()){
-                                Toast.makeText(ProductDesc.this, "Added to Cart,Proceeding to buy", Toast.LENGTH_SHORT).show();
-
-                            }else{
-                                Toast.makeText(ProductDesc.this, "Some Problem Occurred.", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<Cart> call, Throwable t) {
-                            Toast.makeText(ProductDesc.this, "Something went wrong", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-
-                }catch (Exception err){
-                    Toast.makeText(ProductDesc.this, "Error: "+err, Toast.LENGTH_SHORT).show();
-                }
                 Intent intent = new Intent(ProductDesc.this, MainActivity.class);
-                intent.putExtra("value", "true");
-                setResult(Activity.RESULT_OK, intent);
-                startActivityForResult(intent,101);
+                intent.putExtra("value", "something");
+                startActivity(intent);
                 finish();
-
-
             }
         });
 

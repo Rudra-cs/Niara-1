@@ -11,7 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.niara.Model.Address;
+import com.example.niara.Model.CustomerInfo;
 import com.example.niara.Model.Food;
 import com.example.niara.R;
 import com.example.niara.utils.Config;
@@ -22,12 +22,11 @@ import java.util.List;
 
 public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapter.CustomerInfoViewHodler> {
     private Context context;
-    private List<Address> customerinfolist;
+    private List<CustomerInfo> customerinfolist;
     private ItemClickListener clickListener;
 
-    private int selectedPostion;
 
-    public CustomerInfoAdapter(Context context, List<Address> customerinfolist,ItemClickListener clickListener) {
+    public CustomerInfoAdapter(Context context, List<CustomerInfo> customerinfolist,ItemClickListener clickListener) {
         this.context = context;
         this.customerinfolist = customerinfolist;
         this.clickListener=clickListener;
@@ -43,7 +42,7 @@ public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapte
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull CustomerInfoAdapter.CustomerInfoViewHodler holder, int position) {
-        Address address=customerinfolist.get(position);
+        CustomerInfo address=customerinfolist.get(position);
         holder.name.setText(address.getName());
         holder.locality.setText(address.getLocality());
         holder.city.setText(address.getCity());
@@ -59,9 +58,6 @@ public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapte
         });
 
 
-    }
-    public void getAllCustomersInfo(List<Address> customerinfolist){
-        this.customerinfolist=customerinfolist;
     }
 
     @Override
@@ -84,7 +80,7 @@ public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapte
         }
     }
     public interface ItemClickListener {
-        void onItemClick(Address address);
+        void onItemClick(CustomerInfo address);
     }
 
 }

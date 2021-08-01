@@ -8,7 +8,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_8sdp">
 
         <ImageView
             android:id="@+id/back"
@@ -28,7 +29,7 @@
             android:fontFamily="@font/poppins_medium"
             android:text="Masala Chai"
             android:textColor="@color/black"
-            android:textSize="@dimen/_12ssp" />
+            android:textSize="@dimen/_15ssp" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_pdt_img"

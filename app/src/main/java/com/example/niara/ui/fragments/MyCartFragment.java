@@ -13,6 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +50,8 @@ public class MyCartFragment extends Fragment {
     public TextView tvSubtotal;
     public TextView tvTotal;
     public Button btnCheckout;
+    public RelativeLayout nodisplay;
+    public ScrollView cartscroll;
 
 
     private static final String ARG_PARAM1 = "param1";
@@ -90,11 +95,11 @@ public class MyCartFragment extends Fragment {
         tvSubtotal = view.findViewById(R.id.tv_subTotal);
         tvTotal = view.findViewById(R.id.tv_total_price);
         btnCheckout = view.findViewById(R.id.btn_checkout);
-
+        getUserFromCart(tvTotal,tvSubtotal,btnCheckout);
+        nodisplay=view.findViewById(R.id.nothingaddedincart);
+        cartscroll=view.findViewById(R.id.cartScroll);
         rcFoodCart = view.findViewById(R.id.rc_food_cart);
         rcFoodCart.setLayoutManager(new LinearLayoutManager(this.getContext(),RecyclerView.VERTICAL,false));
-
-        getUserFromCart(tvTotal,tvSubtotal,btnCheckout);
 
 
         return view;
@@ -128,15 +133,19 @@ public class MyCartFragment extends Fragment {
                             }
                         }
                     }
-                    getProduct(userCartDetailsList,tvTotal,tvSubtotal,btnCheckout,progressDialog);
-//                    progressDialog.hide();
+                    if (userCartDetailsList!=null){
+                        getProduct(userCartDetailsList,tvTotal,tvSubtotal,btnCheckout,progressDialog);
+                    }
+                    else{
+
+                    }
                 } else {
-                    Log.e("CartDetails", "Network Error or Callback Error");
+                    Toast.makeText(getContext(),"Something Went Wrong",Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
             public void onFailure(Call<ArrayList<CartInfo>> call, Throwable t) {
-                Log.e("CartDetails", "Something Went Wrong: " + t.toString());
+                Toast.makeText(getContext(),"Something Went Wrong",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -194,6 +203,10 @@ public class MyCartFragment extends Fragment {
             }
         }else {
             Toast.makeText(getContext(),"Cart is Empty",Toast.LENGTH_LONG).show();
+            Log.d("callingthis","hellofalse");
+            progressDialog.hide();
+            cartscroll.setVisibility(View.GONE);
+            nodisplay.setVisibility(View.VISIBLE);
         }
 
     }

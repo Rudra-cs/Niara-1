@@ -6,20 +6,18 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.example.niara.Model.Address;
+import com.example.niara.Model.ItemInfo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Dao
-public interface CustomerInfoDao {
-
+public interface ItemInfoDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(List<Address> customerinfolist);
+    void insert(List<ItemInfo> iteminfolist);
 
-    @Query("SELECT * FROM customerinfo")
-    LiveData<List<Address>> getAllCustomersinfo();
+    @Query("SELECT * FROM iteminfo")
+    LiveData<List<ItemInfo>> getAllItemsinfo();
 
-    @Query("DELETE FROM customerinfo")
+    @Query("DELETE FROM iteminfo")
     void deleteAll();
 }

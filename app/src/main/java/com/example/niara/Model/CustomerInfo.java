@@ -1,42 +1,19 @@
 package com.example.niara.Model;
 
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-
-@Entity(tableName = "customerinfo")
-public class Address {
-    @PrimaryKey(autoGenerate = true)
+public class CustomerInfo {
     private int customerid;
-    @ColumnInfo(name = "id")
     private int id;
-
-    @ColumnInfo(name = "user")
     private int user;
-
-    @ColumnInfo(name = "name")
     private String name;
-
-    @ColumnInfo(name = "locality")
     private String locality;
-
-    @ColumnInfo(name = "city")
     private String city;
-
-    @ColumnInfo(name = "zipcode")
     private String zipcode;
 
-    @ColumnInfo(name = "mobile")
-    private String mobile;
-
-    @ColumnInfo(name = "state")
-    private String state;
-
-    public Address(){
+    public CustomerInfo(){
 
     }
 
-    public Address(int id,int user,String name,String locality,String city,String zipcode,String mobile,String state){
+    public CustomerInfo(int id,int user,String name,String locality,String city,String zipcode,String mobile,String state){
         this.city=city;
         this.id=id;
         this.user=user;
@@ -46,21 +23,6 @@ public class Address {
         this.mobile=mobile;
         this.state=state;
 
-    }
-
-    @Override
-    public String toString() {
-        return "Address{" +
-                "customerid=" + customerid +
-                ", id=" + id +
-                ", user=" + user +
-                ", name='" + name + '\'' +
-                ", locality='" + locality + '\'' +
-                ", city='" + city + '\'' +
-                ", zipcode='" + zipcode + '\'' +
-                ", mobile='" + mobile + '\'' +
-                ", state='" + state + '\'' +
-                '}';
     }
 
     public int getCustomerid() {
@@ -134,4 +96,7 @@ public class Address {
     public void setState(String state) {
         this.state = state;
     }
+
+    private String mobile;
+    private String state;
 }

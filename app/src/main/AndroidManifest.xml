@@ -10,8 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Niara"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.activities.PaymentActivity"></activity>
-        <activity android:name=".ui.activities.CreateCusstomerInfoActivity" />
+        <activity android:name=".ui.activities.PaymentActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".ui.activities.CreateCusstomerInfoActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.activities.ChangePasswordActivity"
             android:screenOrientation="portrait" />
@@ -23,8 +25,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activities.ProductDesc"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat"/>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.activities.SplashActivity"
             android:screenOrientation="portrait">

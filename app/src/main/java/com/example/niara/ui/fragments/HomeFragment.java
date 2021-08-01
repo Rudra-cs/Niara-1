@@ -105,9 +105,6 @@ public class HomeFragment extends Fragment implements CategoryAdapter.CategoryCl
         progressDialog.show();
 
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-
-        HashMap<String, Object> queries = new HashMap<>();
-
         Call<ArrayList<Food>> getFoodItems = apiInterface.getFoodSearch();
 
         getFoodItems.enqueue(new Callback<ArrayList<Food>>() {

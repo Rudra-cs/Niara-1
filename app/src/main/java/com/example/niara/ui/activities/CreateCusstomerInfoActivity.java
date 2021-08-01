@@ -1,8 +1,6 @@
 package com.example.niara.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
@@ -17,19 +15,10 @@ import android.widget.Toast;
 
 import com.example.niara.Api.ApiClient;
 import com.example.niara.Api.ApiInterface;
-import com.example.niara.Model.Address;
 import com.example.niara.Model.CreateCustomerInfo;
 import com.example.niara.R;
-import com.example.niara.Repository.CustomerInfoRepository;
-import com.example.niara.ViewModel.CustomerInfoViewModel;
 import com.example.niara.utils.NetworkChangeListener;
 import com.example.niara.utils.SessionManager;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;

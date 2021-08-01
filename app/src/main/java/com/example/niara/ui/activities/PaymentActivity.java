@@ -1,8 +1,6 @@
 package com.example.niara.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,28 +12,23 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.niara.Adapters.CustomerInfoAdapter;
 import com.example.niara.Api.ApiClient;
 import com.example.niara.Api.ApiInterface;
-import com.example.niara.Model.Address;
 import com.example.niara.Model.CartInfo;
 import com.example.niara.Model.CreateOrderInfo;
-import com.example.niara.Model.CustomerFeedbackModel;
-import com.example.niara.Model.Food;
+import com.example.niara.Model.CustomerInfo;
 import com.example.niara.R;
-import com.example.niara.Repository.CustomerInfoRepository;
-import com.example.niara.ViewModel.CustomerInfoViewModel;
 import com.example.niara.utils.NetworkChangeListener;
 import com.example.niara.utils.SessionManager;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentData;
-import com.razorpay.PaymentResultListener;
 import com.razorpay.PaymentResultWithDataListener;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -51,20 +44,19 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
     private TextView tvAmount,tv_subtotal;
     private Button addAddress;
 
-    private CustomerInfoViewModel customerInfoViewModel;
-    private CustomerInfoRepository customerInfoRepository;
+
     private RecyclerView recyclerView;
     private CustomerInfoAdapter customerInfoAdapter;
-    private List<Address> customerInfolist;
+    private List<CustomerInfo> customerInfolist;
     private ArrayList<CartInfo> cartInfoArrayList;
     private int i,j;
     private int CustomerID;
+    public RelativeLayout noaddress;
 
     private static final String TAG = MainActivity.class.getSimpleName();
     public Button paybutton;
     TextView tvamount;
-    public String amount;
-    Checkout checkout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,29 +67,18 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
         tv_subtotal=findViewById(R.id.tv_subTotal);
         tvAmount.setText(intent.getStringExtra("amount"));
         tv_subtotal.setText(intent.getStringExtra("subtotalamount"));
+        noaddress=findViewById(R.id.nothingaddedinaddress);
 
 
 
         int amount = Math.round(Float.parseFloat(String.valueOf(tvAmount.getText().toString())) * 100);
 
-        recyclerView=findViewById(R.id.rc_address);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(),RecyclerView.HORIZONTAL, false));
-
-
-
-        loadAddress();
-
         customerInfolist=new ArrayList<>();
         cartInfoArrayList=new ArrayList<>();
 
-        customerInfoRepository=new CustomerInfoRepository(getApplication());
-        customerInfoViewModel=new ViewModelProvider(this).get(CustomerInfoViewModel.class);
-        customerInfoViewModel.getAllCustomerInfo().observe(this, new Observer<List<Address>>() {
-            @Override
-            public void onChanged(List<Address> addressArrayList) {
-                recyclerView.setAdapter(new CustomerInfoAdapter(PaymentActivity.this,customerInfolist,PaymentActivity.this::onItemClick));
-            }
-        });
+        recyclerView=findViewById(R.id.rc_address);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(),RecyclerView.HORIZONTAL, false));
+        loadAddress();
 
 
         Checkout.preload(getApplicationContext());
@@ -122,28 +103,30 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
 
     private void loadAddress() {
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<List<Address>> address = apiInterface.getAllCustomers();
-        address.enqueue(new Callback<List<Address>>() {
+        Call<List<CustomerInfo>> address = apiInterface.getAllCustomers();
+        address.enqueue(new Callback<List<CustomerInfo>>() {
             @Override
-            public void onResponse(Call<List<Address>> call, Response<List<Address>> response) {
+            public void onResponse(Call<List<CustomerInfo>> call, Response<List<CustomerInfo>> response) {
                 if (response.isSuccessful() && response.body()!=null){
                     SessionManager sessionManager=new SessionManager(PaymentActivity.this);
                     int userid=sessionManager.getUserid();
                     for (i=0;i<response.body().size();i++){
                         if (String.valueOf(userid)==String.valueOf((response.body()).get(i).getUser())){
                             customerInfolist.add(response.body().get(i));
-                        }else{
                         }
                     }
-                    customerInfoRepository.insert(customerInfolist);
 
-                }else{
+                    customerInfoAdapter= new CustomerInfoAdapter(PaymentActivity.this,customerInfolist, PaymentActivity.this);
+                    recyclerView.setAdapter(customerInfoAdapter);
+                }
+                else{
                     Toast.makeText(PaymentActivity.this,"address not found",Toast.LENGTH_SHORT).show();
+                    noaddress.setVisibility(View.VISIBLE);
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Address>> call, Throwable t) {
+            public void onFailure(Call<List<CustomerInfo>> call, Throwable t) {
                 Toast.makeText(PaymentActivity.this,"address fail",Toast.LENGTH_SHORT).show();
 
             }
@@ -181,7 +164,7 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
             options.put("theme.color", "#3399cc");
             options.put("currency", "INR");
             options.put("amount", amount);//pass amount in currency subunits
-            options.put("prefill.email", "gaurav.kumar@example.com");
+            options.put("prefill.email", "example@example.com");
             options.put("prefill.contact","9988776655");
             JSONObject retryObj = new JSONObject();
             retryObj.put("enabled", true);
@@ -310,7 +293,7 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
 
 
     @Override
-    public void onItemClick(Address address) {
+    public void onItemClick(CustomerInfo address) {
         CustomerID=address.getId();
     }
 }

@@ -1,29 +1,30 @@
 package com.example.niara.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.niara.Adapters.SearchFoodAdapter;
 import com.example.niara.Api.ApiClient;
 import com.example.niara.Api.ApiInterface;
-import com.example.niara.Model.Food;
+import com.example.niara.Model.ItemInfo;
 import com.example.niara.R;
+import com.example.niara.Repository.ItemInfoRepository;
+import com.example.niara.ViewModel.ItemViewModel;
 import com.example.niara.utils.NetworkChangeListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,15 +34,18 @@ public class SearchActivity extends AppCompatActivity {
     NetworkChangeListener networkChangeListener=new NetworkChangeListener();
 
     private RecyclerView rcFoodItems;
+    private ItemViewModel itemViewModel;
+    private ItemInfoRepository itemInfoRepository;
+    private RecyclerView recyclerView;
     private SearchFoodAdapter foodAdapter;
-    public ArrayList<Food> value;
+    private List<ItemInfo> itemInfolist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        rcFoodItems = findViewById(R.id.rc_food);
-        rcFoodItems.setLayoutManager(new LinearLayoutManager(this.getApplicationContext(),RecyclerView.VERTICAL,false));
+        recyclerView = findViewById(R.id.rc_food);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this.getApplicationContext(),RecyclerView.VERTICAL,false));
         EditText editText=findViewById(R.id.et_search);
         editText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -60,17 +64,27 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
         loadFood();
+
+        itemInfolist=new ArrayList<>();
+        itemInfoRepository=new ItemInfoRepository(getApplication());
+        itemViewModel=new ViewModelProvider(this).get(ItemViewModel.class);
+        itemViewModel.getAllItemInfo().observe(this, new Observer<List<ItemInfo>>() {
+            @Override
+            public void onChanged(List<ItemInfo> addressArrayList) {
+                recyclerView.setAdapter(new SearchFoodAdapter(SearchActivity.this,itemInfolist,SearchActivity.this::onItemClick));
+            }
+        });
     }
 
     private void filter(String text) {
-        ArrayList<Food> filterList=new ArrayList<>();
-        for(Food item:value){
+        List<ItemInfo> filterList=new ArrayList<>();
+        for(ItemInfo item:itemInfolist){
             if(item.getTitle().toLowerCase().contains(text.toLowerCase())){
                 filterList.add(item);
 
             }
         }
-        foodAdapter.filteredList(filterList);
+        recyclerView.setAdapter(new SearchFoodAdapter(SearchActivity.this,filterList,SearchActivity.this::onItemClick));
     }
 
     private void loadFood(){
@@ -80,25 +94,25 @@ public class SearchActivity extends AppCompatActivity {
 
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
-        Call<ArrayList<Food>> getFoodItems = apiInterface.getFoodSearch();
+        Call<List<ItemInfo>> getFoodItems = apiInterface.getItemSearch();
 
-        getFoodItems.enqueue(new Callback<ArrayList<Food>>() {
+        getFoodItems.enqueue(new Callback<List<ItemInfo>>() {
             @Override
-            public void onResponse(Call<ArrayList<Food>> call, Response<ArrayList<Food>> response) {
+            public void onResponse(Call<List<ItemInfo>> call, Response<List<ItemInfo>> response) {
 
                 if (response.isSuccessful()) {
 //                    progressDialog.hide();
-                    value = response.body();
-                    foodAdapter = new SearchFoodAdapter(getApplicationContext(),value,SearchActivity.this::onItemClick);
-                    rcFoodItems.setAdapter(foodAdapter);
+                    itemInfolist = response.body();
                 }
+
                 else {
                     Toast.makeText(getApplicationContext(), "Server Error", Toast.LENGTH_SHORT).show();
                 }
+                itemInfoRepository.insert(itemInfolist);
             }
 
             @Override
-            public void onFailure(Call<ArrayList<Food>> call, Throwable t) {
+            public void onFailure(Call<List<ItemInfo>> call, Throwable t) {
 //                progressDialog.hide();
 //                Toast.makeText(getContext(), "network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
 
@@ -113,7 +127,8 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
-    public void onItemClick(Food food) {
+
+    public void onItemClick(ItemInfo food) {
 
         Intent intent = new Intent(getApplicationContext(), ProductDesc.class);
         intent.putExtra("title",food.getTitle());
@@ -125,5 +140,7 @@ public class SearchActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
+
+
 
 }

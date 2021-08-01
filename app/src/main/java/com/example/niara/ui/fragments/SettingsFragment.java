@@ -13,7 +13,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
-import com.example.niara.Dao.CustomerInfoDao;
 import com.example.niara.R;
 import com.example.niara.ui.activities.CreateCusstomerInfoActivity;
 import com.example.niara.ui.activities.ChangePasswordActivity;
@@ -26,7 +25,6 @@ public class SettingsFragment extends Fragment {
     public TextView changepasswordtv,usernameSettings,feedback,addAddress;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private CustomerInfoDao customerInfoDao;
     public LinearLayout logoutsection,changepasswordsection,addresssection,feedbacksection;
 
     private String mParam1;

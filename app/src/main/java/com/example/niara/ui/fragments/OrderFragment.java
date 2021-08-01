@@ -13,6 +13,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +61,7 @@ public class OrderFragment extends Fragment {
     private RecyclerView rcorders;
     private int i,j;
     private int userid;
+    public LinearLayout noorder;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -92,22 +96,22 @@ public class OrderFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_order, container, false);
-        swipeRefreshLayout=view.findViewById(R.id.swiperefreshOrderInfo);
-
-
+        noorder=view.findViewById(R.id.nothingaddedinorder);
 
         rcorders = view.findViewById(R.id.rc_order);
         rcorders.setLayoutManager(new LinearLayoutManager(this.getContext(),RecyclerView.VERTICAL,false));
 
         loadOrders();
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                loadOrders();
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
+//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                loadOrders();
+//                swipeRefreshLayout.setRefreshing(false);
+//            }
+//        });
+
+
 
         return view;
 
@@ -156,52 +160,60 @@ public class OrderFragment extends Fragment {
                         Log.d("something", String.valueOf(infosofOrder));
 
                     }
-                    Log.d("orderlistid", String.valueOf(infosofOrder));
-                    orderlistdisplay=new ArrayList<>();
-                    for (j=0;j<infosofOrder.size();j++){
-                        JSONObject ob=new JSONObject();
-                        try {
-                            ob.put("status",infosofOrder.get(j).get("status"));
-                            ob.put("quantity",infosofOrder.get(j).get("quantity"));
-                            ob.put("ordered_date",infosofOrder.get(j).get("ordered_date"));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        int idp= 0;
-                        try {
-                            idp = (int) infosofOrder.get(j).get("product");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-                        Call<Food> foodCall=apiInterface.getProductList(idp);
-                        foodCall.enqueue(new Callback<Food>() {
-                            @Override
-                            public void onResponse(Call<Food> call, Response<Food> response1) {
-                                if (response1.isSuccessful()){
-                                    progressDialog.hide();
-                                    try {
-                                        ob.put("title",response1.body().getTitle());
-                                        ob.put("prod_img",response1.body().getProduct_image());
-                                        orderlistdisplay.add(ob);
-                                        Log.d("listoforder", String.valueOf(ob));
+                    if (infosofOrder.isEmpty()){
 
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
+                        progressDialog.hide();
+                        noorder.setVisibility(View.VISIBLE);
+
+                    }
+                    else{
+                        Log.d("orderlistid", String.valueOf(infosofOrder));
+                        orderlistdisplay=new ArrayList<>();
+                        for (j=0;j<infosofOrder.size();j++){
+                            JSONObject ob=new JSONObject();
+                            try {
+                                ob.put("status",infosofOrder.get(j).get("status"));
+                                ob.put("quantity",infosofOrder.get(j).get("quantity"));
+                                ob.put("ordered_date",infosofOrder.get(j).get("ordered_date"));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            int idp= 0;
+                            try {
+                                idp = (int) infosofOrder.get(j).get("product");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+                            Call<Food> foodCall=apiInterface.getProductList(idp);
+                            foodCall.enqueue(new Callback<Food>() {
+                                @Override
+                                public void onResponse(Call<Food> call, Response<Food> response1) {
+                                    if (response1.isSuccessful()){
+                                        progressDialog.hide();
+                                        try {
+                                            ob.put("title",response1.body().getTitle());
+                                            ob.put("prod_img",response1.body().getProduct_image());
+                                            orderlistdisplay.add(ob);
+                                            Log.d("listoforder", String.valueOf(ob));
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                        if (orderlistdisplay.size()==infosofOrder.size()){
+                                            Log.d("listdisplay", String.valueOf(orderlistdisplay));
+                                            displayOrderListInRecyclerView(orderlistdisplay);
+                                        }
+                                    }else {
+                                        Log.d("responseoffood", "failed");
                                     }
-                                    if (orderlistdisplay.size()==infosofOrder.size()){
-                                        Log.d("listdisplay", String.valueOf(orderlistdisplay));
-                                        displayOrderListInRecyclerView(orderlistdisplay);
-                                    }
-                                }else {
-                                    Log.d("responseoffood", "failed");
                                 }
-                            }
-                            @Override
-                            public void onFailure(Call<Food> call, Throwable t) {
+                                @Override
+                                public void onFailure(Call<Food> call, Throwable t) {
 
-                            }
-                        });
+                                }
+                            });
+                        }
                     }
                 }
             }

@@ -1,14 +1,15 @@
 package com.example.niara.Api;
 
 
-import com.example.niara.Model.Address;
 import com.example.niara.Model.Cart;
 import com.example.niara.Model.CartInfo;
 import com.example.niara.Model.ChangePassword;
 import com.example.niara.Model.CreateCustomerInfo;
 import com.example.niara.Model.CreateOrderInfo;
 import com.example.niara.Model.CustomerFeedbackModel;
+import com.example.niara.Model.CustomerInfo;
 import com.example.niara.Model.Food;
+import com.example.niara.Model.ItemInfo;
 import com.example.niara.Model.LoginToken;
 import com.example.niara.Model.OrderInfo;
 import com.example.niara.Model.UserInfo;
@@ -37,6 +38,9 @@ public interface ApiInterface {
     @GET("/ProdInfo/")
     Call<ArrayList<Food>> getFoodSearch();
 
+    @GET("/ProdInfo/")
+    Call<List<ItemInfo>> getItemSearch();
+
     @GET("/ProdInfo/snacks/")
     Call<ArrayList<Food>> getSnacks();
 
@@ -64,7 +68,7 @@ public interface ApiInterface {
     Call<ArrayList<UserInfo>> getuserdetails();
 
     @GET("/CustomerInfo/")
-    Call<List<Address>> getAllCustomers();
+    Call<List<CustomerInfo>> getAllCustomers();
 
     @POST("/apiregister/")
     Call<UserResponse> registerUser(@Body UserRequest userRequest);

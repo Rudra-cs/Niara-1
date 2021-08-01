@@ -203,6 +203,33 @@
         android:orientation="horizontal">
 
     </androidx.recyclerview.widget.RecyclerView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:id="@+id/nothingaddedinaddress"
+        android:visibility="gone"
+        android:layout_margin="@dimen/_5sdp">
+
+        <LinearLayout
+
+            android:layout_gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No Address Added"
+                android:fontFamily="@font/poppins_medium"
+                android:textSize="@dimen/_12ssp">
+
+            </TextView>
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
 
     <Button
