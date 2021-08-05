@@ -31,8 +31,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SearchActivity extends AppCompatActivity {
-    NetworkChangeListener networkChangeListener=new NetworkChangeListener();
-
+    private NetworkChangeListener networkChangeListener=new NetworkChangeListener();
     private RecyclerView rcFoodItems;
     private ItemViewModel itemViewModel;
     private ItemInfoRepository itemInfoRepository;
@@ -88,10 +87,6 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void loadFood(){
-//        ProgressDialog progressDialog = new ProgressDialog(getApplicationContext());
-//        progressDialog.setMessage("Getting your Food");
-//        progressDialog.show();
-
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
         Call<List<ItemInfo>> getFoodItems = apiInterface.getItemSearch();
@@ -113,12 +108,8 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<ItemInfo>> call, Throwable t) {
-//                progressDialog.hide();
-//                Toast.makeText(getContext(), "network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
 
                 if (t instanceof IOException) {
-//                   Toast.makeText(getApplicationContext(), "Network Error. Please Retry :(", Toast.LENGTH_SHORT).show();
-
                 }
                 else {
 //
@@ -128,7 +119,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
 
-    public void onItemClick(ItemInfo food) {
+    private void onItemClick(ItemInfo food) {
 
         Intent intent = new Intent(getApplicationContext(), ProductDesc.class);
         intent.putExtra("title",food.getTitle());
@@ -140,7 +131,5 @@ public class SearchActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
-
-
 
 }

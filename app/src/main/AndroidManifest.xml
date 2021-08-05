@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.niara">
 
+    <permission android:name="my_custom_permission_name"
+        android:protectionLevel="signature" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,10 +13,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Niara"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.activities.PaymentActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".ui.activities.CreateCusstomerInfoActivity"
-            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activities.PrivacyPolicy"></activity>
+        <activity android:name=".ui.activities.TermsAndConditions" />
+        <activity
+            android:name=".ui.activities.PaymentSuccessfulActivity"
+            android:noHistory="true" />
+        <activity
+            android:name=".ui.activities.PaymentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activities.CreateCusstomerInfoActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activities.ChangePasswordActivity"
             android:screenOrientation="portrait" />
@@ -25,7 +35,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activities.ProductDesc"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activities.SplashActivity"
             android:screenOrientation="portrait">
@@ -50,8 +60,8 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 </manifest>

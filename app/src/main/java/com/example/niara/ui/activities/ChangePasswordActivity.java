@@ -25,10 +25,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ChangePasswordActivity extends AppCompatActivity {
-    EditText newpassword,oldpassword;
-    WebView webView;
+    private WebView webView;
 
-    NetworkChangeListener networkChangeListener=new NetworkChangeListener();
+    private NetworkChangeListener networkChangeListener=new NetworkChangeListener();
 
 
 
@@ -41,9 +40,6 @@ public class ChangePasswordActivity extends AppCompatActivity {
         webSettings.setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient());
         webView.loadUrl("http://pratikmansingh.host/passwordchange/");
-
-
-
     }
 
     @Override

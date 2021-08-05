@@ -3,10 +3,14 @@ package com.example.niara.ui.activities;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -24,11 +28,9 @@ import com.example.niara.ui.fragments.SettingsFragment;
 import com.example.niara.utils.NetworkChangeListener;
 
 public class MainActivity extends AppCompatActivity {
-    private SharedPreferences prefManager;
-    private SharedPreferences.Editor editor;
     private DrawerLayout drawerLayout;
-    MeowBottomNavigation meowBottomNavigation;
-    NetworkChangeListener networkChangeListener=new NetworkChangeListener();
+    private MeowBottomNavigation meowBottomNavigation;
+    private NetworkChangeListener networkChangeListener=new NetworkChangeListener();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +39,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
-        TextView title = findViewById(R.id.AppTitle);
-
         toolbar.setTitle("");
 
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -120,24 +120,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadfragment(Fragment fragment) {
+
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, fragment)
+                .disallowAddToBackStack()
                 .commit();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 101) {
-            Log.d("successful","success");
-            if (resultCode == Activity.RESULT_OK) {
-                Fragment fragment = null;
-                fragment = new MyCartFragment();
-                loadfragment(fragment);
-            }
-        }
-    }
 
     @Override
     protected void onStart() {
@@ -152,6 +142,30 @@ public class MainActivity extends AppCompatActivity {
         unregisterReceiver(networkChangeListener);
         super.onStop();
     }
+
+    @Override
+    public void onBackPressed() {
+        // TODO Auto-generated method stub
+
+        new AlertDialog.Builder(MainActivity.this)
+                .setTitle("Exit")
+                .setMessage("Do you really want to exit?")
+                    .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        ActivityCompat.finishAffinity(MainActivity.this);
+                        finish();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setIcon(android.R.drawable.alert_dark_frame)
+                .show();
+
+    }
+
 
 
 

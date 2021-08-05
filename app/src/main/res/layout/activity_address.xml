@@ -12,6 +12,8 @@
     tools:context=".ui.activities.CreateCusstomerInfoActivity">
 
     <TextView
+        android:gravity="center"
+        android:layout_marginTop="@dimen/_12sdp"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/_50ssp"
         android:layout_alignParentRight="true"
@@ -40,6 +42,16 @@
             >
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="please fill the credentials correctly, any wrong details may hamper you in case of refund"
+
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="#FF0000"
+                android:textSize="@dimen/_10sdp"/>
+
+            <TextView
+                android:layout_marginTop="@dimen/_8sdp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Full Name:"
@@ -193,7 +205,7 @@
                 android:id="@+id/submitform"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Submit Form"
+                android:text="Save Address"
                 android:fontFamily="@font/poppins_bold"
                 android:background="@drawable/bg3round"
                 android:outlineSpotShadowColor="@color/white"

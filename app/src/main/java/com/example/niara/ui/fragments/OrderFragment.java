@@ -28,6 +28,9 @@ import com.example.niara.Model.Food;
 import com.example.niara.Model.OrderInfo;
 import com.example.niara.Model.OrderInfoDisplay;
 import com.example.niara.R;
+import com.example.niara.ui.activities.CustomerFeedback;
+import com.example.niara.ui.activities.LoginActivity;
+import com.example.niara.ui.activities.MainActivity;
 import com.example.niara.ui.activities.SearchActivity;
 import com.example.niara.utils.SessionManager;
 
@@ -51,17 +54,16 @@ import retrofit2.Response;
  * Use the {@link OrderFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class OrderFragment extends Fragment {
-    ArrayList<JSONObject> orderlistdisplay;
-    ArrayList<JSONObject> infosofOrder;
-    ArrayList<OrderInfo> orderInfolist;
-
-    SwipeRefreshLayout swipeRefreshLayout;
+public class OrderFragment extends Fragment implements OrderFoodInfoAdapter.OrderClickListener {
+    private ArrayList<JSONObject> orderlistdisplay;
+    private ArrayList<JSONObject> infosofOrder;
+    private ArrayList<OrderInfo> orderInfolist;
 
     private RecyclerView rcorders;
     private int i,j;
     private int userid;
-    public LinearLayout noorder;
+    private LinearLayout noorder;
+
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -97,22 +99,10 @@ public class OrderFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_order, container, false);
         noorder=view.findViewById(R.id.nothingaddedinorder);
-
         rcorders = view.findViewById(R.id.rc_order);
         rcorders.setLayoutManager(new LinearLayoutManager(this.getContext(),RecyclerView.VERTICAL,false));
-
         loadOrders();
-
-//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                loadOrders();
-//                swipeRefreshLayout.setRefreshing(false);
-//            }
-//        });
-
         return view;
-
 
     }
 
@@ -135,7 +125,7 @@ public class OrderFragment extends Fragment {
 
                     for (i=0;i<response.body().size();i++){
                         JSONObject ob=new JSONObject();
-                        if (String.valueOf(userid)==String.valueOf((response.body()).get(i).getUser())){
+                        if (String.valueOf(userid)==String.valueOf((response.body()).get(i).getUser()) && response.body().get(i).getStatus()!="Delivered"){
 
                             try {
                                 ob.put("status",response.body().get(i).getStatus());
@@ -143,17 +133,10 @@ public class OrderFragment extends Fragment {
                                 ob.put("ordered_date",response.body().get(i).getOrdered_date());
                                 ob.put("product",response.body().get(i).getProduct());
                                 infosofOrder.add(ob);
-                                Log.d("heroswag", String.valueOf(ob));
-                                Log.d("some", String.valueOf(infosofOrder));
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-//
-//                            orderInfolist.add(response.body().get(i));
-//                            Log.d("orderlistid", String.valueOf(orderInfolist.get(i).getProduct()));
-//                            idp=orderInfolist.get(i).getProduct();
                         }
-                        Log.d("something", String.valueOf(infosofOrder));
 
                     }
                     if (infosofOrder.isEmpty()){
@@ -222,7 +205,6 @@ public class OrderFragment extends Fragment {
     }
 
     private void displayOrderListInRecyclerView(ArrayList<JSONObject> orderlistdisplay) {
-//        Log.d("orderlistdisplayswag", String.valueOf(orderlistdisplay));
         List list = new ArrayList(orderlistdisplay);
         if (orderlistdisplay!=null){
             Collections.sort(list,new NameComparator());
@@ -236,8 +218,13 @@ public class OrderFragment extends Fragment {
 
 
     }
-    public class NameComparator implements Comparator<JSONObject> {
 
+    @Override
+    public void onNeedClickListener(int position) {
+        startActivity(new Intent(getContext(), CustomerFeedback.class));
+    }
+
+    private class NameComparator implements Comparator<JSONObject> {
         @Override
         public int compare(JSONObject o1, JSONObject o2) {
             try {
@@ -248,9 +235,8 @@ public class OrderFragment extends Fragment {
             }
 
         }
-        ;
+
 
     }
-
 
 }

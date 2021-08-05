@@ -33,10 +33,10 @@ public class RegistrationActivity extends AppCompatActivity {
     private EditText password;
     private EditText confirmpassword;
     private String str;
-    public String token;
+    private String token;
     private int id;
 
-    NetworkChangeListener networkChangeListener=new NetworkChangeListener();
+    private NetworkChangeListener networkChangeListener=new NetworkChangeListener();
 
 
     @Override
@@ -102,6 +102,20 @@ public class RegistrationActivity extends AppCompatActivity {
             return true;
         }
     }
+    private boolean confirmpassword(){
+        String val = password.getText().toString().trim();
+        String val2= confirmpassword.getText().toString().trim();
+
+        Boolean b=val.equals(val2);
+        if (b) {
+            return true;
+        }else{
+            Toast.makeText(RegistrationActivity.this,"password didn't match with confirm password",Toast.LENGTH_SHORT).show();
+            return false;
+
+        }
+
+    }
 
     public void movetologin(View view) {
         Intent intent=new Intent(RegistrationActivity.this, LoginActivity.class);
@@ -110,7 +124,7 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     public void registerUser1(View view) {
-        if ( validateUsername() && validateEmail() && validatePassword()){
+        if ( validateUsername() && validateEmail() && validatePassword() && confirmpassword()){
             UserRequest userRequest1=createUserRequest();
             registerUser(userRequest1);
             Toast.makeText(RegistrationActivity.this,"Please Wait for a moment while we are registering you",Toast.LENGTH_LONG).show();
@@ -119,7 +133,7 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
 
-    public UserRequest createUserRequest(){
+    private UserRequest createUserRequest(){
         UserRequest userRequest=new UserRequest();
         userRequest.setUsername(username.getText().toString().trim());
         userRequest.setEmail(email.getText().toString());
@@ -127,7 +141,7 @@ public class RegistrationActivity extends AppCompatActivity {
         return userRequest;
     }
 
-    public void gotohome() {
+    private void gotohome() {
         SharedPreferences sharedPreferences=getSharedPreferences(LoginActivity.PREFS_NAME,0);
         SharedPreferences.Editor editor=sharedPreferences.edit();
         startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
@@ -135,7 +149,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
 
     }
-    public void registerUser(UserRequest userRequest){
+    private void registerUser(UserRequest userRequest){
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         Call<UserResponse> userResponseCall=apiInterface.registerUser(userRequest);
         userResponseCall.enqueue(new Callback<UserResponse>() {
@@ -149,7 +163,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         Button btn = (Button)findViewById(R.id.register_button);
                         btn.setEnabled(false);
                         SessionManager sessionManager=new SessionManager(RegistrationActivity.this);
-                        sessionManager.createloginsession(token,username.getText().toString(),id);
+                        sessionManager.createloginsession(username.getText().toString(),id);
                         gotohome();
                     }else{
                         Toast.makeText(RegistrationActivity.this,"Invalid Credentials",Toast.LENGTH_SHORT).show();

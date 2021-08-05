@@ -41,16 +41,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MyCartFragment extends Fragment {
-    public RecyclerView rcFoodCart;
-    public static ArrayList<JSONObject> userCartDetailsList;
-    public static ArrayList<JSONObject> productList;
-    public static ArrayList<JSONObject> cartProducts;
-    public int userCart;
-    public TextView tvSubtotal;
-    public TextView tvTotal;
-    public Button btnCheckout;
-    public RelativeLayout nodisplay;
-    public ScrollView cartscroll;
+    private RecyclerView rcFoodCart;
+    private static ArrayList<JSONObject> userCartDetailsList;
+    private static ArrayList<JSONObject> productList;
+    private static ArrayList<JSONObject> cartProducts;
+    private int userCart;
+    private TextView tvSubtotal;
+    private TextView tvTotal;
+    private Button btnCheckout;
+    private RelativeLayout nodisplay;
+    private ScrollView cartscroll;
 
 
     private static final String ARG_PARAM1 = "param1";
@@ -60,7 +60,6 @@ public class MyCartFragment extends Fragment {
     private String mParam2;
 
     public MyCartFragment() {
-        // Required empty public constructor
     }
 
 
@@ -103,7 +102,7 @@ public class MyCartFragment extends Fragment {
     }
 
 
-    public void getUserFromCart(TextView tvTotal, TextView tvSubtotal, Button btnCheckout) {
+    private void getUserFromCart(TextView tvTotal, TextView tvSubtotal, Button btnCheckout) {
         ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Loading Cart");
         progressDialog.show();
@@ -227,9 +226,7 @@ public class MyCartFragment extends Fragment {
         cartAdapter.setCartListener(position -> {
             ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
             try {
-                Toast.makeText(getContext(), String.valueOf(position)+" "+cartProducts.get(position).get("title")+" " + cartProducts.get(position).get("id") ,Toast.LENGTH_SHORT).show();
-                Call<Void> removeCartItems = apiInterface.deleteCartItems((Integer) cartProducts.get(position).get("id"));
-                Log.e("CartListRemove",  cartProducts.get(position).toString());
+               Call<Void> removeCartItems = apiInterface.deleteCartItems((Integer) cartProducts.get(position).get("id"));
                 removeCartItems.enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
@@ -247,7 +244,6 @@ public class MyCartFragment extends Fragment {
                             subTotal = subTotal + subTotalPrice;
                             tvSubtotal.setText(String.valueOf(subTotal));
                             tvTotal.setText(String.valueOf(subTotal+70));
-//                            Log.e("CartListRemove",  cartProducts.get(position).toString());
                             cartAdapter.notifyDataSetChanged();
                         }
                     }
@@ -262,8 +258,6 @@ public class MyCartFragment extends Fragment {
             }
         });
 
-
-
         btnCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -277,4 +271,5 @@ public class MyCartFragment extends Fragment {
         });
 
     }
+
 }

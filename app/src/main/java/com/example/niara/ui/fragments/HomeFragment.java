@@ -92,49 +92,49 @@ public class HomeFragment extends Fragment implements CategoryAdapter.CategoryCl
             }
         });
 
-        loadFood();
+        loadSnacks();
 
         return view;
     }
 
 
 
-    private void loadFood() {
-        ProgressDialog progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage("Getting your Food");
-        progressDialog.show();
-
-        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<ArrayList<Food>> getFoodItems = apiInterface.getFoodSearch();
-
-        getFoodItems.enqueue(new Callback<ArrayList<Food>>() {
-            @Override
-            public void onResponse(Call<ArrayList<Food>> call, Response<ArrayList<Food>> response) {
-
-                if (response.isSuccessful()) {
-                    progressDialog.hide();
-                    ArrayList<Food> value = response.body();
-                    FoodAdapter foodAdapter = new FoodAdapter(getContext(),value,HomeFragment.this);
-                    rcFoodItems.setAdapter(foodAdapter);
-                }
-                else {
-                    Toast.makeText(getContext(), "Server Error", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ArrayList<Food>> call, Throwable t) {
-                progressDialog.hide();
-
-                if (t instanceof IOException) {
-
-                }
-                else {
-                    Log.e("Logs",t.toString());
-                }
-            }
-        });
-    }
+//    private void loadFood() {
+//        ProgressDialog progressDialog = new ProgressDialog(getContext());
+//        progressDialog.setMessage("Getting your Food");
+//        progressDialog.show();
+//
+//        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+//        Call<ArrayList<Food>> getFoodItems = apiInterface.getFoodSearch();
+//
+//        getFoodItems.enqueue(new Callback<ArrayList<Food>>() {
+//            @Override
+//            public void onResponse(Call<ArrayList<Food>> call, Response<ArrayList<Food>> response) {
+//
+//                if (response.isSuccessful()) {
+//                    progressDialog.hide();
+//                    ArrayList<Food> value = response.body();
+//                    FoodAdapter foodAdapter = new FoodAdapter(getContext(),value,HomeFragment.this);
+//                    rcFoodItems.setAdapter(foodAdapter);
+//                }
+//                else {
+//                    Toast.makeText(getContext(), "Server Error", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ArrayList<Food>> call, Throwable t) {
+//                progressDialog.hide();
+//
+//                if (t instanceof IOException) {
+//
+//                }
+//                else {
+//                    Log.e("Logs",t.toString());
+//                }
+//            }
+//        });
+//    }
 
 
 
@@ -142,26 +142,23 @@ public class HomeFragment extends Fragment implements CategoryAdapter.CategoryCl
     public void onCategoryClicked(String categoryname) {
         categoryValue = categoryname;
         switch (categoryValue){
-            case "Delicious":
-                loadFood();
-                break;
             case "Snacks":
                 loadSnacks();
                 break;
             case "Meals":
                 loadMeals();
                 break;
-            case "Veg":
+            case "Veg Items":
                 loadVeg();
                 break;
-            case "Non-Veg":
+            case "Non-Veg Items":
                 loadNonVeg();
                 break;
             case "Grocery":
                 grocery();
                 break;
             default:
-                loadFood();
+                loadSnacks();
                 break;
         }
     }
@@ -223,6 +220,7 @@ public class HomeFragment extends Fragment implements CategoryAdapter.CategoryCl
                 if (response.isSuccessful()) {
                     progressDialog.hide();
                     ArrayList<Food> value = response.body();
+                    Log.d("nonvegget", String.valueOf(value));
                     FoodAdapter foodAdapter = new FoodAdapter(getContext(),value,HomeFragment.this);
                     rcFoodItems.setAdapter(foodAdapter);
                 }
@@ -263,6 +261,7 @@ public class HomeFragment extends Fragment implements CategoryAdapter.CategoryCl
                 if (response.isSuccessful()) {
                     progressDialog.hide();
                     ArrayList<Food> value = response.body();
+                    Log.d("veg", String.valueOf(value));
                     FoodAdapter foodAdapter = new FoodAdapter(getContext(),value,HomeFragment.this);
                     rcFoodItems.setAdapter(foodAdapter);
                 }
@@ -291,9 +290,6 @@ public class HomeFragment extends Fragment implements CategoryAdapter.CategoryCl
         progressDialog.show();
 
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-
-
-
         Call<ArrayList<Food>> getFoodItems = apiInterface.getMeals();
 
         getFoodItems.enqueue(new Callback<ArrayList<Food>>() {
@@ -362,6 +358,7 @@ public class HomeFragment extends Fragment implements CategoryAdapter.CategoryCl
             }
         });
     }
+
 
     @Override
     public void onItemClick(Food food) {

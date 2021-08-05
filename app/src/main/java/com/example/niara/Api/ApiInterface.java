@@ -34,7 +34,7 @@ import retrofit2.http.Path;
 
 public interface ApiInterface {
 
-//    GET ALL THE PRODUCTS
+    //    GET ALL THE PRODUCTS
     @GET("/ProdInfo/")
     Call<ArrayList<Food>> getFoodSearch();
 
@@ -60,7 +60,7 @@ public interface ApiInterface {
     Call<Food> getProductList(@Path("id") int id);
 
 
-//    CUSTOMER INFO AND AUTHENTICATION
+    //    CUSTOMER INFO AND AUTHENTICATION
     @POST("/CreateCustomerInfo/")
     Call<CreateCustomerInfo> sendCustomerinfo(@Body CreateCustomerInfo createCustomerInfo);
 

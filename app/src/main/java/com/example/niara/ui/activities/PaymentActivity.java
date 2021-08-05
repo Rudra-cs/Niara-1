@@ -3,11 +3,14 @@ package com.example.niara.ui.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.FtsOptions;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,12 +19,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.niara.Adapters.CustomerInfoAdapter;
+import com.example.niara.Adapters.OrderFoodInfoAdapter;
 import com.example.niara.Api.ApiClient;
 import com.example.niara.Api.ApiInterface;
 import com.example.niara.Model.CartInfo;
@@ -29,64 +34,89 @@ import com.example.niara.Model.CreateCustomerInfo;
 import com.example.niara.Model.CreateOrderInfo;
 import com.example.niara.Model.CustomerInfo;
 import com.example.niara.R;
+import com.example.niara.ui.fragments.OrderFragment;
 import com.example.niara.utils.NetworkChangeListener;
 import com.example.niara.utils.SessionManager;
 import com.razorpay.Checkout;
+import com.razorpay.Order;
 import com.razorpay.PaymentData;
 import com.razorpay.PaymentResultWithDataListener;
+import com.razorpay.RazorpayClient;
+import com.razorpay.RazorpayException;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
+
+import javax.xml.transform.Result;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PaymentActivity extends AppCompatActivity implements PaymentResultWithDataListener,CustomerInfoAdapter.ItemClickListener, AdapterView.OnItemSelectedListener {
-    NetworkChangeListener networkChangeListener=new NetworkChangeListener();
+    private NetworkChangeListener networkChangeListener=new NetworkChangeListener();
     private int userCart;
-    private TextView tvAmount,tv_subtotal;
-    private Button addAddress;
-    public Boolean addressSelected=false;
-
-
+    private TextView tvAmount,tv_subtotal,nameconfirmed,localityconfirmed,cityconfirmed,zipcodeconfirmed,mobileconfirmed,stateconfirmed,addressnone;
+    private Button addAddress,cancelform;
+    private Boolean addressSelected=false;
     private RecyclerView recyclerView;
     private CustomerInfoAdapter customerInfoAdapter;
     private List<CustomerInfo> customerInfolist;
     private ArrayList<CartInfo> cartInfoArrayList;
     private int i,j;
     private int CustomerID;
-    public RelativeLayout noaddress;
-    public LinearLayout selectaddressLL;
-
-    Spinner spinner;
-    public String city;
+    private RelativeLayout noaddress;
+    private LinearLayout selectaddressLL,addresscategory;
+    private Order order = null;
+    private LinearLayout paymentpage,confirmingpage;
+    private String orderid,paymentOrderid,paymentSignature;
+    private Spinner spinner;
+    private String city;
     private EditText fullname,mobile,zipcode,locality;
-
     private static final String TAG = MainActivity.class.getSimpleName();
-    public Button paybutton;
-    TextView tvamount,tvselectaddres;
+    private Button paybutton;
+    private TextView tvamount,tvselectaddres;
+    private String reciept;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
 
+        nameconfirmed=findViewById(R.id.nameconfirmed);
+        localityconfirmed=findViewById(R.id.localityconfirmed);
+        cityconfirmed=findViewById(R.id.cityconfirmed);
+        zipcodeconfirmed=findViewById(R.id.zipcodeconfirmed);
+        mobileconfirmed=findViewById(R.id.mobileconfirmed);
+        stateconfirmed=findViewById(R.id.stateconfirmed);
+        addresscategory=findViewById(R.id.addressCategory);
+        addressnone=findViewById(R.id.addressnone);
+
+
+        paymentpage=findViewById(R.id.paymentpage);
+        confirmingpage=findViewById(R.id.confirmingpage);
+
         //for address form
-        selectaddressLL=findViewById(R.id.addressformLL);
-        fullname=findViewById(R.id.fullname_et_address);
-        mobile=findViewById(R.id.mobile);
-        zipcode=findViewById(R.id.zipcode);
-        locality=findViewById(R.id.et_locality_address);
-        EditText state=findViewById(R.id.state);
+        selectaddressLL = findViewById(R.id.addressformLL);
+        fullname = findViewById(R.id.fullname_et_address);
+        mobile = findViewById(R.id.mobile);
+        zipcode = findViewById(R.id.zipcode);
+        locality = findViewById(R.id.et_locality_address);
+        EditText state = findViewById(R.id.state);
+        cancelform=findViewById(R.id.cancelform);
 
         state.setEnabled(false);
         state.setFocusable(false);
         state.setFocusableInTouchMode(false);
-        String[] city = { "Bhubaneswar", "Cuttack"};
-        spinner= findViewById(R.id.planets_spinner_city);
+        String[] city = {"Bhubaneswar", "Cuttack"};
+        spinner = findViewById(R.id.planets_spinner_city);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, city);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
@@ -94,46 +124,87 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
 
         //for bill
         Intent intent = getIntent();
-        tvAmount=findViewById(R.id.tvamount);
-        tv_subtotal=findViewById(R.id.tv_subTotal);
+        tvAmount = findViewById(R.id.tvamount);
+        tv_subtotal = findViewById(R.id.tv_subTotal);
         tvAmount.setText(intent.getStringExtra("amount"));
-        tvselectaddres=findViewById(R.id.selectAddress_tv);
+        tvselectaddres = findViewById(R.id.selectAddress_tv);
         tv_subtotal.setText(intent.getStringExtra("subtotalamount"));
-        noaddress=findViewById(R.id.nothingaddedinaddress);
-
+        noaddress = findViewById(R.id.nothingaddedinaddress);
 
 
         int amount = Math.round(Float.parseFloat(String.valueOf(tvAmount.getText().toString())) * 100);
 
-        customerInfolist=new ArrayList<>();
-        cartInfoArrayList=new ArrayList<>();
+        customerInfolist = new ArrayList<>();
+        cartInfoArrayList = new ArrayList<>();
+
+        //generating an order id
 
         //for address
-        recyclerView=findViewById(R.id.rc_address);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(),RecyclerView.HORIZONTAL, false));
+        recyclerView = findViewById(R.id.rc_address);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), RecyclerView.HORIZONTAL, false));
         loadAddress();
         Checkout.preload(getApplicationContext());
-        paybutton=findViewById(R.id.paybutton);
-        tvamount=findViewById(R.id.tvamount);
+        paybutton = findViewById(R.id.paybutton);
+        tvamount = findViewById(R.id.tvamount);
         paybutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (addressSelected){
+                if (addressSelected) {
                     startPayment(String.valueOf(amount));
-                }else{
-                    Toast.makeText(PaymentActivity.this,"Please Select a addres to continue",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(PaymentActivity.this, "Please Select a addres to continue", Toast.LENGTH_SHORT).show();
                 }
 
             }
         });
-        addAddress=findViewById(R.id.addAddressbutton);
+        addAddress = findViewById(R.id.addAddressbutton);
         addAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 selectaddressLL.setVisibility(View.VISIBLE);
+                addAddress.setVisibility(View.GONE);
             }
 
         });
+
+        if (addressSelected){
+            addAddress.setVisibility(View.GONE);
+        }
+
+        Runnable objRunnable=new Runnable() {
+            @Override
+            public void run() {
+                //
+                RazorpayClient razorpay = null;
+                JSONObject orderRequest = new JSONObject();
+                try {
+                    razorpay = new RazorpayClient("rzp_test_Zdmf4HFzNEDhMD", "zkwDT8tUbFtBxWdUsnF0v11t");
+                } catch (RazorpayException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    orderRequest.put("amount", amount); // amount in the smallest currency unit
+                    orderRequest.put("currency", "INR");
+                    orderRequest.put("receipt", reciept);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    Log.d("orderreq", String.valueOf(orderRequest));
+                    order = razorpay.Orders.create(orderRequest);
+                } catch (RazorpayException e) {
+                    e.printStackTrace();
+                }
+                orderid = order.get("id");
+            }
+        };
+
+        Thread objBgThread=new Thread(objRunnable);
+        objBgThread.start();
+
+
+
     }
 
     private void loadAddress() {
@@ -153,9 +224,9 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
                             customerInfolist.add(response.body().get(i));
                         }
                     }
+                    displayAddresListInRecyclerView(customerInfolist);
 
-                    customerInfoAdapter= new CustomerInfoAdapter(PaymentActivity.this,customerInfolist, PaymentActivity.this);
-                    recyclerView.setAdapter(customerInfoAdapter);
+
                 }
                 else{
                     Toast.makeText(PaymentActivity.this,"address not found",Toast.LENGTH_SHORT).show();
@@ -172,32 +243,40 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
 
     }
 
-    public void startPayment(String amount) {
-        /**
-         * Instantiate Checkout
-         */
+    private void displayAddresListInRecyclerView(List<CustomerInfo> customerInfolist) {
+        List list = new ArrayList(customerInfolist);
+        if (customerInfolist!=null){
+            Collections.reverse(list);
+            customerInfoAdapter= new CustomerInfoAdapter(PaymentActivity.this,list,PaymentActivity.this);
+            recyclerView.setAdapter(customerInfoAdapter);
+        }
+    }
+
+    private   String generateReceipt(int len) {
+        SessionManager sessionManager=new SessionManager(PaymentActivity.this);
+        String userid=sessionManager.getUsername();
+        String chars = userid ;
+        Random rnd = new Random();
+        StringBuilder sb = new StringBuilder(len);
+        for (int i = 0; i < len; i++)
+            sb.append(chars.charAt(rnd.nextInt(chars.length())));
+        return sb.toString();
+    }
+
+    private void startPayment(String amount) {
+
+        reciept = generateReceipt(7);
         Checkout checkout = new Checkout();
-        checkout.setKeyID("rzp_test_OAWqK2LwBw2eQg");
-
-        /**
-         * Set your logo here
-         */
+        checkout.setKeyID("rzp_test_Zdmf4HFzNEDhMD");
         checkout.setImage(R.drawable.ic_launcher_background);
-
-        /**
-         * Reference to current activity
-         */
         final Activity activity = this;
 
-        /**
-         * Pass your payment options to the Razorpay Checkout as a JSONObject
-         */
         try {
             JSONObject options = new JSONObject();
             options.put("name", "Niara");
-            options.put("description", "Reference No. #123456");
+            options.put("description", reciept);
             options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.png");
-//            options.put("order_id", "order_DBJOWzybf0sJbb");//from response of step 3.
+            options.put("order_id", orderid);//from response of step 3.
             options.put("theme.color", "#3399cc");
             options.put("currency", "INR");
             options.put("amount", amount);//pass amount in currency subunits
@@ -210,10 +289,8 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
             checkout.open(activity, options);
 
         } catch(Exception e) {
-            Log.e(TAG, "Error in starting Razorpay Checkout", e);
         }
     }
-
 
     @Override
     protected void onStart() {
@@ -231,11 +308,10 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
 
     @Override
     public void onPaymentSuccess(String s, PaymentData paymentData) {
-//        Log.d("stringresponse", String.valueOf(paymentData.getOrderId()));
-//        Log.d("stringresponse1", String.valueOf(paymentData.getPaymentId()));
-//        Log.d("stringresponse3", String.valueOf(paymentData.getSignature()));
         SessionManager sessionManager = new SessionManager(getApplicationContext());
         userCart = sessionManager.getUserid();
+        paymentOrderid=paymentData.getOrderId();
+        paymentSignature=paymentData.getSignature();
         Toast.makeText(PaymentActivity.this,"Payment Successful",Toast.LENGTH_SHORT).show();
 
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
@@ -256,11 +332,14 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
                         createOrderInfo.setProduct(cartInfoArrayList.get(j).getProduct());
                         createOrderInfo.setQuantity(cartInfoArrayList.get(j).getQuantity());
                         createOrderInfo.setRozorpay_paymentId(paymentData.getPaymentId());
-                        createOrderInfo.setRozorpay_orderId("0000000000000");
-                        createOrderInfo.setRozorpay_signature("11111111111");
+                        createOrderInfo.setRozorpay_orderId("00000000000");
+                        createOrderInfo.setRozorpay_signature("00000000000");
                         CreateOrder(createOrderInfo);
                         int k=cartInfoArrayList.get(j).getCartId();
                         DeleteCart(cartInfoArrayList.get(j).getCartId());
+
+                        startActivity(new Intent(PaymentActivity.this, PaymentSuccessfulActivity.class));
+                        finish();
                     }
 
                 } else {
@@ -314,7 +393,7 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
 
     @Override
     public void onPaymentError(int i, String s, PaymentData paymentData) {
-        Toast.makeText(PaymentActivity.this,"Payment Unsuccesfull",Toast.LENGTH_SHORT).show();
+        Toast.makeText(PaymentActivity.this,"Your Payment Couldn't be Processed, please Retry",Toast.LENGTH_SHORT).show();
     }
 
 
@@ -322,24 +401,81 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
     public void onItemClick(CustomerInfo address) {
         CustomerID=address.getId();
         addressSelected=true;
+        addressnone.setVisibility(View.GONE);
+        addresscategory.setVisibility(View.VISIBLE);
+        nameconfirmed.setText(address.getName());
+        localityconfirmed.setText(address.getLocality());
+        mobileconfirmed.setText(address.getMobile());
+        cityconfirmed.setText(address.getCity());
+        stateconfirmed.setText(address.getState());
+        zipcodeconfirmed.setText(address.getZipcode());
         tvselectaddres.setVisibility(View.GONE);
 
     }
+    private boolean validateName(){
+        String name = fullname.getText().toString().trim();
+        if (name.isEmpty()) {
+            fullname.setError("Field can not be empty");
+            return false;
+        }else {
+            fullname.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validatelocality(){
+        String locality1 = locality.getText().toString().trim();
+        if (locality1.isEmpty()) {
+            locality.setError("Field can not be empty");
+            return false;
+        }else {
+            locality.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validatezipcode(){
+        String pincode = zipcode.getText().toString().trim();
+        if (pincode.isEmpty()) {
+            zipcode.setError("Field can not be empty");
+            return false;
+        }else {
+            zipcode.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validatephone(){
+        String phone = mobile.getText().toString().trim();
+        if (phone.isEmpty()) {
+            mobile.setError("Field can not be empty");
+            return false;
+        }else {
+            mobile.setError(null);
+            return true;
+        }
+    }
 
     public void submitForm(View view) {
-        CreateCustomerInfo createCustomerInfo=new CreateCustomerInfo();
-        createCustomerInfo.setName(fullname.getText().toString().trim());
-        createCustomerInfo.setCity(city);
-        createCustomerInfo.setLocality(locality.getText().toString().trim());
-        createCustomerInfo.setMobile(mobile.getText().toString().trim());
-        createCustomerInfo.setState("Odisha");
-        createCustomerInfo.setZipcode(zipcode.getText().toString().trim());
-        SessionManager sessionManager=new SessionManager(getApplicationContext());
-        int user=sessionManager.getUserid();
-        createCustomerInfo.setUser(user);
 
-        sendAddress(createCustomerInfo);
-        Log.d("addressuserdetails", String.valueOf(createCustomerInfo.getCity()));
+        if (validatelocality() && validateName() && validatephone() && validatezipcode()){
+            CreateCustomerInfo createCustomerInfo=new CreateCustomerInfo();
+            createCustomerInfo.setName(fullname.getText().toString().trim());
+            createCustomerInfo.setCity(city);
+            createCustomerInfo.setLocality(locality.getText().toString().trim());
+            createCustomerInfo.setMobile(mobile.getText().toString().trim());
+            createCustomerInfo.setState("Odisha");
+            createCustomerInfo.setZipcode(zipcode.getText().toString().trim());
+            SessionManager sessionManager=new SessionManager(getApplicationContext());
+            int user=sessionManager.getUserid();
+            createCustomerInfo.setUser(user);
+            sendAddress(createCustomerInfo);
+            cancelform.setVisibility(View.GONE);
+        }else{
+            Toast.makeText(PaymentActivity.this,"Please fill in the credentials correctly",Toast.LENGTH_SHORT).show();
+        }
+
+
     }
 
     @Override
@@ -376,5 +512,17 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
                 Toast.makeText(PaymentActivity.this,"Something Went Wrong",Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void cancelform(View view) {
+        selectaddressLL.setVisibility(View.GONE);
+        addAddress.setVisibility(View.VISIBLE);
+    }
+
+    public void cancelAddressClicked(View view) {
+        addressSelected=false;
+        addressnone.setVisibility(View.VISIBLE);
+        addresscategory.setVisibility(View.GONE);
+        tvselectaddres.setVisibility(View.VISIBLE);
     }
 }

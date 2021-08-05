@@ -30,9 +30,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CustomerFeedback extends AppCompatActivity {
-    EditText textArea,fullname,email,phone;
+    private EditText textArea,fullname,email,phone;
 
-    NetworkChangeListener networkChangeListener=new NetworkChangeListener();
+    private NetworkChangeListener networkChangeListener=new NetworkChangeListener();
 
 
 

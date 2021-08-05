@@ -25,27 +25,25 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapter.CustomerInfoViewHodler> {
+public class CustomerInfoAdapter1 extends RecyclerView.Adapter<CustomerInfoAdapter1.CustomerInfoViewHodler1> {
     private Context context;
     private List<CustomerInfo> customerinfolist;
-    private ItemClickListener clickListener;
 
-    public CustomerInfoAdapter(Context context, List<CustomerInfo> customerinfolist,ItemClickListener clickListener) {
+    public CustomerInfoAdapter1(Context context, List<CustomerInfo> customerinfolist) {
         this.context = context;
         this.customerinfolist = customerinfolist;
-        this.clickListener=clickListener;
 
     }
 
     @NonNull
     @NotNull
     @Override
-    public CustomerInfoViewHodler onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-        return new CustomerInfoViewHodler(LayoutInflater.from(context).inflate(R.layout.address_cell, parent, false));
+    public CustomerInfoViewHodler1 onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+        return new CustomerInfoViewHodler1(LayoutInflater.from(context).inflate(R.layout.address_cell, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull @NotNull CustomerInfoAdapter.CustomerInfoViewHodler holder, int position) {
+    public void onBindViewHolder(@NonNull @NotNull CustomerInfoAdapter1.CustomerInfoViewHodler1 holder, int position) {
         CustomerInfo address=customerinfolist.get(position);
         holder.name.setText(address.getName());
         holder.locality.setText(address.getLocality());
@@ -54,13 +52,7 @@ public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapte
         holder.mobile.setText(address.getMobile());
         holder.state.setText(address.getState());
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clickListener.onItemClick(customerinfolist.get(position));
-                Toast.makeText(v.getContext(), "Address selected :"+customerinfolist.get(position).getLocality(),Toast.LENGTH_SHORT).show();
-            }
-        });
+
 
     }
 
@@ -69,10 +61,10 @@ public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapte
         return customerinfolist.size();
     }
 
-    public static class CustomerInfoViewHodler extends RecyclerView.ViewHolder{
+    public static class CustomerInfoViewHodler1 extends RecyclerView.ViewHolder{
         private TextView name,locality,city,zipcode,mobile,state,nametag,localitytag,citytag,zipcodetag,mobiletag,statetag;
         private LinearLayout mrladdress;
-        public CustomerInfoViewHodler(@NonNull @NotNull View itemView) {
+        public CustomerInfoViewHodler1(@NonNull @NotNull View itemView) {
             super(itemView);
 
             name=itemView.findViewById(R.id.name);
@@ -95,8 +87,6 @@ public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapte
 
         }
     }
-    public interface ItemClickListener {
-        void onItemClick(CustomerInfo address);
-    }
 
 }
+

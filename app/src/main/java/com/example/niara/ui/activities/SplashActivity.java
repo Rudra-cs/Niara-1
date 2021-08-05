@@ -15,10 +15,7 @@ import com.example.niara.R;
 import com.example.niara.ui.fragments.SettingsFragment;
 
 public class SplashActivity extends AppCompatActivity {
-    private static int splash_time=1000
-            ;
-    Animation top_animation,bottom_animation;
-    ImageView image;
+    private static int splash_time=1000;
 
 
     @Override
@@ -26,8 +23,6 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-
 
         new Handler().postDelayed(new Runnable() {
             @Override

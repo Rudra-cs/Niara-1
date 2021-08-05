@@ -2,6 +2,7 @@ package com.example.niara.ui.activities;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,7 +39,7 @@ import static com.example.niara.utils.SessionManager.USERID;
 import static com.example.niara.utils.SessionManager.USERNAME;
 
 public class ProductDesc extends AppCompatActivity {
-    NetworkChangeListener networkChangeListener=new NetworkChangeListener();
+    private NetworkChangeListener networkChangeListener=new NetworkChangeListener();
     private TextView tvTitle;
     private TextView tvPrice;
     private TextView tvDesc;
@@ -47,11 +49,15 @@ public class ProductDesc extends AppCompatActivity {
     private Button btnPlus;
     private Button btnAddToCart;
     private Button btnMinus;
-    private Button btnBuy;
+    private Button btnBuy,btnGotoHome;
     private ImageView ivImage;
     private ImageView btnBack;
-    public  String token;
-    int user;
+    private   String token;
+    private TextView tvTot;
+    private TextView addedsuccesfully;
+    private LinearLayout navigationProddesc;
+    private CardView addtocartlayout;
+    private int user;
 
 
     @Override
@@ -64,11 +70,16 @@ public class ProductDesc extends AppCompatActivity {
         tvPrice = findViewById(R.id.tv_pdt_price);
         tvQuantity = findViewById(R.id.tv_pdt_quantity);
         tvHeadTitle = findViewById(R.id.tv_head_title);
+        tvTot=findViewById(R.id.tv_tot_price);
+        addedsuccesfully=findViewById(R.id.addedSuccessfullytvProdDesc);
+        navigationProddesc=findViewById(R.id.navigation_prod_desc);
+        addtocartlayout=findViewById(R.id.addtocardlayout);
 
         btnPlus = findViewById(R.id.btn_add1);
         btnMinus = findViewById(R.id.btn_minus1);
         btnAddToCart = findViewById(R.id.btn_add_to_cart);
         btnBuy = findViewById(R.id.btn_buy_now);
+        btnGotoHome=findViewById(R.id.btn_go_to_home);
 
         btnBack = findViewById(R.id.back);
         ivImage = findViewById(R.id.iv_pdt_img);
@@ -77,6 +88,7 @@ public class ProductDesc extends AppCompatActivity {
         tvTitle.setText(intent.getStringExtra("title"));
         tvPrice.setText(intent.getStringExtra("discountedprice"));
         tvDesc.setText(intent.getStringExtra("desc"));
+        tvTot.setText(intent.getStringExtra("discountedprice"));
         tvHeadTitle.setText(intent.getStringExtra("title"));
         tvQuantity.setText(String.valueOf(1));
         tvProdId = (intent.getIntExtra("id",1));
@@ -102,7 +114,7 @@ public class ProductDesc extends AppCompatActivity {
                         quantity++;
                         tvQuantity.setText(String.valueOf(quantity));
                         price = price*quantity;
-                        tvPrice.setText(String.valueOf(price));
+                        tvTot.setText(String.valueOf(price));
                     }else{
 
                     }
@@ -124,7 +136,7 @@ public class ProductDesc extends AppCompatActivity {
                         quantity--;
                         tvQuantity.setText(String.valueOf(quantity));
                         price = price*quantity;
-                        tvPrice.setText(String.valueOf(price));
+                        tvTot.setText(String.valueOf(price));
                     }else{
 
                     }
@@ -159,6 +171,10 @@ public class ProductDesc extends AppCompatActivity {
                         public void onResponse(Call<Cart> call, Response<Cart> response) {
                             if (response.isSuccessful()){
                                 Toast.makeText(ProductDesc.this, "Added to Cart", Toast.LENGTH_SHORT).show();
+                                addedsuccesfully.setVisibility(View.VISIBLE);
+                                addtocartlayout.setVisibility(View.GONE);
+                                navigationProddesc.setVisibility(View.VISIBLE);
+
 
                             }else{
                                 Toast.makeText(ProductDesc.this, "Some Problem Occurred.", Toast.LENGTH_SHORT).show();
@@ -176,6 +192,15 @@ public class ProductDesc extends AppCompatActivity {
                     Toast.makeText(ProductDesc.this, "Error: "+err, Toast.LENGTH_SHORT).show();
                 }
 
+            }
+        });
+
+        btnGotoHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProductDesc.this, MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 

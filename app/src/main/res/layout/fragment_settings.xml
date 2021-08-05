@@ -9,229 +9,334 @@
     android:focusableInTouchMode="true"
     android:gravity="center">
 
-
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <LinearLayout
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_140sdp"
-            android:orientation="horizontal"
-            android:background="@drawable/bg7"
-            android:weightSum="1"
-            android:id="@+id/profilesection">
+            android:layout_height="wrap_content">
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.35"
-                android:layout_gravity="center"
-                android:gravity="center">
-                <ImageView
-                    android:layout_width="@dimen/_80sdp"
-                    android:layout_height="@dimen/_80sdp"
-                    android:src="@drawable/ic_profile"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.65"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Hello"
-                    android:textColor="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_140sdp"
+                android:orientation="horizontal"
+                android:background="@drawable/bg7"
+                android:weightSum="1"
+                android:id="@+id/profilesection">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.35"
+                    android:layout_gravity="center"
+                    android:gravity="center">
+                    <ImageView
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_80sdp"
+                        android:src="@drawable/ic_profile"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.65"
+                    android:layout_gravity="center"
                     android:gravity="center"
-                    android:textSize="@dimen/_20ssp"
-                    android:fontFamily="@font/poppins_medium"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Username"
-                    android:id="@+id/tv_username_settings"
-                    android:textColor="@color/white"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Hello"
+                        android:textColor="@color/white"
+                        android:gravity="center"
+                        android:textSize="@dimen/_20ssp"
+                        android:fontFamily="@font/poppins_medium"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Username"
+                        android:id="@+id/tv_username_settings"
+                        android:textColor="@color/white"
+                        android:gravity="center"
+                        android:textSize="@dimen/_20ssp"
+                        android:fontFamily="@font/poppins_medium"/>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/myaccount"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My Account"
+                android:textColor="@color/black"
+                android:layout_below="@+id/profilesection"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_20ssp"
+                android:textStyle="bold"/>
+
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/myaccount"
+                android:orientation="horizontal"
+                android:id="@+id/password_section"
+                android:background="@drawable/bg8"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:weightSum="1">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_weight="0.3"
+                    android:gravity="center">
+                    <ImageView
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:src="@drawable/ic_password"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_weight="0.7"
                     android:gravity="center"
-                    android:textSize="@dimen/_20ssp"
-                    android:fontFamily="@font/poppins_medium"/>
+                    android:layout_marginLeft="0dp">
+                    <TextView
+                        android:id="@+id/tv_changepassword_settings"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Change Password"
+                        android:textSize="@dimen/_15ssp"
+                        android:textColor="@color/black"/>
+
+                </LinearLayout>
 
 
-            </LinearLayout>
-
-        </LinearLayout>
-
-
-
-
-        <TextView
-            android:id="@+id/myaccount"
-            android:layout_marginLeft="@dimen/_5sdp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="My Account"
-            android:layout_below="@+id/profilesection"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:textSize="@dimen/_20ssp"
-            android:textStyle="bold"/>
-        <LinearLayout
-            android:id="@+id/logout_section"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/myaccount"
-            android:orientation="horizontal"
-            android:background="@drawable/bg8"
-            android:layout_marginLeft="@dimen/_5sdp"
-            android:layout_marginRight="@dimen/_5sdp"
-            android:weightSum="1">
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_weight="0.3"
-                android:gravity="center">
-                <ImageView
-                    android:layout_width="@dimen/_30sdp"
-                    android:layout_height="@dimen/_30sdp"
-                    android:src="@drawable/ic_baseline_exit_to_app_24"/>
             </LinearLayout>
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_weight="0.7"
-                android:gravity="center"
-                android:layout_marginLeft="0dp">
-                <TextView
-                    android:id="@+id/tv_logout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Logout"
-                    android:textSize="@dimen/_15ssp"
-                    android:textColor="@color/black"/>
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/password_section"
+                android:orientation="horizontal"
+                android:id="@+id/myaddresses"
+                android:background="@drawable/bg8"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:weightSum="1">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_weight="0.3"
+                    android:gravity="center">
+                    <ImageView
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:src="@drawable/ic_home"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_weight="0.7"
+                    android:gravity="center"
+                    android:layout_marginLeft="0dp">
+                    <TextView
+                        android:id="@+id/tv_Addresses"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Add Address"
+                        android:textSize="@dimen/_15ssp"
+                        android:textColor="@color/black"/>
+
+                </LinearLayout>
+
 
             </LinearLayout>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginTop="@dimen/_8sdp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/logout_section"
-            android:orientation="horizontal"
-            android:id="@+id/password_section"
-            android:background="@drawable/bg8"
-            android:layout_marginLeft="@dimen/_5sdp"
-            android:layout_marginRight="@dimen/_5sdp"
-            android:weightSum="1">
+            <TextView
+                android:id="@+id/addedaddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="My Addresses:-"
+                android:layout_margin="@dimen/_8sdp"
+                android:layout_below="@id/myaddresses"
+                android:textColor="@color/black"
+                android:fontFamily="@font/poppins_medium"
+                android:textStyle="bold"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:textSize="@dimen/_12ssp"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_margin="@dimen/_5sdp"
+                android:id="@+id/rc_address"
+                android:padding="@dimen/_5sdp"
+                android:layout_below="@id/addedaddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+            </androidx.recyclerview.widget.RecyclerView>
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_weight="0.3"
-                android:gravity="center">
-                <ImageView
-                    android:layout_width="@dimen/_30sdp"
-                    android:layout_height="@dimen/_30sdp"
-                    android:src="@drawable/ic_password"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_weight="0.7"
-                android:gravity="center"
-                android:layout_marginLeft="0dp">
-                <TextView
-                    android:id="@+id/tv_changepassword_settings"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Change Password"
-                    android:textSize="@dimen/_15ssp"
-                    android:textColor="@color/black"/>
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rc_address"
+                android:orientation="horizontal"
+                android:id="@+id/feedback_section"
+                android:background="@drawable/bg8"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:weightSum="1">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_weight="0.3"
+                    android:gravity="center">
+                    <ImageView
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:src="@drawable/ic_baseline_chat_24"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_weight="0.7"
+                    android:gravity="center"
+                    android:layout_marginLeft="0dp">
+                    <TextView
+                        android:id="@+id/tv_feedback"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Give Your Feedbacks"
+                        android:textSize="@dimen/_15ssp"
+                        android:textColor="@color/black"/>
 
-            </LinearLayout>
-
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="@dimen/_8sdp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/password_section"
-            android:orientation="horizontal"
-            android:id="@+id/myaddresses"
-            android:background="@drawable/bg8"
-            android:layout_marginLeft="@dimen/_5sdp"
-            android:layout_marginRight="@dimen/_5sdp"
-            android:weightSum="1">
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_weight="0.3"
-                android:gravity="center">
-                <ImageView
-                    android:layout_width="@dimen/_30sdp"
-                    android:layout_height="@dimen/_30sdp"
-                    android:src="@drawable/ic_home"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_weight="0.7"
-                android:gravity="center"
-                android:layout_marginLeft="0dp">
-                <TextView
-                    android:id="@+id/tv_Addresses"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="My Addresses"
-                    android:textSize="@dimen/_15ssp"
-                    android:textColor="@color/black"/>
-
-            </LinearLayout>
+                </LinearLayout>
 
 
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="@dimen/_8sdp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/myaddresses"
-            android:orientation="horizontal"
-            android:id="@+id/feedback_section"
-            android:background="@drawable/bg8"
-            android:layout_marginLeft="@dimen/_5sdp"
-            android:layout_marginRight="@dimen/_5sdp"
-            android:weightSum="1">
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_weight="0.3"
-                android:gravity="center">
-                <ImageView
-                    android:layout_width="@dimen/_30sdp"
-                    android:layout_height="@dimen/_30sdp"
-                    android:src="@drawable/ic_baseline_chat_24"/>
             </LinearLayout>
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_weight="0.7"
-                android:gravity="center"
-                android:layout_marginLeft="0dp">
-                <TextView
-                    android:id="@+id/tv_feedback"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Give Your Feedbacks"
-                    android:textSize="@dimen/_15ssp"
-                    android:textColor="@color/black"/>
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/feedback_section"
+                android:orientation="horizontal"
+                android:id="@+id/TermsAndConditions"
+                android:background="@drawable/bg8"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:weightSum="1">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_weight="0.3"
+                    android:gravity="center">
+                    <ImageView
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:src="@drawable/ic_order"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_weight="0.7"
+                    android:gravity="center"
+                    android:layout_marginLeft="0dp">
+                    <TextView
+                        android:id="@+id/tv_termsAndConditions"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Terms and Conditions"
+                        android:textSize="@dimen/_15ssp"
+                        android:textColor="@color/black"/>
+
+                </LinearLayout>
+
 
             </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/TermsAndConditions"
+                android:orientation="horizontal"
+                android:id="@+id/PrivacyPolicy"
+                android:background="@drawable/bg8"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:weightSum="1">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_weight="0.3"
+                    android:gravity="center">
+                    <ImageView
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:src="@drawable/ic_order"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_weight="0.7"
+                    android:gravity="center"
+                    android:layout_marginLeft="0dp">
+                    <TextView
+                        android:id="@+id/tv_PrivacyPolicy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Privacy Policy"
+                        android:textSize="@dimen/_15ssp"
+                        android:textColor="@color/black"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/logout_section"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/PrivacyPolicy"
+                android:orientation="horizontal"
+                android:background="@drawable/bg8"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:weightSum="1">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_weight="0.3"
+                    android:gravity="center">
+                    <ImageView
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:src="@drawable/ic_baseline_exit_to_app_24"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_weight="0.7"
+                    android:gravity="center"
+                    android:layout_marginLeft="0dp">
+                    <TextView
+                        android:id="@+id/tv_logout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Logout"
+                        android:textSize="@dimen/_15ssp"
+                        android:textColor="@color/black"/>
+
+                </LinearLayout>
 
 
-        </LinearLayout>
-    </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+
 
 
 

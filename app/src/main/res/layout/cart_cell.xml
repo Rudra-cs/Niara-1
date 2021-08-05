@@ -74,38 +74,52 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12ssp" />
 
-                <Button
-                    android:id="@+id/btn_add"
-                    android:layout_width="@dimen/_30sdp"
-                    android:layout_height="@dimen/_30sdp"
-                    android:layout_below="@+id/tv_food_cart_title"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="@dimen/_12sdp"
-                    android:fontFamily="@font/poppins_bold"
-                    android:text="@string/plus" />
+<!--                <Button-->
+<!--                    android:id="@+id/btn_add"-->
+<!--                    android:layout_width="@dimen/_30sdp"-->
+<!--                    android:layout_height="@dimen/_30sdp"-->
+<!--                    android:layout_below="@+id/tv_food_cart_title"-->
+<!--                    android:layout_alignParentEnd="true"-->
+<!--                    android:layout_marginEnd="@dimen/_12sdp"-->
+<!--                    android:fontFamily="@font/poppins_bold"-->
+<!--                    android:text="@string/plus" />-->
+
+                <TextView
+                    android:id="@+id/tv_pdt_rs1"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="Qty. "
+                    android:textSize="@dimen/_12ssp" />
 
                 <TextView
                     android:id="@+id/tv_pdt_quantity"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_food_cart_title"
-                    android:layout_marginStart="@dimen/_4sdp"
-                    android:layout_marginEnd="@dimen/_4sdp"
-                    android:layout_toLeftOf="@+id/btn_add"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:layout_marginStart="@dimen/_3sdp"
                     android:fontFamily="@font/poppins_medium"
                     android:text="2"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/tv_pdt_rs1"
                     android:textSize="@dimen/_12ssp" />
 
-                <Button
-                    android:id="@+id/btn_minus"
-                    android:layout_width="@dimen/_30sdp"
-                    android:layout_height="@dimen/_30sdp"
-                    android:layout_below="@+id/tv_food_cart_title"
-                    android:layout_toStartOf="@+id/tv_pdt_quantity"
-                    android:fontFamily="@font/poppins_bold"
-                    android:text="@string/minus" />
+
+
+
+<!--                <Button-->
+<!--                    android:id="@+id/btn_minus"-->
+<!--                    android:layout_width="@dimen/_30sdp"-->
+<!--                    android:layout_height="@dimen/_30sdp"-->
+<!--                    android:layout_below="@+id/tv_food_cart_title"-->
+<!--                    android:layout_toStartOf="@+id/tv_pdt_quantity"-->
+<!--                    android:fontFamily="@font/poppins_bold"-->
+<!--                    android:text="@string/minus" />-->
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cv_btn"
@@ -114,8 +128,11 @@
                     android:layout_below="@+id/tv_food_cart_price"
                     android:layout_marginStart="@dimen/_8sdp"
                     android:layout_marginTop="@dimen/_4sdp"
-                    android:layout_marginBottom="@dimen/_4sdp"
-                    app:cardCornerRadius="@dimen/_16sdp">
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    app:cardCornerRadius="@dimen/_16sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:padding="@dimen/_5sdp"
+                    android:layout_alignParentEnd="true">
 
                     <Button
                         android:id="@+id/btn_remove"

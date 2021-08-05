@@ -22,12 +22,17 @@ import java.util.List;
 public class OrderFoodInfoAdapter extends RecyclerView.Adapter<OrderFoodInfoAdapter.OrderFoodInfoViewHolder> {
     private Context context;
     private List<JSONObject> orderInfos;
+    private OrderClickListener orderClickListener;
 
     public OrderFoodInfoAdapter(Context context, List<JSONObject> orderInfos) {
         this.context = context;
         this.orderInfos = orderInfos;
+
     }
 
+    public void setOrderClickListener(OrderClickListener orderClickListener) {
+        this.orderClickListener = orderClickListener;
+    }
 
     @NonNull
     @NotNull
@@ -44,12 +49,19 @@ public class OrderFoodInfoAdapter extends RecyclerView.Adapter<OrderFoodInfoAdap
             holder.mTvFoodTitle.setText(data.getString("title"));
             holder.mTvstatus.setText(data.getString("status"));
             holder.mTvDate.setText(data.getString("ordered_date"));
+            holder.mtvQuantity.setText(data.getString("quantity"));
 
 //        Image Loading
             Glide.with(this.context).load(data.getString("prod_img")).into(holder.mIvFoodImg);
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        holder.mtvneedhelp.setOnClickListener(view -> {
+            if (orderClickListener != null) {
+                orderClickListener.onNeedClickListener(position);
+            }
+        });
 
 
     }
@@ -65,7 +77,7 @@ public class OrderFoodInfoAdapter extends RecyclerView.Adapter<OrderFoodInfoAdap
         private TextView mTvFoodTitle;
         private TextView mTvstatus;
         private TextView needhelp;
-        private TextView mTvDate;
+        private TextView mTvDate,mtvQuantity,mtvneedhelp;
 
         public OrderFoodInfoViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
@@ -75,6 +87,14 @@ public class OrderFoodInfoAdapter extends RecyclerView.Adapter<OrderFoodInfoAdap
             mTvstatus = itemView.findViewById(R.id.tv_food_order_status_req);
             needhelp=itemView.findViewById(R.id.tv_food_order_help);
             mTvDate=itemView.findViewById(R.id.tv_food_order_date);
+            mtvQuantity=itemView.findViewById(R.id.tv_product_quantity);
+            mtvneedhelp=itemView.findViewById(R.id.tv_food_order_help);
         }
+    }
+
+    public  interface  OrderClickListener{
+        void onNeedClickListener(int position);
+//        void onAddQuantity(JSONObject cart);
+//        void onMinusQuanity(JSONObject cart);
     }
 }

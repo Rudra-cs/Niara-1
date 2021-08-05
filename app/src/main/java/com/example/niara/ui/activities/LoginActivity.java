@@ -31,14 +31,12 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
     public static final String PREFS_NAME = "PrefsFile";
-    private SharedPreferences prefManager;
-    private SharedPreferences.Editor editor;
     private ArrayList<UserInfo> userInfoArrayList;
-    public String token;
-    public int id,i;
-    public EditText passwordlogin,namelogin;
-    public String rudra,rudrausername;
-    NetworkChangeListener networkChangeListener=new NetworkChangeListener();
+    private String token;
+    private int id,i;
+    private EditText passwordlogin,namelogin;
+    private String rudra,rudrausername;
+    private NetworkChangeListener networkChangeListener=new NetworkChangeListener();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public void gotohome() {
+    private void gotohome() {
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
         finish();
     }
@@ -107,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    public LoginRequest creatLoginRequest(){
+    private LoginRequest creatLoginRequest(){
         LoginRequest loginRequest=new LoginRequest();
         loginRequest.setUsername(namelogin.getText().toString());
         loginRequest.setPassword(passwordlogin.getText().toString());
@@ -115,7 +113,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginUsertohome(LoginRequest loginRequest){
-
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         Call<LoginToken> loginTokenCall=apiInterface.loginUser(loginRequest.getUsername(),loginRequest.getPassword());
         loginTokenCall.enqueue(new Callback<LoginToken>() {
@@ -155,13 +152,12 @@ public class LoginActivity extends AppCompatActivity {
                     for (i=0;i<userInfoArrayList.size();i++){
                         rudra=namelogin.getText().toString().trim();
                         rudrausername=userInfoArrayList.get(i).getUsername();
-
                         Boolean b=rudra.equals(rudrausername);
 
                         if (b!=false){
                             id=userInfoArrayList.get(i).getId();
                             SessionManager sessionManager=new SessionManager(LoginActivity.this);
-                            sessionManager.createloginsession(token,namelogin.getText().toString(),id);
+                            sessionManager.createloginsession(namelogin.getText().toString(),id);
                             gotohome();
                         }
 

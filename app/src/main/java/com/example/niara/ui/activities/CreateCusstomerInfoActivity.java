@@ -25,11 +25,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CreateCusstomerInfoActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    NetworkChangeListener networkChangeListener=new NetworkChangeListener();
+    private NetworkChangeListener networkChangeListener=new NetworkChangeListener();
 
 
-    Spinner spinner;
-    public String city;
+    private Spinner spinner;
+    private String city;
     private EditText fullname,mobile,zipcode,locality;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,20 +65,66 @@ public class CreateCusstomerInfoActivity extends AppCompatActivity implements Ad
 
     }
 
-    public void submitForm(View view) {
-        CreateCustomerInfo createCustomerInfo=new CreateCustomerInfo();
-        createCustomerInfo.setName(fullname.getText().toString().trim());
-        createCustomerInfo.setCity(city);
-        createCustomerInfo.setLocality(locality.getText().toString().trim());
-        createCustomerInfo.setMobile(mobile.getText().toString().trim());
-        createCustomerInfo.setState("Odisha");
-        createCustomerInfo.setZipcode(zipcode.getText().toString().trim());
-        SessionManager sessionManager=new SessionManager(getApplicationContext());
-        int user=sessionManager.getUserid();
-        createCustomerInfo.setUser(user);
+    private boolean validateName(){
+        String name = fullname.getText().toString().trim();
+        if (name.isEmpty()) {
+            fullname.setError("Field can not be empty");
+            return false;
+        }else {
+            fullname.setError(null);
+            return true;
+        }
+    }
 
-        sendAddress(createCustomerInfo);
-        Log.d("addressuserdetails", String.valueOf(createCustomerInfo.getCity()));
+    private boolean validatelocality(){
+        String locality1 = locality.getText().toString().trim();
+        if (locality1.isEmpty()) {
+            locality.setError("Field can not be empty");
+            return false;
+        }else {
+            locality.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validatezipcode(){
+        String pincode = zipcode.getText().toString().trim();
+        if (pincode.isEmpty()) {
+            zipcode.setError("Field can not be empty");
+            return false;
+        }else {
+            zipcode.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validatephone(){
+        String phone = mobile.getText().toString().trim();
+        if (phone.isEmpty()) {
+            mobile.setError("Field can not be empty");
+            return false;
+        }else {
+            mobile.setError(null);
+            return true;
+        }
+    }
+
+    public void submitForm(View view) {
+        if (validatelocality() && validateName() && validatephone() && validatezipcode()){
+            CreateCustomerInfo createCustomerInfo=new CreateCustomerInfo();
+            createCustomerInfo.setName(fullname.getText().toString().trim());
+            createCustomerInfo.setCity(city);
+            createCustomerInfo.setLocality(locality.getText().toString().trim());
+            createCustomerInfo.setMobile(mobile.getText().toString().trim());
+            createCustomerInfo.setState("Odisha");
+            createCustomerInfo.setZipcode(zipcode.getText().toString().trim());
+            SessionManager sessionManager=new SessionManager(getApplicationContext());
+            int user=sessionManager.getUserid();
+            createCustomerInfo.setUser(user);
+            sendAddress(createCustomerInfo);
+        }else{
+            Toast.makeText(CreateCusstomerInfoActivity.this,"Please fill in the credentials correctly",Toast.LENGTH_SHORT).show();
+        }
 
     }
 

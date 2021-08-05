@@ -43,9 +43,32 @@
                     android:layout_marginEnd="@dimen/_4sdp"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_15ssp"
+                    android:fontFamily="@font/poppins_medium"
                     android:maxLines="1"
                     android:ellipsize="end"
                     />
+
+                <TextView
+                    android:id="@+id/tv_product_quantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="5"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_25sdp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp" />
+                <TextView
+                    android:id="@+id/tv_pdt_rs1"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/tv_product_quantity"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="Qty. "
+                    android:textSize="@dimen/_12ssp" />
+
                 <TextView
                     android:id="@+id/tv_food_order_status"
                     android:layout_width="wrap_content"

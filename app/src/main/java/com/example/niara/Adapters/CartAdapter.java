@@ -36,23 +36,24 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     private ArrayList<JSONObject> cartInfo;
     private CartClickListener cartClickListener;
 
-    public void refreshlist(JSONObject jsonObject){
-        if (cartInfo!=null && cartInfo.size()>0){
-            for (JSONObject ob:cartInfo){
-                if (ob.optInt("id")==jsonObject.optInt("id")){
-                    try{
-//                        ob.getInt("quantity")=jsonObject.getInt("quantity");
-                        cartInfo.remove(ob);
-                        cartInfo.add(jsonObject);
-                        notifyDataSetChanged();
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
 
-                }
-            }
-        }
-    }
+//    public void refreshlist(JSONObject jsonObject){
+//        if (cartInfo!=null && cartInfo.size()>0){
+//            for (JSONObject ob:cartInfo){
+//                if (ob.optInt("id")==jsonObject.optInt("id")){
+//                    try{
+////                        ob.getInt("quantity")=jsonObject.getInt("quantity");
+//                        cartInfo.remove(ob);
+//                        cartInfo.add(jsonObject);
+//                        notifyDataSetChanged();
+//                    }catch (Exception e){
+//                        e.printStackTrace();
+//                    }
+//
+//                }
+//            }
+//        }
+//    }
 
     public void setCartListener(CartAdapter.CartClickListener cartListener) {
         this.cartClickListener = cartListener;
@@ -84,105 +85,74 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        holder.mBtnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    if((Integer) data.get("quantity") <= 20) {
-                        CartInfo cartInfo = new CartInfo();
-                        cartInfo.setQuantity((Integer) data.get("quantity") + 1);
-                        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-                        Call<CartInfo> addItems = apiInterface.updateCartItems((Integer) data.get("id"),cartInfo);
-
-                        addItems.enqueue(new Callback<CartInfo>() {
-                            @Override
-                            public void onResponse(Call<CartInfo> call, Response<CartInfo> response) {
-                                if (response.isSuccessful()){
-                                    Toast.makeText(v.getContext(), "Hello Plus",Toast.LENGTH_SHORT).show();
-                                    notifyDataSetChanged();
-                                }else {
-                                    Toast.makeText(v.getContext(), "Hello Error",Toast.LENGTH_SHORT).show();
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<CartInfo> call, Throwable t) {
-                                Toast.makeText(v.getContext(), "Something Went Wrong!!",Toast.LENGTH_SHORT).show();
-                            }
-                        });
-
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        holder.mBtnMinus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                try {
-                    if((Integer) data.get("quantity") > 0) {
-                        CartInfo cartInfo = new CartInfo();
-                        int q= (int) data.get("quantity");
-                        cartInfo.setQuantity(q- 1);
-                        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-                        Call<CartInfo> addItems = apiInterface.updateCartItems((Integer) data.get("id"),cartInfo);
-
-                        addItems.enqueue(new Callback<CartInfo>() {
-                            @Override
-                            public void onResponse(Call<CartInfo> call, Response<CartInfo> response) {
-                                if (response.isSuccessful()){
-                                    Toast.makeText(v.getContext(), "Hello Minus",Toast.LENGTH_SHORT).show();
-                                    notifyDataSetChanged();
-                                }else {
-                                    Toast.makeText(v.getContext(), "Hello Error",Toast.LENGTH_SHORT).show();
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<CartInfo> call, Throwable t) {
-                                Toast.makeText(v.getContext(), "Something Went Wrong!!",Toast.LENGTH_SHORT).show();
-                            }
-                        });
-
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-
-//        holder.mBtnRemove.setOnClickListener(v -> {
-//            ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-//            try {
-//                Log.d("orderid", String.valueOf(data.get("id")));
-//                Call<Void> removeCartItems = apiInterface.deleteCartItems((Integer) data.get("id"));
-//                Toast.makeText(v.getContext(), String.valueOf(data.get("id")),Toast.LENGTH_SHORT).show();
-//                removeCartItems.enqueue(new Callback<Void>() {
-//                    @Override
-//                    public void onResponse(Call<Void> call, Response<Void> response) {
-//                        if (response.isSuccessful()){
-//                            Toast.makeText(v.getContext(), "Removed Successfully!!" + response.body(),Toast.LENGTH_SHORT).show();
-//                            notifyDataSetChanged();
-//                        }
-//                    }
+//        holder.mBtnAdd.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                try {
+//                    if((Integer) data.get("quantity") <= 20) {
+//                        CartInfo cartInfo = new CartInfo();
+//                        cartInfo.setQuantity((Integer) data.get("quantity") + 1);
+//                        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+//                        Call<CartInfo> addItems = apiInterface.updateCartItems((Integer) data.get("id"),cartInfo);
 //
-//                    @Override
-//                    public void onFailure(Call<Void> call, Throwable t) {
-//                        Toast.makeText(v.getContext(), "Something Went Wrong",Toast.LENGTH_SHORT).show();
+//                        addItems.enqueue(new Callback<CartInfo>() {
+//                            @Override
+//                            public void onResponse(Call<CartInfo> call, Response<CartInfo> response) {
+//                                if (response.isSuccessful()){
+//                                    Toast.makeText(v.getContext(), "Hello Plus",Toast.LENGTH_SHORT).show();
+//                                    notifyDataSetChanged();
+//                                }else {
+//                                    Toast.makeText(v.getContext(), "Hello Error",Toast.LENGTH_SHORT).show();
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onFailure(Call<CartInfo> call, Throwable t) {
+//                                Toast.makeText(v.getContext(), "Something Went Wrong!!",Toast.LENGTH_SHORT).show();
+//                            }
+//                        });
+//
 //                    }
-//                });
-//            } catch (JSONException e) {
-//                e.printStackTrace();
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
 //            }
-//
-//
 //        });
 
+//        holder.mBtnMinus.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                try {
+//                    if((Integer) data.get("quantity") > 0) {
+//                        CartInfo cartInfo = new CartInfo();
+//                        int q= (int) data.get("quantity");
+//                        cartInfo.setQuantity(q- 1);
+//                        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+//                        Call<CartInfo> addItems = apiInterface.updateCartItems((Integer) data.get("id"),cartInfo);
+//
+//                        addItems.enqueue(new Callback<CartInfo>() {
+//                            @Override
+//                            public void onResponse(Call<CartInfo> call, Response<CartInfo> response) {
+//                                if (response.isSuccessful()){
+//                                    Toast.makeText(v.getContext(), "Hello Minus",Toast.LENGTH_SHORT).show();
+//                                    notifyDataSetChanged();
+//                                }else {
+//                                    Toast.makeText(v.getContext(), "Hello Error",Toast.LENGTH_SHORT).show();
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onFailure(Call<CartInfo> call, Throwable t) {
+//                                Toast.makeText(v.getContext(), "Something Went Wrong!!",Toast.LENGTH_SHORT).show();
+//                            }
+//                        });
+//
+//                    }
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
         holder.mBtnRemove.setOnClickListener(view -> {
             if (cartClickListener != null) {
                 cartClickListener.onRemoveListener(position);
@@ -203,8 +173,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         private TextView mTvCartFoodTitle;
         private TextView mTvCartFoodPrice;
         private TextView mTvCartFoodQuantity;
-        private Button mBtnAdd;
-        private Button mBtnMinus;
+//        private Button mBtnAdd;
+//        private Button mBtnMinus;
         private Button mBtnRemove;
 
 
@@ -215,14 +185,16 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             mTvCartFoodTitle = itemView.findViewById(R.id.tv_food_cart_title);
             mTvCartFoodPrice = itemView.findViewById(R.id.tv_food_cart_price);
             mTvCartFoodQuantity = itemView.findViewById(R.id.tv_pdt_quantity);
-            mBtnAdd = itemView.findViewById(R.id.btn_add);
-            mBtnMinus = itemView.findViewById(R.id.btn_minus);
+//            mBtnAdd = itemView.findViewById(R.id.btn_add);
+//            mBtnMinus = itemView.findViewById(R.id.btn_minus);
             mBtnRemove = itemView.findViewById(R.id.btn_remove);
         }
     }
 
     public  interface  CartClickListener{
         void onRemoveListener(int position);
+//        void onAddQuantity(JSONObject cart);
+//        void onMinusQuanity(JSONObject cart);
     }
 
 }
