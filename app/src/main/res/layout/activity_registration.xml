@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:orientation="vertical"
-    android:background="@drawable/card_login"
+    android:background="@drawable/bg5"
     tools:context=".ui.activities.RegistrationActivity">
 
     <RelativeLayout
@@ -47,7 +47,7 @@
             android:id="@+id/tv_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:text="Register"
             android:layout_marginTop="35dp"
             android:layout_marginLeft="48dp"
@@ -138,7 +138,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:text="Need Help?"
                         android:layout_marginTop="1dp"
                         android:layout_marginLeft="12dp"
@@ -150,7 +150,7 @@
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:layout_width="0dp"
-                        android:background="@drawable/buttoncard"
+                        android:background="@drawable/bg9"
                         android:text="Register"
                         android:onClick="registerUser1"
                         android:textColor="@color/white">
@@ -181,7 +181,7 @@
                         android:padding="5dp"
                         android:text="login"
                         android:textStyle="bold"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textSize="15dp"
                         android:onClick="movetologin"></TextView>
                 </LinearLayout>

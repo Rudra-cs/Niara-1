@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:orientation="vertical"
-    android:background="@drawable/bg3"
+    android:background="@drawable/bg5"
     android:focusableInTouchMode="true"
     android:gravity="center"
     tools:context=".ui.activities.CreateCusstomerInfoActivity">
@@ -197,17 +197,13 @@
 
             </EditText>
 
-
-
-
-
             <Button
                 android:id="@+id/submitform"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Save Address"
                 android:fontFamily="@font/poppins_bold"
-                android:background="@drawable/bg3round"
+                android:background="@drawable/bg9"
                 android:outlineSpotShadowColor="@color/white"
                 android:textColor="#fff"
                 android:layout_margin="@dimen/_10sdp"

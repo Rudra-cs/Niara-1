@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg5"
     tools:context=".ui.activities.SearchActivity">
 
     <LinearLayout
@@ -19,7 +20,7 @@
             android:layout_marginRight="15dp"
             android:orientation="horizontal"
             android:weightSum="1"
-            android:background="@drawable/bg5">
+            android:background="@drawable/bg_category_unselected">
 
             <LinearLayout
                 android:layout_width="0dp"

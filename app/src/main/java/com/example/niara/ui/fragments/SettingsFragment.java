@@ -55,7 +55,7 @@ public class SettingsFragment extends Fragment {
     private TextView changepasswordtv,usernameSettings,feedback,addAddress;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private LinearLayout logoutsection,changepasswordsection,addresssection,feedbacksection;
+    private LinearLayout logoutsection,ll_rcorder,changepasswordsection,addresssection,feedbacksection,addresslistsection,arrowaddressright,arrowaddressdown;
 
     private String mParam1;
     private String mParam2;
@@ -94,6 +94,10 @@ public class SettingsFragment extends Fragment {
         changepasswordsection=view.findViewById(R.id.password_section);
         addresssection=view.findViewById(R.id.myaddresses);
         feedbacksection=view.findViewById(R.id.feedback_section);
+        addresslistsection=view.findViewById(R.id.addresseslistSection);
+        arrowaddressdown=view.findViewById(R.id.arrowdownaddress);
+        arrowaddressright=view.findViewById(R.id.arrowaddress);
+        ll_rcorder=view.findViewById(R.id.ll_rcorder);
         customerInfolist = new ArrayList<>();
 
         termsConditions=view.findViewById(R.id.TermsAndConditions);
@@ -126,6 +130,23 @@ public class SettingsFragment extends Fragment {
         recyclerView = view.findViewById(R.id.rc_address);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
 
+        addresslistsection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                arrowaddressright.setVisibility(View.GONE);
+                arrowaddressdown.setVisibility(View.VISIBLE);
+                ll_rcorder.setVisibility(View.VISIBLE);
+            }
+        });
+        arrowaddressdown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                arrowaddressright.setVisibility(View.VISIBLE);
+                arrowaddressdown.setVisibility(View.GONE);
+                ll_rcorder.setVisibility(View.GONE);
+            }
+        });
+
 
         logoutsection.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,7 +174,7 @@ public class SettingsFragment extends Fragment {
         changepasswordsection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(),"Login in to the site and then change your password",Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(),"Login in to the site with your credentials and then change your password",Toast.LENGTH_LONG).show();
                 startActivity(new Intent(getContext(), ChangePasswordActivity.class));
             }
         });

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/home_background"
+    android:background="@drawable/bg5"
     tools:context=".ui.fragments.SettingsFragment"
     android:orientation="vertical"
     android:focusableInTouchMode="true"
@@ -16,13 +16,41 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
+
+
+            <TextView
+                android:id="@+id/tv_head_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginBottom="@dimen/_3sdp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Settings"
+                android:textStyle="bold"
+                android:textColor="@color/bluePrimer"
+                android:textSize="@dimen/_20ssp" />
+
+            <ImageView
+                android:id="@+id/settingslogo"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:src="@drawable/ic_baseline_settings_24"
+                android:layout_toRightOf="@+id/tv_head_title"/>
+
             <LinearLayout
+                android:layout_below="@+id/tv_head_title"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_140sdp"
                 android:orientation="horizontal"
-                android:background="@drawable/bg7"
                 android:weightSum="1"
+                android:gravity="center"
+                android:padding="@dimen/_12sdp"
                 android:id="@+id/profilesection">
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -32,7 +60,7 @@
                     <ImageView
                         android:layout_width="@dimen/_80sdp"
                         android:layout_height="@dimen/_80sdp"
-                        android:src="@drawable/ic_profile"/>
+                        android:src="@drawable/ic_account1"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
@@ -69,39 +97,41 @@
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="My Account"
-                android:textColor="@color/black"
+                android:text="My Account settings"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:textColor="@color/whitePrimer"
                 android:layout_below="@+id/profilesection"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:textSize="@dimen/_20ssp"
+                android:textSize="@dimen/_16ssp"
                 android:textStyle="bold"/>
 
 
             <LinearLayout
-                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/myaccount"
                 android:orientation="horizontal"
                 android:id="@+id/password_section"
-                android:background="@drawable/bg8"
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginRight="@dimen/_5sdp"
                 android:weightSum="1">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_40sdp"
-                    android:layout_weight="0.3"
+                    android:layout_weight="0.2"
                     android:gravity="center">
                     <ImageView
+                        android:padding="@dimen/_3sdp"
+                        android:background="@drawable/buttoncard"
                         android:layout_width="@dimen/_30sdp"
                         android:layout_height="@dimen/_30sdp"
-                        android:src="@drawable/ic_password"/>
+                        android:src="@drawable/ic_password1"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_40sdp"
-                    android:layout_weight="0.7"
+                    android:layout_weight="0.6"
                     android:gravity="center"
                     android:layout_marginLeft="0dp">
                     <TextView
@@ -109,9 +139,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Change Password"
-                        android:textSize="@dimen/_15ssp"
-                        android:textColor="@color/black"/>
+                        android:textSize="@dimen/_12ssp"
+                        android:textColor="@color/whitePrimer"/>
 
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_weight="0.2"
+                    android:gravity="center">
+                    <ImageView
+                        android:padding="@dimen/_3sdp"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:src="@drawable/ic_rightarrow"/>
                 </LinearLayout>
 
 
@@ -123,24 +164,25 @@
                 android:layout_below="@id/password_section"
                 android:orientation="horizontal"
                 android:id="@+id/myaddresses"
-                android:background="@drawable/bg8"
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginRight="@dimen/_5sdp"
                 android:weightSum="1">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_40sdp"
-                    android:layout_weight="0.3"
+                    android:layout_weight="0.2"
                     android:gravity="center">
                     <ImageView
+                        android:padding="@dimen/_3sdp"
                         android:layout_width="@dimen/_30sdp"
                         android:layout_height="@dimen/_30sdp"
-                        android:src="@drawable/ic_home"/>
+                        android:background="@drawable/buttoncard"
+                        android:src="@drawable/ic_add1"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_40sdp"
-                    android:layout_weight="0.7"
+                    android:layout_weight="0.6"
                     android:gravity="center"
                     android:layout_marginLeft="0dp">
                     <TextView
@@ -148,59 +190,147 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Add Address"
-                        android:textSize="@dimen/_15ssp"
-                        android:textColor="@color/black"/>
+                        android:textSize="@dimen/_12ssp"
+                        android:textColor="@color/whitePrimer"/>
 
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_weight="0.2"
+                    android:gravity="center">
+                    <ImageView
+                        android:padding="@dimen/_3sdp"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:src="@drawable/ic_rightarrow"/>
                 </LinearLayout>
 
 
             </LinearLayout>
-            <TextView
-                android:id="@+id/addedaddress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="My Addresses:-"
-                android:layout_margin="@dimen/_8sdp"
-                android:layout_below="@id/myaddresses"
-                android:textColor="@color/black"
-                android:fontFamily="@font/poppins_medium"
-                android:textStyle="bold"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:textSize="@dimen/_12ssp"/>
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_margin="@dimen/_5sdp"
-                android:id="@+id/rc_address"
-                android:padding="@dimen/_5sdp"
-                android:layout_below="@id/addedaddress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-            </androidx.recyclerview.widget.RecyclerView>
             <LinearLayout
                 android:layout_marginTop="@dimen/_8sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/rc_address"
+                android:layout_below="@id/myaddresses"
                 android:orientation="horizontal"
-                android:id="@+id/feedback_section"
-                android:background="@drawable/bg8"
+                android:id="@+id/addresseslistSection"
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginRight="@dimen/_5sdp"
                 android:weightSum="1">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_40sdp"
-                    android:layout_weight="0.3"
+                    android:layout_weight="0.2"
                     android:gravity="center">
                     <ImageView
+                        android:padding="@dimen/_3sdp"
                         android:layout_width="@dimen/_30sdp"
                         android:layout_height="@dimen/_30sdp"
-                        android:src="@drawable/ic_baseline_chat_24"/>
+                        android:background="@drawable/buttoncard"
+                        android:src="@drawable/ic_baseline_home_24"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_40sdp"
-                    android:layout_weight="0.7"
+                    android:layout_weight="0.6"
+                    android:gravity="center"
+                    android:layout_marginLeft="0dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="My Addresses"
+                        android:textSize="@dimen/_12ssp"
+                        android:textColor="@color/whitePrimer"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/arrowaddress"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_weight="0.2"
+                    android:gravity="center">
+                    <ImageView
+                        android:padding="@dimen/_3sdp"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:src="@drawable/ic_rightarrow"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/arrowdownaddress"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_weight="0.2"
+                    android:gravity="center">
+                    <ImageView
+                        android:padding="@dimen/_3sdp"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:src="@drawable/ic_down"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_5sdp"
+                android:visibility="gone"
+                android:id="@+id/ll_rcorder"
+                android:layout_below="@id/addresseslistSection">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_margin="@dimen/_5sdp"
+                    android:id="@+id/rc_address"
+                    android:layout_below="@id/addresseslistSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                </androidx.recyclerview.widget.RecyclerView>
+
+            </LinearLayout>
+
+            <View
+                android:layout_marginTop="@dimen/_5sdp"
+                android:id="@+id/viewSettings"
+                android:layout_width="match_parent"
+                android:layout_below="@+id/ll_rcorder"
+                android:layout_height="@dimen/_2sdp"
+                android:background="@color/white"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_16sdp"/>
+
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/viewSettings"
+                android:orientation="horizontal"
+                android:id="@+id/feedback_section"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:weightSum="1">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_weight="0.2"
+                    android:gravity="center">
+                    <ImageView
+                        android:padding="@dimen/_4sdp"
+                        android:background="@drawable/buttoncard"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:src="@drawable/ic_feedback1"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_weight="0.6"
                     android:gravity="center"
                     android:layout_marginLeft="0dp">
                     <TextView
@@ -208,9 +338,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Give Your Feedbacks"
-                        android:textSize="@dimen/_15ssp"
-                        android:textColor="@color/black"/>
+                        android:textSize="@dimen/_12ssp"
+                        android:textColor="@color/whitePrimer"/>
 
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_weight="0.2"
+                    android:gravity="center">
+                    <ImageView
+                        android:padding="@dimen/_3sdp"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:src="@drawable/ic_rightarrow"/>
                 </LinearLayout>
 
 
@@ -222,24 +363,25 @@
                 android:layout_below="@id/feedback_section"
                 android:orientation="horizontal"
                 android:id="@+id/TermsAndConditions"
-                android:background="@drawable/bg8"
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginRight="@dimen/_5sdp"
                 android:weightSum="1">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_40sdp"
-                    android:layout_weight="0.3"
+                    android:layout_weight="0.2"
                     android:gravity="center">
                     <ImageView
+                        android:padding="@dimen/_3sdp"
+                        android:background="@drawable/buttoncard"
                         android:layout_width="@dimen/_30sdp"
                         android:layout_height="@dimen/_30sdp"
-                        android:src="@drawable/ic_order"/>
+                        android:src="@drawable/ic_terms"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_40sdp"
-                    android:layout_weight="0.7"
+                    android:layout_weight="0.6"
                     android:gravity="center"
                     android:layout_marginLeft="0dp">
                     <TextView
@@ -247,38 +389,51 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Terms and Conditions"
-                        android:textSize="@dimen/_15ssp"
-                        android:textColor="@color/black"/>
+                        android:textSize="@dimen/_12ssp"
+                        android:textColor="@color/whitePrimer"/>
 
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_weight="0.2"
+                    android:gravity="center">
+                    <ImageView
+                        android:padding="@dimen/_3sdp"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:src="@drawable/ic_rightarrow"/>
                 </LinearLayout>
 
 
             </LinearLayout>
             <LinearLayout
+                android:layout_marginBottom="@dimen/_3sdp"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/TermsAndConditions"
                 android:orientation="horizontal"
                 android:id="@+id/PrivacyPolicy"
-                android:background="@drawable/bg8"
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginRight="@dimen/_5sdp"
                 android:weightSum="1">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_40sdp"
-                    android:layout_weight="0.3"
+                    android:layout_weight="0.2"
                     android:gravity="center">
                     <ImageView
+                        android:padding="@dimen/_3sdp"
+                        android:background="@drawable/buttoncard"
                         android:layout_width="@dimen/_30sdp"
                         android:layout_height="@dimen/_30sdp"
-                        android:src="@drawable/ic_order"/>
+                        android:src="@drawable/ic_policy"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_40sdp"
-                    android:layout_weight="0.7"
+                    android:layout_weight="0.6"
                     android:gravity="center"
                     android:layout_marginLeft="0dp">
                     <TextView
@@ -286,11 +441,32 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Privacy Policy"
-                        android:textSize="@dimen/_15ssp"
-                        android:textColor="@color/black"/>
+                        android:textSize="@dimen/_12ssp"
+                        android:textColor="@color/whitePrimer"/>
 
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_weight="0.2"
+                    android:gravity="center">
+                    <ImageView
+                        android:padding="@dimen/_3sdp"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:src="@drawable/ic_rightarrow"/>
+                </LinearLayout>
             </LinearLayout>
+
+            <View
+                android:layout_marginTop="@dimen/_5sdp"
+                android:id="@+id/viewSettings1"
+                android:layout_width="match_parent"
+                android:layout_above="@+id/logout_section"
+                android:layout_height="@dimen/_2sdp"
+                android:background="@color/white"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_16sdp"/>
 
             <LinearLayout
                 android:id="@+id/logout_section"
@@ -299,24 +475,25 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/PrivacyPolicy"
                 android:orientation="horizontal"
-                android:background="@drawable/bg8"
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginRight="@dimen/_5sdp"
                 android:weightSum="1">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_40sdp"
-                    android:layout_weight="0.3"
+                    android:layout_weight="0.2"
                     android:gravity="center">
                     <ImageView
+                        android:background="@drawable/buttoncard"
+                        android:padding="@dimen/_3sdp"
                         android:layout_width="@dimen/_30sdp"
                         android:layout_height="@dimen/_30sdp"
-                        android:src="@drawable/ic_baseline_exit_to_app_24"/>
+                        android:src="@drawable/ic_power1"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_40sdp"
-                    android:layout_weight="0.7"
+                    android:layout_weight="0.6"
                     android:gravity="center"
                     android:layout_marginLeft="0dp">
                     <TextView
@@ -324,13 +501,50 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Logout"
-                        android:textSize="@dimen/_15ssp"
-                        android:textColor="@color/black"/>
+                        android:textSize="@dimen/_12ssp"
+                        android:textColor="@color/whitePrimer"/>
 
                 </LinearLayout>
 
 
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/copyright"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:gravity="center"
+                android:layout_below="@id/logout_section">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_copyright_24"/>
+                <TextView
+                    android:layout_marginStart="@dimen/_3sdp"
+                    android:id="@+id/tv_Copyright"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="copyright 2021, developed by"
+                    android:layout_below="@+id/logout_section"
+                    android:layout_centerInParent="true"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/whitePrimer"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_marginTop="@dimen/_3sdp"
+                android:id="@+id/tv_developedby"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Swaugat Beura | Rudra Behera | M.Pratik Kumar"
+                android:layout_below="@+id/copyright"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:layout_centerInParent="true"
+                android:textSize="@dimen/_10ssp"
+                android:textColor="@color/bluePrimer"/>
         </RelativeLayout>
 
     </ScrollView>

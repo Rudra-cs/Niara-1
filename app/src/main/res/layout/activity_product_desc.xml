@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.ProductDesc">
+    tools:context=".ui.activities.ProductDesc"
+    android:background="@drawable/bg5">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -26,7 +27,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_8sdp"
-                    android:src="@drawable/ic_baseline_arrow_back" />
+                    android:src="@drawable/ic_arrow1" />
 
                 <TextView
                     android:id="@+id/tv_head_title"
@@ -38,7 +39,7 @@
                     android:fontFamily="@font/poppins_bold"
                     android:text="Masala Chai"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    android:textColor="@color/bluePrimer"
                     android:textSize="@dimen/_15ssp" />
 
                 <androidx.cardview.widget.CardView
@@ -65,7 +66,7 @@
                     android:layout_marginTop="@dimen/_12sdp"
                     android:fontFamily="@font/poppins_medium"
                     android:text="Rs. "
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_16ssp" />
 
                 <TextView
@@ -77,7 +78,7 @@
                     android:layout_toRightOf="@id/tv_pdt_rs"
                     android:fontFamily="@font/poppins_medium"
                     android:text="2000"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_16ssp" />
 
                 <TextView
@@ -89,7 +90,7 @@
                     android:layout_marginTop="@dimen/_8sdp"
                     android:fontFamily="@font/poppins_medium"
                     android:text="Total Amount: "
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_16ssp" />
 
 
@@ -102,7 +103,7 @@
                     android:fontFamily="@font/poppins_medium"
                     android:text="2000"
                     android:layout_marginEnd="@dimen/_12sdp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_16ssp" />
                 <TextView
                     android:id="@+id/tv_pdt_rs1"
@@ -113,10 +114,11 @@
                     android:layout_toLeftOf="@id/tv_tot_price"
                     android:fontFamily="@font/poppins_medium"
                     android:text="Rs. "
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_16ssp" />
 
                 <Button
+                    android:background="@drawable/bg_category_unselected"
                     android:id="@+id/btn_add1"
                     android:layout_width="@dimen/_30sdp"
                     android:layout_height="@dimen/_30sdp"
@@ -125,7 +127,8 @@
                     android:layout_marginTop="@dimen/_12sdp"
                     android:layout_marginEnd="@dimen/_12sdp"
                     android:fontFamily="@font/poppins_bold"
-                    android:text="@string/plus" />
+                    android:text="@string/plus"
+                    android:textColor="@color/white"/>
 
                 <TextView
                     android:id="@+id/tv_pdt_quantity"
@@ -133,16 +136,17 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/cv_pdt_img"
                     android:layout_marginStart="@dimen/_4sdp"
-                    android:layout_marginTop="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_13sdp"
                     android:layout_marginEnd="@dimen/_4sdp"
                     android:layout_toLeftOf="@+id/btn_add1"
                     android:fontFamily="@font/poppins_medium"
                     android:text="2"
                     android:padding="@dimen/_4sdp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_14ssp" />
 
                 <Button
+                    android:background="@drawable/bg_category_unselected"
                     android:id="@+id/btn_minus1"
                     android:layout_width="@dimen/_30sdp"
                     android:layout_height="@dimen/_30sdp"
@@ -150,7 +154,8 @@
                     android:layout_marginTop="@dimen/_12sdp"
                     android:layout_toStartOf="@+id/tv_pdt_quantity"
                     android:fontFamily="@font/poppins_bold"
-                    android:text="@string/minus" />
+                    android:text="@string/minus"
+                    android:textColor="@color/white"/>
 
                 <TextView
                     android:id="@+id/tv_pdt_title"
@@ -162,7 +167,7 @@
                     android:fontFamily="@font/poppins_medium"
                     android:text="Chai"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_14ssp" />
 
                 <TextView
@@ -186,10 +191,23 @@
                     android:layout_below="@+id/tv_tot_price"
                     android:text="Added Successfully!!"
                     android:layout_marginTop="@dimen/_8sdp"
-                    android:textSize="@dimen/_16ssp"
-                    android:textColor="#25D366"
+                    android:textSize="@dimen/_12ssp"
+                    android:textColor="@color/bluePrimer"
                     android:layout_marginEnd="@dimen/_12sdp"
                     android:layout_alignParentEnd="true"/>
+
+                <ImageView
+                    android:visibility="gone"
+                    android:layout_margin="@dimen/_3sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_below="@+id/tv_tot_price"
+                    android:id="@+id/addedlogo"
+                    android:layout_width="@dimen/_16sdp"
+                    android:layout_height="@dimen/_16sdp"
+                    android:src="@drawable/ic_baseline_verified_24"
+                    android:layout_toLeftOf="@id/addedSuccessfullytvProdDesc">
+
+                </ImageView>
 
 
 
@@ -215,10 +233,11 @@
         app:cardElevation="@dimen/_2sdp">
 
         <Button
+
             android:id="@+id/btn_add_to_cart"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/black"
+            android:background="@color/bluePrimer"
             android:fontFamily="@font/poppins_medium"
             android:text="ADD TO CART"
             android:textColor="@color/white"
@@ -248,14 +267,13 @@
                 android:layout_marginStart="@dimen/_8sdp"
                 android:layout_marginEnd="@dimen/_12sdp"
                 android:layout_marginBottom="@dimen/_10sdp"
-                app:cardCornerRadius="@dimen/_32sdp"
-                app:cardElevation="@dimen/_2sdp">
+                app:cardCornerRadius="@dimen/_32sdp">
 
                 <Button
                     android:id="@+id/btn_go_to_home"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/black"
+                    android:background="@color/bluePrimer"
                     android:fontFamily="@font/poppins_medium"
                     android:text="Add More"
                     android:textColor="@color/white"
@@ -275,17 +293,16 @@
                 android:layout_marginStart="@dimen/_8sdp"
                 android:layout_marginEnd="@dimen/_12sdp"
                 android:layout_marginBottom="@dimen/_10sdp"
-                app:cardCornerRadius="@dimen/_32sdp"
-                app:cardElevation="@dimen/_2sdp">
+                app:cardCornerRadius="@dimen/_32sdp">
 
                 <Button
                     android:id="@+id/btn_buy_now"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#E8E6E6"
+                    android:background="@drawable/bg_category_unselected"
                     android:fontFamily="@font/poppins_medium"
                     android:text="My Cart"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_15ssp" />
             </androidx.cardview.widget.CardView>
 

@@ -50,7 +50,7 @@ public class ProductDesc extends AppCompatActivity {
     private Button btnAddToCart;
     private Button btnMinus;
     private Button btnBuy,btnGotoHome;
-    private ImageView ivImage;
+    private ImageView ivImage,addedsuccessfullyLogo;
     private ImageView btnBack;
     private   String token;
     private TextView tvTot;
@@ -74,6 +74,7 @@ public class ProductDesc extends AppCompatActivity {
         addedsuccesfully=findViewById(R.id.addedSuccessfullytvProdDesc);
         navigationProddesc=findViewById(R.id.navigation_prod_desc);
         addtocartlayout=findViewById(R.id.addtocardlayout);
+        addedsuccessfullyLogo=findViewById(R.id.addedlogo);
 
         btnPlus = findViewById(R.id.btn_add1);
         btnMinus = findViewById(R.id.btn_minus1);
@@ -172,6 +173,7 @@ public class ProductDesc extends AppCompatActivity {
                             if (response.isSuccessful()){
                                 Toast.makeText(ProductDesc.this, "Added to Cart", Toast.LENGTH_SHORT).show();
                                 addedsuccesfully.setVisibility(View.VISIBLE);
+                                addedsuccessfullyLogo.setVisibility(View.VISIBLE);
                                 addtocartlayout.setVisibility(View.GONE);
                                 navigationProddesc.setVisibility(View.VISIBLE);
 

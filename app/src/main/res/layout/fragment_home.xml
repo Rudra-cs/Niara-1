@@ -8,17 +8,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@drawable/bg5">
         <LinearLayout
             android:id="@+id/search_bar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_12sdp"
             android:layout_marginLeft="@dimen/_12sdp"
             android:layout_marginRight="@dimen/_12sdp"
             android:orientation="horizontal"
             android:weightSum="1"
-            android:background="@drawable/bg5">
+            android:background="@drawable/bg_category_unselected">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -47,7 +48,7 @@
                     android:id="@+id/tv_search"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Your food awaiting for search!!"
+                    android:text="Your item awaiting for search!!"
                     android:fontFamily="@font/poppins_medium"
                     android:textSize="@dimen/_12ssp"
                     android:textColor="@color/white"/>
@@ -58,7 +59,6 @@
 
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
-
             android:layout_marginTop="@dimen/_6sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

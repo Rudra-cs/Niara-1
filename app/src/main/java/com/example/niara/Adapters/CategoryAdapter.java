@@ -59,7 +59,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             holder.mTvCategoryName.setTextColor(ResourcesCompat.getColor(context.getResources(), R.color.white, null));
         } else {
             holder.mRlRoot.setBackground(ResourcesCompat.getDrawable(context.getResources(), R.drawable.bg_category_unselected, null));
-            holder.mTvCategoryName.setTextColor(ResourcesCompat.getColor(context.getResources(), R.color.black, null));
+            holder.mTvCategoryName.setTextColor(ResourcesCompat.getColor(context.getResources(), R.color.white, null));
         }
 
     }

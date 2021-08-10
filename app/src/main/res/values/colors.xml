@@ -9,8 +9,12 @@
     <color name="white">#FFFFFFFF</color>
     <color name="status_bar">#E205AC0B</color>
 
-    <color name="home_background">#f2f5f8</color>
-    <color name="banner_background">#F1E9CE</color>
+    <color name="home_background">#E2EBF1</color>
+    <color name="whitePrimer">#F5F5F5</color>
+    <color name="bluePrimer">#0066FF</color>
+<!--    <color name="bluePrimer">#008BCF</color>-->
+<!--    <color name="bluehard">#0066FF</color>-->
+    <color name="blackPrimer">#121212</color>
 
 <!--    Colors Main -->
     <color name="grey">#BBB6B6</color>

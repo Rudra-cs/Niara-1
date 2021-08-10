@@ -86,27 +86,26 @@
 
                 <TextView
                     android:id="@+id/tv_pdt_rs1"
-                    android:layout_marginTop="@dimen/_10sdp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="@dimen/_8sdp"
-                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_below="@+id/tv_food_cart_title"
+                    android:layout_toLeftOf="@+id/tv_pdt_quantity"
                     android:fontFamily="@font/poppins_medium"
                     android:text="Qty. "
                     android:textSize="@dimen/_12ssp" />
 
                 <TextView
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    android:layout_below="@+id/tv_food_cart_title"
                     android:id="@+id/tv_pdt_quantity"
-                    android:layout_marginTop="@dimen/_10sdp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
                     android:layout_marginBottom="@dimen/_8sdp"
                     android:layout_marginStart="@dimen/_3sdp"
                     android:fontFamily="@font/poppins_medium"
                     android:text="2"
-                    android:layout_toRightOf="@+id/tv_pdt_rs1"
+                    android:textColor="@color/bluePrimer"
                     android:textSize="@dimen/_12ssp" />
 
 
@@ -132,13 +131,14 @@
                     app:cardCornerRadius="@dimen/_16sdp"
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:padding="@dimen/_5sdp"
+                    android:elevation="@dimen/_3sdp"
                     android:layout_alignParentEnd="true">
 
                     <Button
                         android:id="@+id/btn_remove"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="#DAC9C9"
+                        android:background="@color/white"
                         android:textSize="@dimen/_10ssp"
                         android:textColor="#FF0000"
                         android:textAllCaps="false"
