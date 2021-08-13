@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/bg3"
     tools:context=".ui.activities.PrivacyPolicy">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -58,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:text="Privacy Policy"
                 android:fontFamily="@font/poppins_bold"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="@dimen/_15ssp"/>
             <TextView
                 android:padding="@dimen/_5sdp"
@@ -80,7 +79,7 @@ The terms used in this Privacy Policy have the same meanings as in our Terms and
                 android:layout_height="wrap_content"
                 android:text="Information We Use"
                 android:fontFamily="@font/poppins_bold"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="@dimen/_15ssp"/>
             <TextView
                 android:padding="@dimen/_5sdp"
@@ -107,7 +106,7 @@ Link to privacy policy of third party service providers used by the app"
                 android:layout_height="wrap_content"
                 android:text="Security"
                 android:fontFamily="@font/poppins_bold"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="@dimen/_15ssp"/>
 
             <TextView
@@ -123,7 +122,7 @@ Link to privacy policy of third party service providers used by the app"
                 android:layout_height="wrap_content"
                 android:text="Service Providers"
                 android:fontFamily="@font/poppins_bold"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="@dimen/_15ssp"/>
 
             <TextView
@@ -172,7 +171,7 @@ Link to privacy policy of third party service providers used by the app"
                 android:layout_height="wrap_content"
                 android:text="Links to Other Sites"
                 android:fontFamily="@font/poppins_bold"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="@dimen/_15ssp"/>
 
             <TextView
@@ -189,7 +188,7 @@ Link to privacy policy of third party service providers used by the app"
                 android:layout_height="wrap_content"
                 android:text="Children’s Privacy"
                 android:fontFamily="@font/poppins_bold"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="@dimen/_15ssp"/>
 
             <TextView
@@ -206,7 +205,7 @@ Link to privacy policy of third party service providers used by the app"
                 android:layout_height="wrap_content"
                 android:text="Changes to This Privacy Policy"
                 android:fontFamily="@font/poppins_bold"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="@dimen/_15ssp"/>
 
             <TextView
@@ -223,7 +222,7 @@ Link to privacy policy of third party service providers used by the app"
                 android:layout_height="wrap_content"
                 android:text="Contact Us"
                 android:fontFamily="@font/poppins_bold"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="@dimen/_15ssp"/>
 
             <TextView

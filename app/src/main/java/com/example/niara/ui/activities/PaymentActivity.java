@@ -80,7 +80,6 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
     private Spinner spinner;
     private String city;
     private EditText fullname,mobile,zipcode,locality;
-    private static final String TAG = MainActivity.class.getSimpleName();
     private Button paybutton;
     private TextView tvamount,tvselectaddres;
     private String reciept;
@@ -252,7 +251,7 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
         }
     }
 
-    private   String generateReceipt(int len) {
+    private  String generateReceipt(int len) {
         SessionManager sessionManager=new SessionManager(PaymentActivity.this);
         String userid=sessionManager.getUsername();
         String chars = userid ;
@@ -268,16 +267,16 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
         reciept = generateReceipt(7);
         Checkout checkout = new Checkout();
         checkout.setKeyID("rzp_test_Zdmf4HFzNEDhMD");
-        checkout.setImage(R.drawable.ic_launcher_background);
+        checkout.setImage(R.drawable.lgn);
         final Activity activity = this;
 
         try {
             JSONObject options = new JSONObject();
             options.put("name", "Niara");
-            options.put("description", reciept);
+            options.put("description", "hotel");
             options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.png");
             options.put("order_id", orderid);//from response of step 3.
-            options.put("theme.color", "#3399cc");
+            options.put("theme.color", "#0066FF");
             options.put("currency", "INR");
             options.put("amount", amount);//pass amount in currency subunits
             options.put("prefill.email", "example@example.com");
@@ -412,6 +411,27 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
         tvselectaddres.setVisibility(View.GONE);
 
     }
+
+    @Override
+    public void onRemoveClicked(CustomerInfo address,int position) {
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        Call<Void> removeCartItems = apiInterface.deleteaddressinfo((Integer) address.getId());
+        removeCartItems.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()){
+                    Toast.makeText(PaymentActivity.this, "Removed Successfully!!"+position,Toast.LENGTH_SHORT).show();
+                    loadAddress();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(PaymentActivity.this, "Something Went Wrong",Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private boolean validateName(){
         String name = fullname.getText().toString().trim();
         if (name.isEmpty()) {
@@ -469,8 +489,14 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
             SessionManager sessionManager=new SessionManager(getApplicationContext());
             int user=sessionManager.getUserid();
             createCustomerInfo.setUser(user);
+
             sendAddress(createCustomerInfo);
             cancelform.setVisibility(View.GONE);
+
+            fullname.setText("");
+            locality.setText("");
+            mobile.setText("");
+            zipcode.setText("");
         }else{
             Toast.makeText(PaymentActivity.this,"Please fill in the credentials correctly",Toast.LENGTH_SHORT).show();
         }
@@ -500,7 +526,7 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
                     Toast.makeText(PaymentActivity.this,"Your Address has been added",Toast.LENGTH_SHORT).show();
                     loadAddress();
                     selectaddressLL.setVisibility(View.GONE);
-                    addAddress.setVisibility(View.GONE);
+                    addAddress.setVisibility(View.VISIBLE);
 
                 }else {
                     Toast.makeText(PaymentActivity.this,"Your Address couldn't be added",Toast.LENGTH_SHORT).show();

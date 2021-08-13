@@ -21,10 +21,11 @@ public class SessionManager {
         editor=userSessions.edit();
     }
 
-    public void createloginsession(String username,int userid){
+    public void createloginsession(String username,int userid,String token){
         editor.putBoolean(IS_LOGIN,true);
         editor.putString(USERNAME,username);
         editor.putInt(USERID,userid);
+        editor.putString(KEY_TOKEN,token);
         editor.commit();
     }
     public boolean checkLogin(){

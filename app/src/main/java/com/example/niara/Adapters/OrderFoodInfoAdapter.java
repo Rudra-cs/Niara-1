@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.niara.Model.OrderInfo;
 import com.example.niara.R;
 
 import org.jetbrains.annotations.NotNull;
@@ -57,13 +58,6 @@ public class OrderFoodInfoAdapter extends RecyclerView.Adapter<OrderFoodInfoAdap
             e.printStackTrace();
         }
 
-        holder.mtvneedhelp.setOnClickListener(view -> {
-            if (orderClickListener != null) {
-                orderClickListener.onNeedClickListener(position);
-            }
-        });
-
-
     }
 
     @Override
@@ -85,15 +79,14 @@ public class OrderFoodInfoAdapter extends RecyclerView.Adapter<OrderFoodInfoAdap
             mIvFoodImg = itemView.findViewById(R.id.iv_pdt_order_img);
             mTvFoodTitle = itemView.findViewById(R.id.tv_food_order_title);
             mTvstatus = itemView.findViewById(R.id.tv_food_order_status_req);
-            needhelp=itemView.findViewById(R.id.tv_food_order_help);
+
             mTvDate=itemView.findViewById(R.id.tv_food_order_date);
             mtvQuantity=itemView.findViewById(R.id.tv_product_quantity);
-            mtvneedhelp=itemView.findViewById(R.id.tv_food_order_help);
         }
     }
 
     public  interface  OrderClickListener{
-        void onNeedClickListener(int position);
+        void onNeedClickListener(int position, JSONObject jsonObject);
 //        void onAddQuantity(JSONObject cart);
 //        void onMinusQuanity(JSONObject cart);
     }

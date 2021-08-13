@@ -9,17 +9,6 @@
     android:background="@drawable/bg5"
     tools:context=".ui.activities.LoginActivity">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-
-        </LinearLayout>
-    </ScrollView>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -48,6 +37,7 @@
             android:fontFamily="sans-serif-black"
             android:layout_below="@+id/welcome"/>
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
@@ -60,141 +50,153 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:text="Login"
+            android:id="@+id/tv_logintext"
             android:layout_marginTop="@dimen/_50sdp"
             android:layout_marginLeft="48dp"
             android:textSize="@dimen/_23ssp"
             android:fontFamily="@font/poppins_bold"/>
-        <LinearLayout
+
+        <ScrollView
+            android:layout_below="@+id/tv_logintext"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_centerVertical="true">
-
-            <EditText
-                android:layout_marginTop="@dimen/_5sdp"
-                android:gravity="center"
-                android:id="@+id/et_usernameLogin"
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:layout_marginLeft="44dp"
-                android:layout_marginRight="44dp"
-                android:background="@drawable/edittextcard"
-                android:drawableEnd="@drawable/ic_baseline_account_circle_24"
-                android:drawableTint="@color/black"
-                android:fontFamily="@font/poppins_medium"
-                android:hint="Enter the Username"
-                android:inputType="text"
-                android:padding="10dp"
-                android:textColor="@color/black" />
-
-            <EditText
-                android:gravity="center"
-                android:id="@+id/et_passwordLogin"
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:layout_marginLeft="44dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginRight="44dp"
-                android:background="@drawable/edittextcard"
-                android:drawableEnd="@drawable/ic_password"
-                android:drawableTint="@color/black"
-                android:fontFamily="@font/poppins_medium"
-                android:hint="Enter the Password"
-                android:inputType="textWebPassword"
-                android:padding="10dp"
-                android:textColor="@color/black" />
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2"
-                android:layout_marginTop="24dp"
-                android:layout_marginLeft="48dp"
-                android:layout_marginRight="48dp">
+                android:orientation="vertical"
+                android:layout_centerVertical="true">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:text="forgot password?"
-                    android:layout_marginTop="1dp"
-                    android:layout_marginLeft="12dp"
-                    android:textSize="14dp"
-                    android:layout_weight="1"
-                    android:fontFamily="sans-serif-black"/>
-                <Button
-                    android:id="@+id/login_button"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:layout_width="0dp"
-                    android:background="@drawable/bg9"
-                    android:text="Login"
-                    android:textColor="@color/white"
-                    android:onClick="loginclicked">
+                <EditText
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:id="@+id/et_usernameLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginLeft="44dp"
+                    android:layout_marginRight="44dp"
+                    android:background="@drawable/edittextcard"
+                    android:drawableEnd="@drawable/ic_baseline_account_circle_24"
+                    android:drawableTint="@color/black"
+                    android:fontFamily="@font/poppins_medium"
+                    android:hint="Enter the Username"
+                    android:inputType="text"
+                    android:padding="10dp"
+                    android:textColor="@color/black" />
 
-                </Button>
+                <EditText
+                    android:gravity="center"
+                    android:id="@+id/et_passwordLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginLeft="44dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginRight="44dp"
+                    android:background="@drawable/edittextcard"
+                    android:drawableEnd="@drawable/ic_password"
+                    android:drawableTint="@color/black"
+                    android:fontFamily="@font/poppins_medium"
+                    android:hint="Enter the Password"
+                    android:inputType="textWebPassword"
+                    android:padding="10dp"
+                    android:textColor="@color/black" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginLeft="48dp"
+                    android:layout_marginRight="48dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="forgot password?"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginLeft="12dp"
+                        android:textSize="14dp"
+                        android:layout_weight="1"
+                        android:onClick="forgetPassword"
+                        android:fontFamily="sans-serif-black"/>
+                    <Button
+                        android:id="@+id/login_button"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_width="0dp"
+                        android:background="@drawable/bg9"
+                        android:text="Login"
+                        android:textColor="@color/white"
+                        android:onClick="loginclicked">
+
+                    </Button>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/poppins_bold"
+                        android:padding="5dp"
+                        android:text="New User?"
+                        android:textSize="15dp"
+                        android:textStyle="bold"></TextView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
+                        android:text="SignUp"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:textSize="15dp"
+                        android:onClick="movetosignup"></TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/poppins_bold"
+                        android:padding="5dp"
+                        android:text="Need Help?"
+                        android:textSize="15dp"
+                        android:textStyle="bold"></TextView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
+                        android:text="Click Here"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:textSize="15dp"
+                        android:onClick="movetofeedback"></TextView>
+                </LinearLayout>
+
+
 
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:layout_marginTop="20dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/poppins_bold"
-                    android:padding="5dp"
-                    android:text="New User?"
-                    android:textSize="15dp"
-                    android:textStyle="bold"></TextView>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:padding="5dp"
-                    android:text="SignUp"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:textSize="15dp"
-                    android:onClick="movetosignup"></TextView>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:layout_marginTop="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/poppins_bold"
-                    android:padding="5dp"
-                    android:text="Need Help?"
-                    android:textSize="15dp"
-                    android:textStyle="bold"></TextView>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:padding="5dp"
-                    android:text="Click Here"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:textSize="15dp"
-                    android:onClick="movetofeedback"></TextView>
-            </LinearLayout>
+        </ScrollView>
 
 
-
-        </LinearLayout>
 
 
     </RelativeLayout>

@@ -231,6 +231,16 @@
 
         </LinearLayout>
 
+        <Button
+            android:id="@+id/removeAddress"
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_gravity="end"
+            android:text="Remove"
+            android:textSize="@dimen/_8ssp"
+            android:textColor="#FF0000"/>
+
+
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

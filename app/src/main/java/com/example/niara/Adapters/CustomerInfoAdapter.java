@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,11 +31,12 @@ public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapte
     private List<CustomerInfo> customerinfolist;
     private ItemClickListener clickListener;
 
-    public CustomerInfoAdapter(Context context, List<CustomerInfo> customerinfolist,ItemClickListener clickListener) {
+    private int selectedPostion=-200;
+
+    public CustomerInfoAdapter(Context context, List<CustomerInfo> customerinfolist,ItemClickListener listener) {
         this.context = context;
         this.customerinfolist = customerinfolist;
-        this.clickListener=clickListener;
-
+        this.clickListener=listener;
     }
 
     @NonNull
@@ -62,6 +64,29 @@ public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapte
             }
         });
 
+        holder.remBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clickListener.onRemoveClicked(customerinfolist.get(position),position);
+                notifyDataSetChanged();
+            }
+        });
+        holder.mrladdress.setOnClickListener(view -> {
+            if (clickListener != null) {
+                selectedPostion = position;
+                clickListener.onItemClick(customerinfolist.get(position));
+                Toast.makeText(context.getApplicationContext(), "Address selected :"+customerinfolist.get(position).getLocality(),Toast.LENGTH_SHORT).show();
+                notifyDataSetChanged();
+            }
+        });
+
+        if (position == selectedPostion) {
+            holder.mrladdress.setBackground(ResourcesCompat.getDrawable(context.getResources(), R.color.bluePrimer, null));
+        } else {
+            holder.mrladdress.setBackground(ResourcesCompat.getDrawable(context.getResources(), R.drawable.bg_category_unselected, null));
+        }
+
+
     }
 
     @Override
@@ -72,6 +97,7 @@ public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapte
     public static class CustomerInfoViewHodler extends RecyclerView.ViewHolder{
         private TextView name,locality,city,zipcode,mobile,state,nametag,localitytag,citytag,zipcodetag,mobiletag,statetag;
         private LinearLayout mrladdress;
+        private Button remBtn;
         public CustomerInfoViewHodler(@NonNull @NotNull View itemView) {
             super(itemView);
 
@@ -81,6 +107,7 @@ public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapte
             zipcode=itemView.findViewById(R.id.zipcode);
             mobile=itemView.findViewById(R.id.mobile);
             state=itemView.findViewById(R.id.state);
+            remBtn=itemView.findViewById(R.id.removeAddress);
 
             nametag=itemView.findViewById(R.id.nameTag);
             localitytag=itemView.findViewById(R.id.localityTag);
@@ -88,7 +115,6 @@ public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapte
             zipcodetag=itemView.findViewById(R.id.zipcodeTag);
             mobiletag=itemView.findViewById(R.id.mobileTag);
             statetag=itemView.findViewById(R.id.stateTag);
-
             mrladdress=itemView.findViewById(R.id.addressCategory);
 
 
@@ -97,6 +123,7 @@ public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapte
     }
     public interface ItemClickListener {
         void onItemClick(CustomerInfo address);
+        void onRemoveClicked(CustomerInfo address,int position);
     }
 
 }

@@ -6,8 +6,46 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    android:background="@drawable/splashscreen"
+    android:background="@color/black"
     tools:context=".ui.activities.SplashActivity">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_250sdp"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.4">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_100sdp"
+                android:src="@drawable/ic_foodlogo"
+                android:layout_gravity="center">
+
+            </ImageView>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="Niara"
+            android:textColor="@color/bluePrimer"
+            android:layout_weight="0.6"
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/_50ssp"
+            android:fontFamily="@font/poppins_bold"/>
+
+
+
+
+
+    </LinearLayout>
 
 
 

@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/bg3"
     tools:context=".ui.activities.TermsAndConditions">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -58,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:text="Terms and Conditions"
                 android:fontFamily="@font/poppins_bold"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="@dimen/_15ssp"/>
             <TextView
                 android:padding="@dimen/_5sdp"
@@ -106,7 +105,7 @@ At some point, we may wish to update the app. The app is currently available on 
                 android:layout_height="wrap_content"
                 android:text="Changes to This Terms and Conditions"
                 android:fontFamily="@font/poppins_bold"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="@dimen/_15ssp"/>
 
             <TextView
@@ -125,7 +124,7 @@ These terms and conditions are effective as of 2021-07-31"
                 android:layout_height="wrap_content"
                 android:text="Contact Us"
                 android:fontFamily="@font/poppins_bold"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="@dimen/_15ssp"/>
 
             <TextView

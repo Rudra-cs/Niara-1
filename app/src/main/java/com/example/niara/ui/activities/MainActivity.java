@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
         new AlertDialog.Builder(MainActivity.this)
                 .setTitle("Exit")
                 .setMessage("Do you really want to exit?")
-                    .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                .setPositiveButton("yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         ActivityCompat.finishAffinity(MainActivity.this);
                         finish();
@@ -161,7 +161,6 @@ public class MainActivity extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 })
-                .setIcon(android.R.drawable.alert_dark_frame)
                 .show();
 
     }

@@ -146,8 +146,6 @@ public class RegistrationActivity extends AppCompatActivity {
         SharedPreferences.Editor editor=sharedPreferences.edit();
         startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
         finish();
-
-
     }
     private void registerUser(UserRequest userRequest){
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
@@ -163,7 +161,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         Button btn = (Button)findViewById(R.id.register_button);
                         btn.setEnabled(false);
                         SessionManager sessionManager=new SessionManager(RegistrationActivity.this);
-                        sessionManager.createloginsession(username.getText().toString(),id);
+                        sessionManager.createloginsession(username.getText().toString(),id,token);
                         gotohome();
                     }else{
                         Toast.makeText(RegistrationActivity.this,"Invalid Credentials",Toast.LENGTH_SHORT).show();

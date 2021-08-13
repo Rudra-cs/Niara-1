@@ -35,72 +35,77 @@ import retrofit2.http.Path;
 public interface ApiInterface {
 
     //    GET ALL THE PRODUCTS
-    @GET("/ProdInfo/")
+    @GET("/ProdInfo_UYDuhgfb576MHF_FHY_jgygru657mf5dku7dn/")
     Call<ArrayList<Food>> getFoodSearch();
 
-    @GET("/ProdInfo/")
+    @GET("/ProdInfo_UYDuhgfb576MHF_FHY_jgygru657mf5dku7dn/")
     Call<List<ItemInfo>> getItemSearch();
 
-    @GET("/ProdInfo/snacks/")
+    @GET("/ProdInfo_UYDuhgfb576MHF_FHY_jgygru657mf5dku7dn/snacks/")
     Call<ArrayList<Food>> getSnacks();
 
-    @GET("/ProdInfo/meals/")
+    @GET("/ProdInfo_UYDuhgfb576MHF_FHY_jgygru657mf5dku7dn/meals/")
     Call<ArrayList<Food>> getMeals();
 
-    @GET("/ProdInfo/veg/")
+    @GET("/ProdInfo_UYDuhgfb576MHF_FHY_jgygru657mf5dku7dn/veg/")
     Call<ArrayList<Food>> getVeg();
 
-    @GET("/ProdInfo/nonveg/")
+    @GET("/ProdInfo_UYDuhgfb576MHF_FHY_jgygru657mf5dku7dn/nonveg/")
     Call<ArrayList<Food>> getNonVeg();
 
-    @GET("/ProdInfo/grocery/")
+    @GET("/ProdInfo_UYDuhgfb576MHF_FHY_jgygru657mf5dku7dn/grocery/")
     Call<ArrayList<Food>> getGrocery();
 
-    @GET("/ProdInfo/{id}")
+    @GET("/ProdInfo_UYDuhgfb576MHF_FHY_jgygru657mf5dku7dn/{id}")
     Call<Food> getProductList(@Path("id") int id);
 
 
     //    CUSTOMER INFO AND AUTHENTICATION
-    @POST("/CreateCustomerInfo/")
+    @POST("/CreateCustomerInfo_UYDuhgfb576MHF_FHY_jgygru657mf5dku7dn/")
     Call<CreateCustomerInfo> sendCustomerinfo(@Body CreateCustomerInfo createCustomerInfo);
 
-    @GET("/UserInfo/")
+    @GET("/UserInfo_UYDuhgfb576MHF_FHY_jgygru657mf5dku7dn/")
     Call<ArrayList<UserInfo>> getuserdetails();
 
-    @GET("/CustomerInfo/")
+    @GET("/CustomerInfo_UYDuhgfb576MHF_FHY_jgygru657mf5dku7dn/")
     Call<List<CustomerInfo>> getAllCustomers();
 
-    @POST("/apiregister/")
+    @POST("/apiregister_UYDuhgfb576MHF_FHY_jgygru657mf5dku7dn/")
     Call<UserResponse> registerUser(@Body UserRequest userRequest);
 
     @FormUrlEncoded
-    @POST("/apilogin/")
+    @POST("/apilogin_UYDuhgfb576MHF_FHY_jgygru657mf5dku7dn/")
     Call<LoginToken> loginUser(@Field("username") String username, @Field("password") String password);
 
-    @POST("/CreateContactInfo/")
+    @POST("/CreateContactInfo_UYDuhgfb576MHF_FHY_jgygru657mf5dku7dn/")
     Call<CustomerFeedbackModel> sendFeedback(@Body CustomerFeedbackModel customerFeedbackModel);
 
-    @POST("/apichangepassword/")
+    @POST("/apichangepassword_UYDuhgfb576MHF_FHY_jgygru657mf5dku7dn/")
     Call<ChangePassword> sendPasswordChangeRequest(@Body ChangePassword changePassword);
 
+    @DELETE("/CustomerInfo_UYDuhgfb576MHF_FHY_jgygru657mf5dku7dn/{id}/")
+    Call<Void> deleteaddressinfo(@Path("id") int id );
+
+
+
     // Cart System
-    @POST("/CreateCartInfo/")
+    @POST("/CreateCartInfo_UYDuhgfb576MHF_FHY_jgygru657mf5dku7dn/")
     Call<Cart> sendCartFoodDetails(@Header("TOKEN") String token, @Body Cart cart);
 
-    @GET("/CartInfo/")
+    @GET("/CartInfo_UYDuhgfb576MHF_FHY_jgygru657mf5dku7dn/")
     Call<ArrayList<CartInfo>> getCartDetails();
 
-    @PATCH("/CartInfo/{id}/")
+    @PATCH("/CartInfo_UYDuhgfb576MHF_FHY_jgygru657mf5dku7dn/{id}/")
     Call<CartInfo> updateCartItems(@Path("id") int id , @Body CartInfo cartInfo);
 
-    @DELETE("/CartInfo/{id}/")
+    @DELETE("/CartInfo_UYDuhgfb576MHF_FHY_jgygru657mf5dku7dn/{id}/")
     Call<Void> deleteCartItems(@Path("id") int id );
 
     // Order Details Api
-    @GET("/OrderInfo/")
+    @GET("/OrderInfo_UYDuhgfb576MHF_FHY_jgygru657mf5dku7dn/")
     Call <ArrayList<OrderInfo>> getOrderinfo();
 
-    @POST("/CreateOrderInfo/")
+    @POST("/CreateOrderInfo_UYDuhgfb576MHF_FHY_jgygru657mf5dku7dn/")
 
     Call<CreateOrderInfo> sendOrder(@Body CreateOrderInfo createOrderInfo);
 

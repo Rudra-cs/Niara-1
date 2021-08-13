@@ -22,6 +22,11 @@ import com.example.niara.Model.UserInfo;
 import com.example.niara.R;
 import com.example.niara.utils.NetworkChangeListener;
 import com.example.niara.utils.SessionManager;
+import com.razorpay.RazorpayClient;
+import com.razorpay.RazorpayException;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -122,9 +127,51 @@ public class LoginActivity extends AppCompatActivity {
                 if ((response.isSuccessful())){
                     token=response.body().getToken();
                     if(token!=null){
-                        getuseridaftertoken();
+//                        getuseridaftertoken();
+
+                        Runnable objRunnable=new Runnable() {
+                            @Override
+                            public void run() {
+                                //
+                                ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+                                Call<ArrayList<UserInfo>> userinfo = apiInterface.getuserdetails();
+                                userinfo.enqueue(new Callback<ArrayList<UserInfo>>() {
+                                    @Override
+                                    public void onResponse(Call<ArrayList<UserInfo>> call, Response<ArrayList<UserInfo>> response) {
+                                        if (response.isSuccessful()){
+                                            userInfoArrayList=response.body();
+                                            for (i=0;i<userInfoArrayList.size();i++){
+                                                rudra=namelogin.getText().toString().trim();
+                                                rudrausername=userInfoArrayList.get(i).getUsername();
+                                                Boolean b=rudra.equals(rudrausername);
+
+                                                if (b!=false){
+                                                    id=userInfoArrayList.get(i).getId();
+                                                    SessionManager sessionManager=new SessionManager(LoginActivity.this);
+                                                    sessionManager.createloginsession(namelogin.getText().toString(),id,token);
+
+                                                }
+
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<ArrayList<UserInfo>> call, Throwable t) {
+                                        Toast.makeText(LoginActivity.this,"User details couldn't be fetched please login once again ",Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                        };
+
+                        Thread objBgThread=new Thread(objRunnable);
+                        objBgThread.start();
+
                         Button btn = (Button)findViewById(R.id.login_button);
                         btn.setEnabled(false);
+
+                        gotohome();
+
                     }else{
                         Toast.makeText(LoginActivity.this,"Invalid Credentials",Toast.LENGTH_SHORT).show();
                     }
@@ -140,37 +187,37 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void getuseridaftertoken() {
-
-        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<ArrayList<UserInfo>> userinfo = apiInterface.getuserdetails();
-        userinfo.enqueue(new Callback<ArrayList<UserInfo>>() {
-            @Override
-            public void onResponse(Call<ArrayList<UserInfo>> call, Response<ArrayList<UserInfo>> response) {
-                if (response.isSuccessful()){
-                    userInfoArrayList=response.body();
-                    for (i=0;i<userInfoArrayList.size();i++){
-                        rudra=namelogin.getText().toString().trim();
-                        rudrausername=userInfoArrayList.get(i).getUsername();
-                        Boolean b=rudra.equals(rudrausername);
-
-                        if (b!=false){
-                            id=userInfoArrayList.get(i).getId();
-                            SessionManager sessionManager=new SessionManager(LoginActivity.this);
-                            sessionManager.createloginsession(namelogin.getText().toString(),id);
-                            gotohome();
-                        }
-
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ArrayList<UserInfo>> call, Throwable t) {
-
-            }
-        });
-    }
+//    private void getuseridaftertoken() {
+//
+//        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+//        Call<ArrayList<UserInfo>> userinfo = apiInterface.getuserdetails();
+//        userinfo.enqueue(new Callback<ArrayList<UserInfo>>() {
+//            @Override
+//            public void onResponse(Call<ArrayList<UserInfo>> call, Response<ArrayList<UserInfo>> response) {
+//                if (response.isSuccessful()){
+//                    userInfoArrayList=response.body();
+//                    for (i=0;i<userInfoArrayList.size();i++){
+//                        rudra=namelogin.getText().toString().trim();
+//                        rudrausername=userInfoArrayList.get(i).getUsername();
+//                        Boolean b=rudra.equals(rudrausername);
+//
+//                        if (b!=false){
+//                            id=userInfoArrayList.get(i).getId();
+//                            SessionManager sessionManager=new SessionManager(LoginActivity.this);
+//                            sessionManager.createloginsession(namelogin.getText().toString(),id);
+//                            gotohome();
+//                        }
+//
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ArrayList<UserInfo>> call, Throwable t) {
+//
+//            }
+//        });
+//    }
 
     @Override
     public void onBackPressed() {
@@ -194,5 +241,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStop() {
         unregisterReceiver(networkChangeListener);
         super.onStop();
+    }
+
+    public void forgetPassword(View view) {
+        Toast.makeText(LoginActivity.this,"Please fill in your queries our team will get back to you soon",Toast.LENGTH_LONG).show();
+        startActivity(new Intent(LoginActivity.this, CustomerFeedback.class));
     }
 }

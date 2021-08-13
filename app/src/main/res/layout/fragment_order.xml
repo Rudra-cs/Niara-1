@@ -41,6 +41,7 @@
                 android:layout_height="wrap_content"
                 android:text="No Orders Found"
                 android:gravity="center"
+                android:textColor="@color/white"
                 android:fontFamily="@font/poppins_medium"
                 android:textSize="@dimen/_15ssp">
 

@@ -114,20 +114,6 @@
                     />
 
 
-                <TextView
-                    android:id="@+id/tv_food_order_help"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:layout_marginEnd="@dimen/_8sdp"
-                    android:text="Need Help?"
-                    android:layout_below="@+id/tv_food_order_status"
-                    android:layout_alignParentEnd="true"
-                    android:textColor="@color/bluePrimer"
-                    android:textSize="@dimen/_11ssp"
-                    android:maxLines="1"
-                    android:ellipsize="end"
-                    />
 
             </RelativeLayout>
 

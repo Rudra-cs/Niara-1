@@ -208,7 +208,7 @@
                     android:id="@+id/selectAddress_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Select Your Address please !!"
+                    android:text="Select Your Address below please !!"
                     android:textStyle="bold"
                     android:visibility="visible"
                     android:textColor="@color/bluePrimer"

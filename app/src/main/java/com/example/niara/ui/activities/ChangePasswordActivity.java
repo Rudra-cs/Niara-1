@@ -39,7 +39,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl("http://pratikmansingh.host/passwordchange/");
+        webView.loadUrl("https://hotelniara.in/passwordchange/");
     }
 
     @Override
