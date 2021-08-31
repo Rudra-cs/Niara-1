@@ -160,6 +160,7 @@ public class MyCartFragment extends Fragment {
                     object.put("id",userCartDetailsList.get(i).get("id"));
                     object.put("user", userCartDetailsList.get(i).get("user"));
                     object.put("quantity", userCartDetailsList.get(i).get("quantity"));
+                    Log.d("CartList quantity",userCartDetailsList.get(i).get("quantity").toString() );
                     Call<Food> getUserProduct = apiInterfaceCart.getProductList(productId);
                     getUserProduct.enqueue(new Callback<Food>() {
                         @Override
@@ -199,7 +200,6 @@ public class MyCartFragment extends Fragment {
             }
         }else {
             Toast.makeText(getContext(),"Cart is Empty",Toast.LENGTH_LONG).show();
-            Log.d("callingthis","hellofalse");
             progressDialog.hide();
             cartscroll.setVisibility(View.GONE);
             nodisplay.setVisibility(View.VISIBLE);
@@ -217,6 +217,7 @@ public class MyCartFragment extends Fragment {
             }
             subTotal = subTotal + subTotalPrice;
         }
+        Log.d("callingthissubtotal",String.valueOf(subTotal));
         tvSubtotal.setText(String.valueOf(subTotal));
         tvTotal.setText(String.valueOf(subTotal+70));
 
@@ -230,21 +231,25 @@ public class MyCartFragment extends Fragment {
                 removeCartItems.enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
-                        if (response.isSuccessful()){
+                        if (response.isSuccessful() && response!=null){
                             Toast.makeText(getContext(), "Removed Successfully!!",Toast.LENGTH_SHORT).show();
                             cartProducts.remove(position);
-                            int subTotalPrice = 0,subTotal = 0;
+                            int subTotalPrice1 = 0,subTotal1 = 0;
+                            Log.d("callingthiscartsize",String.valueOf(cartProducts.size()));
                             for(int j=0;j<cartProducts.size();j++){
                                 try {
-                                    subTotalPrice = Integer.parseInt(cartProducts.get(j).getString("quantity")) * Integer.parseInt(cartProducts.get(j).getString("discounted_price")) ;
+                                    subTotalPrice1 = subTotalPrice1+Integer.parseInt(cartProducts.get(j).getString("quantity")) * Integer.parseInt(cartProducts.get(j).getString("discounted_price")) ;
+                                    Log.d("callingthissubtotal",String.valueOf(subTotalPrice1));
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
                             }
-                            subTotal = subTotal + subTotalPrice;
-                            tvSubtotal.setText(String.valueOf(subTotal));
-                            tvTotal.setText(String.valueOf(subTotal+70));
+                            subTotal1 = subTotal1 + subTotalPrice1;
+                            Log.d("callingthissubtotal1",String.valueOf(subTotal1));
+                            tvSubtotal.setText(String.valueOf(subTotal1));
+                            tvTotal.setText(String.valueOf(subTotal1+70));
                             cartAdapter.notifyDataSetChanged();
+
                         }
                     }
 
@@ -257,6 +262,12 @@ public class MyCartFragment extends Fragment {
                 e.printStackTrace();
             }
         });
+
+        if (cartProducts.size()<1){
+            Toast.makeText(getContext(),"Cart is Empty",Toast.LENGTH_LONG).show();
+            cartscroll.setVisibility(View.GONE);
+            nodisplay.setVisibility(View.VISIBLE);
+        }
 
         btnCheckout.setOnClickListener(new View.OnClickListener() {
             @Override

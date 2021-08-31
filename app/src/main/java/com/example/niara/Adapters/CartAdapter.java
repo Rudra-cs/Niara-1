@@ -37,24 +37,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     private CartClickListener cartClickListener;
 
 
-//    public void refreshlist(JSONObject jsonObject){
-//        if (cartInfo!=null && cartInfo.size()>0){
-//            for (JSONObject ob:cartInfo){
-//                if (ob.optInt("id")==jsonObject.optInt("id")){
-//                    try{
-////                        ob.getInt("quantity")=jsonObject.getInt("quantity");
-//                        cartInfo.remove(ob);
-//                        cartInfo.add(jsonObject);
-//                        notifyDataSetChanged();
-//                    }catch (Exception e){
-//                        e.printStackTrace();
-//                    }
-//
-//                }
-//            }
-//        }
-//    }
-
     public void setCartListener(CartAdapter.CartClickListener cartListener) {
         this.cartClickListener = cartListener;
     }
@@ -79,7 +61,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             Log.i("orderid "+ data.get("id"),"position "+position );
             holder.mTvCartFoodQuantity.setText(String.valueOf(data.get("quantity")));
             holder.mTvCartFoodTitle.setText(String.valueOf(data.get("title")));
-            holder.mTvCartFoodPrice.setText(String.valueOf((Integer) data.get("discounted_price")* (Integer) data.get("quantity")));
+            holder.mTvCartFoodPrice.setText(String.valueOf(data.get("discounted_price"))+" Rs");
+            holder.mTvtotalPrice.setText(String.valueOf((Integer) data.get("discounted_price")* (Integer) data.get("quantity"))+" Rs");
 //            Image Loading
             Glide.with(this.context).load(data.get("product_image")).into(holder.mIvCartImage);
         } catch (JSONException e) {
@@ -170,11 +153,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     public class CartViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView mIvCartImage;
-        private TextView mTvCartFoodTitle;
+        private TextView mTvCartFoodTitle,mTvtotalPrice;
         private TextView mTvCartFoodPrice;
         private TextView mTvCartFoodQuantity;
-//        private Button mBtnAdd;
-//        private Button mBtnMinus;
         private Button mBtnRemove;
 
 
@@ -185,8 +166,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             mTvCartFoodTitle = itemView.findViewById(R.id.tv_food_cart_title);
             mTvCartFoodPrice = itemView.findViewById(R.id.tv_food_cart_price);
             mTvCartFoodQuantity = itemView.findViewById(R.id.tv_pdt_quantity);
-//            mBtnAdd = itemView.findViewById(R.id.btn_add);
-//            mBtnMinus = itemView.findViewById(R.id.btn_minus);
+            mTvtotalPrice=itemView.findViewById(R.id.tv_food_cart_totalprice);
             mBtnRemove = itemView.findViewById(R.id.btn_remove);
         }
     }

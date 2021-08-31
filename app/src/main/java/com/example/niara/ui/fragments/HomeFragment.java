@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,7 +38,7 @@ public class HomeFragment extends Fragment implements CategoryAdapter.CategoryCl
     private String categoryValue = "Snacks";
     private RecyclerView rcFoodItems;
     private RecyclerView foodRecyclerView;
-
+    private RelativeLayout nodisplay;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -74,6 +75,7 @@ public class HomeFragment extends Fragment implements CategoryAdapter.CategoryCl
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
 
+        nodisplay=view.findViewById(R.id.refreshHomeFragment);
         foodRecyclerView = view.findViewById(R.id.rc_categories_food);
         foodRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext(),RecyclerView.HORIZONTAL, false));
 
@@ -181,18 +183,29 @@ public class HomeFragment extends Fragment implements CategoryAdapter.CategoryCl
                 if (response.isSuccessful()) {
                     progressDialog.hide();
                     ArrayList<Food> value = response.body();
-                    FoodAdapter foodAdapter = new FoodAdapter(getContext(),value,HomeFragment.this);
-                    rcFoodItems.setAdapter(foodAdapter);
+                    if (value.size()<1){
+                        Toast.makeText(getContext(),"Something went wrong",Toast.LENGTH_LONG).show();
+                        rcFoodItems.setVisibility(View.GONE);
+                        nodisplay.setVisibility(View.VISIBLE);
+                    }else{
+                        FoodAdapter foodAdapter = new FoodAdapter(getContext(),value,HomeFragment.this);
+                        rcFoodItems.setAdapter(foodAdapter);
+                    }
+
                 }
                 else {
-                    Toast.makeText(getContext(), "Server Error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                    rcFoodItems.setVisibility(View.GONE);
+                    nodisplay.setVisibility(View.VISIBLE);
                 }
             }
 
             @Override
             public void onFailure(Call<ArrayList<Food>> call, Throwable t) {
                 progressDialog.hide();
-
+                Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                rcFoodItems.setVisibility(View.GONE);
+                nodisplay.setVisibility(View.VISIBLE);
                 if (t instanceof IOException) {
 
                 }
@@ -334,14 +347,16 @@ public class HomeFragment extends Fragment implements CategoryAdapter.CategoryCl
             @Override
             public void onResponse(Call<ArrayList<Food>> call, Response<ArrayList<Food>> response) {
 
-                if (response.isSuccessful()) {
+                if (response.isSuccessful() && response!=null) {
                     progressDialog.hide();
                     ArrayList<Food> value = response.body();
                     FoodAdapter foodAdapter = new FoodAdapter(getContext(),value,HomeFragment.this);
                     rcFoodItems.setAdapter(foodAdapter);
+                }else if(response==null){
+
                 }
                 else {
-                    Toast.makeText(getContext(), "Server Error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
                 }
             }
 
