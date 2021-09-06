@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/_95sdp"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
@@ -55,27 +55,31 @@
                     android:layout_alignParentEnd="true"
                     android:fontFamily="@font/poppins_medium"
                     android:text="5"
-                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_below="@+id/tv_food_order_title"
+                    android:layout_marginTop="@dimen/_3sdp"
                     android:layout_marginEnd="@dimen/_25sdp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/bluePrimer"
                     android:textSize="@dimen/_12ssp" />
                 <TextView
                     android:id="@+id/tv_pdt_rs1"
-                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_food_order_title"
                     android:layout_toLeftOf="@id/tv_product_quantity"
                     android:fontFamily="@font/poppins_medium"
                     android:text="Qty. "
+                    android:textColor="@color/black"
                     android:textSize="@dimen/_12ssp" />
 
                 <TextView
                     android:id="@+id/tv_food_order_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_4sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
                     android:layout_marginStart="@dimen/_8sdp"
                     android:text="Status: "
+                    android:textStyle="bold"
                     android:layout_below="@+id/tv_food_order_title"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12ssp"
@@ -86,12 +90,12 @@
                     android:id="@+id/tv_food_order_status_req"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_4sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
                     android:text="Accepted"
                     android:layout_below="@+id/tv_food_order_title"
                     android:layout_toRightOf="@+id/tv_food_order_status"
                     android:layout_marginEnd="@dimen/_4sdp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/bluePrimer"
                     android:textSize="@dimen/_12ssp"
                     android:maxLines="1"
                     android:ellipsize="end"
@@ -101,8 +105,7 @@
                     android:id="@+id/tv_food_order_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:layout_marginBottom="@dimen/_4sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
                     android:layout_marginStart="@dimen/_8sdp"
                     android:text="20/11/2021"
                     android:layout_below="@+id/tv_food_order_status"
@@ -113,7 +116,40 @@
                     android:maxLength="10"
                     android:ellipsize="end"
                     />
-
+                <TextView
+                    android:id="@+id/tv_food_order_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:layout_marginBottom="@dimen/_4sdp"
+                    android:layout_marginStart="@dimen/_2sdp"
+                    android:text="orderid"
+                    android:layout_below="@+id/tv_food_order_date"
+                    android:layout_toRightOf="@+id/tv_food_order_idtext"
+                    android:layout_marginEnd="@dimen/_4sdp"
+                    android:textColor="@color/bluePrimer"
+                    android:textSize="@dimen/_10ssp"
+                    android:maxLines="1"
+                    android:maxLength="10"
+                    android:ellipsize="end"
+                    />
+                <TextView
+                    android:id="@+id/tv_food_order_idtext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:layout_marginBottom="@dimen/_4sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:text="Order id: "
+                    android:textStyle="bold"
+                    android:layout_below="@+id/tv_food_order_date"
+                    android:layout_marginEnd="@dimen/_4sdp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10ssp"
+                    android:maxLines="1"
+                    android:maxLength="10"
+                    android:ellipsize="end"
+                    />
 
 
             </RelativeLayout>

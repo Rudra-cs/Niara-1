@@ -190,4 +190,10 @@ public class RegistrationActivity extends AppCompatActivity {
         unregisterReceiver(networkChangeListener);
         super.onStop();
     }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
+        finish();
+    }
 }

@@ -5,15 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.niara.R;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class PaymentSuccessfulActivity extends AppCompatActivity {
+    private TextView tvTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_successful);
+
     }
 
     @Override

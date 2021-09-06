@@ -61,7 +61,7 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Payment Successful"
+            android:text="Order Successful"
             android:fontFamily="@font/poppins_bold"
             android:textSize="@dimen/_20ssp"
             android:layout_gravity="center"

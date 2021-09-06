@@ -21,7 +21,7 @@
             android:id="@+id/welcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Welcome Back !"
+            android:text="Welcome!!"
             android:textColor="@color/white"
             android:fontFamily="@font/poppins_bold"
             android:textStyle="bold"
@@ -126,7 +126,7 @@
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:layout_width="0dp"
-                        android:background="@drawable/bg9"
+                        android:background="@drawable/button"
                         android:text="Login"
                         android:textColor="@color/white"
                         android:onClick="loginclicked">
@@ -148,6 +148,7 @@
                         android:fontFamily="@font/poppins_bold"
                         android:padding="5dp"
                         android:text="New User?"
+                        android:textColor="@color/white"
                         android:textSize="15dp"
                         android:textStyle="bold"></TextView>
                     <TextView
@@ -157,7 +158,7 @@
                         android:padding="5dp"
                         android:text="SignUp"
                         android:textStyle="bold"
-                        android:textColor="@color/white"
+                        android:textColor="@color/bluePrimer"
                         android:textSize="15dp"
                         android:onClick="movetosignup"></TextView>
                 </LinearLayout>
@@ -177,6 +178,7 @@
                         android:padding="5dp"
                         android:text="Need Help?"
                         android:textSize="15dp"
+                        android:textColor="@color/white"
                         android:textStyle="bold"></TextView>
                     <TextView
                         android:layout_width="wrap_content"
@@ -185,7 +187,7 @@
                         android:padding="5dp"
                         android:text="Click Here"
                         android:textStyle="bold"
-                        android:textColor="@color/white"
+                        android:textColor="@color/bluePrimer"
                         android:textSize="15dp"
                         android:onClick="movetofeedback"></TextView>
                 </LinearLayout>

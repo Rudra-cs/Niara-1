@@ -25,6 +25,10 @@ public class Food {
         this.product_image = product_image;
     }
 
+    public Food() {
+
+    }
+
 //  Getters and Setters
 
     public int getId() {

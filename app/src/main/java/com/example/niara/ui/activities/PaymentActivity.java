@@ -3,14 +3,11 @@ package com.example.niara.ui.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.FtsOptions;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,42 +16,37 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.niara.Adapters.CustomerInfoAdapter;
-import com.example.niara.Adapters.OrderFoodInfoAdapter;
 import com.example.niara.Api.ApiClient;
 import com.example.niara.Api.ApiInterface;
 import com.example.niara.Model.CartInfo;
 import com.example.niara.Model.CreateCustomerInfo;
 import com.example.niara.Model.CreateOrderInfo;
 import com.example.niara.Model.CustomerInfo;
+import com.example.niara.Model.Food;
 import com.example.niara.R;
-import com.example.niara.ui.fragments.OrderFragment;
 import com.example.niara.utils.NetworkChangeListener;
 import com.example.niara.utils.SessionManager;
+import com.google.gson.JsonObject;
 import com.razorpay.Checkout;
 import com.razorpay.Order;
 import com.razorpay.PaymentData;
 import com.razorpay.PaymentResultWithDataListener;
-import com.razorpay.RazorpayClient;
-import com.razorpay.RazorpayException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.nio.file.Path;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
-
-import javax.xml.transform.Result;
+import java.util.UUID;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -80,7 +72,7 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
     private Spinner spinner;
     private String city;
     private EditText fullname,mobile,zipcode,locality;
-    private Button paybutton;
+    private Button paybutton,orderbutton;
     private TextView tvamount,tvselectaddres;
     private String reciept;
 
@@ -98,6 +90,7 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
         addresscategory=findViewById(R.id.addressCategory);
         addressnone=findViewById(R.id.addressnone);
 
+        orderbutton=findViewById(R.id.confirmOrderButton);
 
         paymentpage=findViewById(R.id.paymentpage);
         confirmingpage=findViewById(R.id.confirmingpage);
@@ -131,7 +124,7 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
         noaddress = findViewById(R.id.nothingaddedinaddress);
 
 
-        int amount = Math.round(Float.parseFloat(String.valueOf(tvAmount.getText().toString())) * 100);
+        int amount = Math.round(Float.parseFloat(String.valueOf(tvAmount.getText().toString())) * 1);
 
         customerInfolist = new ArrayList<>();
         cartInfoArrayList = new ArrayList<>();
@@ -145,17 +138,30 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
         Checkout.preload(getApplicationContext());
         paybutton = findViewById(R.id.paybutton);
         tvamount = findViewById(R.id.tvamount);
-        paybutton.setOnClickListener(new View.OnClickListener() {
+//        paybutton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (addressSelected) {
+//                    startPayment(String.valueOf(amount));
+//                } else {
+//                    Toast.makeText(PaymentActivity.this, "Please Select an address to continue", Toast.LENGTH_SHORT).show();
+//                }
+//
+//            }
+//        });
+
+        orderbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (addressSelected) {
-                    startPayment(String.valueOf(amount));
+                    confirmOrder(String.valueOf(amount));
                 } else {
-                    Toast.makeText(PaymentActivity.this, "Please Select a addres to continue", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PaymentActivity.this, "Please Select an address to continue", Toast.LENGTH_SHORT).show();
                 }
 
             }
         });
+
         addAddress = findViewById(R.id.addAddressbutton);
         addAddress.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -170,41 +176,115 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
             addAddress.setVisibility(View.GONE);
         }
 
-        Runnable objRunnable=new Runnable() {
-            @Override
-            public void run() {
-                //
-                RazorpayClient razorpay = null;
-                JSONObject orderRequest = new JSONObject();
-                try {
-                    razorpay = new RazorpayClient("rzp_test_Zdmf4HFzNEDhMD", "zkwDT8tUbFtBxWdUsnF0v11t");
-                } catch (RazorpayException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    orderRequest.put("amount", amount); // amount in the smallest currency unit
-                    orderRequest.put("currency", "INR");
-                    orderRequest.put("receipt", reciept);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                try {
-                    Log.d("orderreq", String.valueOf(orderRequest));
-                    order = razorpay.Orders.create(orderRequest);
-                } catch (RazorpayException e) {
-                    e.printStackTrace();
-                }
-                orderid = order.get("id");
-            }
-        };
-
-        Thread objBgThread=new Thread(objRunnable);
-        objBgThread.start();
-
-
+//        Runnable objRunnable=new Runnable() {
+//            @Override
+//            public void run() {
+//                //
+//                RazorpayClient razorpay = null;
+//                JSONObject orderRequest = new JSONObject();
+//                try {
+//                    razorpay = new RazorpayClient("rzp_test_Zdmf4HFzNEDhMD", "zkwDT8tUbFtBxWdUsnF0v11t");
+//                } catch (RazorpayException e) {
+//                    e.printStackTrace();
+//                }
+//                try {
+//                    orderRequest.put("amount", amount); // amount in the smallest currency unit
+//                    orderRequest.put("currency", "INR");
+//                    orderRequest.put("receipt", reciept);
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//
+//                try {
+//                    Log.d("orderreq", String.valueOf(orderRequest));
+//                    order = razorpay.Orders.create(orderRequest);
+//                } catch (RazorpayException e) {
+//                    e.printStackTrace();
+//                }
+//                orderid = order.get("id");
+//            }
+//        };
+//
+//        Thread objBgThread=new Thread(objRunnable);
+//        objBgThread.start();
 
     }
+
+    private void confirmOrder(String amount) {
+        String receipt = generateRandomString(7);
+        Log.d("receipt",receipt);
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        userCart = sessionManager.getUserid();
+        Toast.makeText(PaymentActivity.this,"Order Confirmed",Toast.LENGTH_SHORT).show();
+
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        Call<ArrayList<CartInfo>> getUserCart = apiInterface.getCartDetails();
+        getUserCart.enqueue(new Callback<ArrayList<CartInfo>>() {
+            @Override
+            public void onResponse(Call<ArrayList<CartInfo>> call, Response<ArrayList<CartInfo>> response) {
+                if (response.isSuccessful() && response.body()!=null) {
+                    for (int i = 0; i < response.body().size(); i++) {
+                        if (response.body().get(i).getUser() == userCart) {
+                            cartInfoArrayList.add(response.body().get(i));
+                        }
+                    }
+                    for (int j=0;j<cartInfoArrayList.size();j++){
+
+                        CreateOrderInfo createOrderInfo=new CreateOrderInfo();
+                        createOrderInfo.setUser(userCart);
+                        createOrderInfo.setCustomer(CustomerID);
+                        createOrderInfo.setProduct(cartInfoArrayList.get(j).getProduct());
+                        createOrderInfo.setQuantity(cartInfoArrayList.get(j).getQuantity());
+                        createOrderInfo.setRozorpay_paymentId(amount+"Rs");
+                        createOrderInfo.setRozorpay_orderId(receipt);
+                        createOrderInfo.setRozorpay_signature("00000000000");
+                        CreateOrder(createOrderInfo);
+                        int k=cartInfoArrayList.get(j).getCartId();
+                        DeleteCart(cartInfoArrayList.get(j).getCartId());
+
+
+                    }
+                    startActivity(new Intent(PaymentActivity.this, PaymentSuccessfulActivity.class));
+                    finish();
+
+
+                } else {
+                    Toast.makeText(PaymentActivity.this,"Something went wrong",Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<ArrayList<CartInfo>> call, Throwable t) {
+            }
+        });
+    }
+
+    public static String generateRandomString(int length) {
+        // You can customize the characters that you want to add into
+        // the random strings
+        String CHAR_LOWER = "abcdefghijklmnopqrstuvwxyz";
+        String CHAR_UPPER = CHAR_LOWER.toUpperCase();
+        String NUMBER = "0123456789";
+
+        String DATA_FOR_RANDOM_STRING = CHAR_LOWER + CHAR_UPPER + NUMBER;
+        SecureRandom random = new SecureRandom();
+
+        if (length < 1) throw new IllegalArgumentException();
+
+        StringBuilder sb = new StringBuilder(length);
+
+        for (int i = 0; i < length; i++) {
+            // 0-62 (exclusive), random returns 0-61
+            int rndCharAt = random.nextInt(DATA_FOR_RANDOM_STRING.length());
+            char rndChar = DATA_FOR_RANDOM_STRING.charAt(rndCharAt);
+
+            sb.append(rndChar);
+        }
+
+        return sb.toString();
+    }
+
+
+
 
     private void loadAddress() {
         if(customerInfolist!=null){
@@ -235,7 +315,7 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultW
 
             @Override
             public void onFailure(Call<List<CustomerInfo>> call, Throwable t) {
-                Toast.makeText(PaymentActivity.this,"address fail",Toast.LENGTH_SHORT).show();
+                Toast.makeText(PaymentActivity.this,"address fetching failed",Toast.LENGTH_SHORT).show();
 
             }
         });

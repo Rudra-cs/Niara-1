@@ -160,6 +160,7 @@ public class ProductDesc extends AppCompatActivity {
         btnAddToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                btnAddToCart.setEnabled(false);
                 try {
                     Cart cartDetails = new Cart();
                     cartDetails.setUser(user);

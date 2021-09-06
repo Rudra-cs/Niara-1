@@ -51,6 +51,7 @@ public class OrderFoodInfoAdapter extends RecyclerView.Adapter<OrderFoodInfoAdap
             holder.mTvstatus.setText(data.getString("status"));
             holder.mTvDate.setText(data.getString("ordered_date"));
             holder.mtvQuantity.setText(data.getString("quantity"));
+            holder.orderid.setText(data.getString("orderid"));
 
 //        Image Loading
             Glide.with(this.context).load(data.getString("prod_img")).into(holder.mIvFoodImg);
@@ -68,7 +69,7 @@ public class OrderFoodInfoAdapter extends RecyclerView.Adapter<OrderFoodInfoAdap
     public class OrderFoodInfoViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView mIvFoodImg;
-        private TextView mTvFoodTitle;
+        private TextView mTvFoodTitle,orderid;
         private TextView mTvstatus;
         private TextView needhelp;
         private TextView mTvDate,mtvQuantity,mtvneedhelp;
@@ -79,7 +80,7 @@ public class OrderFoodInfoAdapter extends RecyclerView.Adapter<OrderFoodInfoAdap
             mIvFoodImg = itemView.findViewById(R.id.iv_pdt_order_img);
             mTvFoodTitle = itemView.findViewById(R.id.tv_food_order_title);
             mTvstatus = itemView.findViewById(R.id.tv_food_order_status_req);
-
+            orderid=itemView.findViewById(R.id.tv_food_order_id);
             mTvDate=itemView.findViewById(R.id.tv_food_order_date);
             mtvQuantity=itemView.findViewById(R.id.tv_product_quantity);
         }

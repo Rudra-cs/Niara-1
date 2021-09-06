@@ -730,6 +730,7 @@
 
 
                 <Button
+                    android:visibility="gone"
                     android:layout_margin="@dimen/_10sdp"
                     android:id="@+id/paybutton"
                     android:layout_width="match_parent"
@@ -739,6 +740,30 @@
                     android:textColor="@color/white">
 
                 </Button>
+
+                <Button
+                    android:layout_margin="@dimen/_10sdp"
+                    android:id="@+id/confirmOrderButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg9"
+                    android:text="Order Now"
+                    android:textColor="@color/white">
+
+                </Button>
+
+                <TextView
+                    android:id="@+id/tv_cod"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="**(NB:-)Payment Method will be COD(Cash On Delivery),You Can then make Payment Through Any UPI Platform When it will Delivered."
+                    android:textColor="#FFFFFF"
+                    android:layout_marginBottom="@dimen/_3sdp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:layout_below="@id/confirmOrderButton"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:layout_marginEnd="@dimen/_4sdp"/>
 
             </LinearLayout>
             <LinearLayout

@@ -99,9 +99,6 @@
                     android:orientation="vertical"
                     android:visibility="visible"/>
 
-
-
-
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -237,7 +234,7 @@
                         android:id="@+id/tv_info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="**Once ordered it can't be cancelled after 5 mins."
+                        android:text="**Once ordered it can't be cancelled after 1 min."
                         android:textColor="@color/white"
                         android:fontFamily="@font/poppins_medium"
                         android:layout_below="@id/tv_tot"
@@ -260,6 +257,103 @@
                             android:textColor="@color/white"
                             android:background="@color/bluePrimer"/>
                     </androidx.cardview.widget.CardView>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:layout_gravity="bottom"
+                    android:padding="@dimen/_10sdp">
+
+                    <View
+                        android:id="@+id/viewCart1"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_2sdp"
+                        android:background="@color/white"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginEnd="@dimen/_16sdp"/>
+                    <TextView
+                        android:id="@+id/info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="IMPORTANT NOTE:-"
+                        android:textColor="#FF0000"
+                        android:fontFamily="@font/poppins_bold"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:layout_marginEnd="@dimen/_4sdp"/>
+
+                    <TextView
+                        android:id="@+id/tv_infoorder1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="**1. FOR INSTANT GROCERY DELIVERY 100 WILL BE CHARGED."
+                        android:textColor="@color/white"
+                        android:layout_below="@+id/info"
+                        android:fontFamily="@font/poppins_medium"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:layout_marginEnd="@dimen/_4sdp"/>
+                    <TextView
+                        android:id="@+id/tv_infoorder2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_infoorder1"
+                        android:text="**2. BREAKFAST WILL BE DELIVER WITHIN 10AM TO 12PM (SNACKS)."
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/poppins_medium"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:layout_marginEnd="@dimen/_4sdp"/>
+                    <TextView
+                        android:id="@+id/tv_infoorder3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_infoorder2"
+                        android:text="**4. LUNCH WILL BE DELIVER WITHIN 12PM TO 3PM (MEALS)."
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/poppins_medium"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:layout_marginEnd="@dimen/_4sdp"/>
+
+                    <TextView
+                        android:id="@+id/tv_infoorder4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_infoorder3"
+                        android:text="**5. DINNER WILL BE DELIVER WITHIN 3PM TO 9:30PM (FASTFOOD)."
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/poppins_medium"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:layout_marginEnd="@dimen/_4sdp"/>
+                    <TextView
+                        android:id="@+id/tv_infoorder5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_infoorder4"
+                        android:text="**6. SNACKS WILL BE DELIVER WITHIN 1-2 DAYS (SNACKS BULK ORDER)."
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/poppins_medium"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:layout_marginEnd="@dimen/_4sdp"/>
+                    <TextView
+                        android:id="@+id/tv_infoorder6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_infoorder5"
+                        android:text="**7. ANY QUERY ON DELIVERY CONTACT US ON 7436862553."
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/poppins_medium"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:layout_marginEnd="@dimen/_4sdp"/>
+
+
 
                 </RelativeLayout>
             </LinearLayout>

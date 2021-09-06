@@ -132,6 +132,7 @@ public class OrderFragment extends Fragment implements OrderFoodInfoAdapter.Orde
                                 ob.put("quantity",response.body().get(i).getQuantity());
                                 ob.put("ordered_date",response.body().get(i).getOrdered_date());
                                 ob.put("product",response.body().get(i).getProduct());
+                                ob.put("orderid",response.body().get(i).getRozorpay_orderId());
                                 infosofOrder.add(ob);
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -154,6 +155,7 @@ public class OrderFragment extends Fragment implements OrderFoodInfoAdapter.Orde
                                 ob.put("status",infosofOrder.get(j).get("status"));
                                 ob.put("quantity",infosofOrder.get(j).get("quantity"));
                                 ob.put("ordered_date",infosofOrder.get(j).get("ordered_date"));
+                                ob.put("orderid",infosofOrder.get(j).getString("orderid"));
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
