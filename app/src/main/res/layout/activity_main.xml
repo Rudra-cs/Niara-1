@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:background="@color/home_background"
     android:id="@+id/drawer_layout"
-    tools:context=".ui.activities.MainActivity">
+    tools:context="com.NiaraFoodJoint.niara.ui.activities.MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

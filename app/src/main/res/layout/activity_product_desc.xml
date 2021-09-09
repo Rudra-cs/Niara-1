@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.ProductDesc"
+    tools:context="com.NiaraFoodJoint.niara.ui.activities.ProductDesc"
     android:background="@drawable/bg5">
 
     <ScrollView

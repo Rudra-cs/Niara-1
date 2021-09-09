@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg5"
-    tools:context=".ui.fragments.SettingsFragment"
+    tools:context="com.NiaraFoodJoint.niara.ui.fragments.SettingsFragment"
     android:orientation="vertical"
     android:focusableInTouchMode="true"
     android:gravity="center">

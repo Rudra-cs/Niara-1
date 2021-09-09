@@ -9,7 +9,7 @@
     android:background="@drawable/bg5"
     android:focusableInTouchMode="true"
     android:gravity="center"
-    tools:context=".ui.activities.CreateCusstomerInfoActivity">
+    tools:context="com.NiaraFoodJoint.niara.ui.activities.CreateCusstomerInfoActivity">
 
     <TextView
         android:gravity="center"

@@ -7,7 +7,7 @@
     android:layout_gravity="center"
     android:orientation="vertical"
     android:background="@drawable/bg5"
-    tools:context=".ui.activities.LoginActivity">
+    tools:context="com.NiaraFoodJoint.niara.ui.activities.LoginActivity">
 
 
     <RelativeLayout

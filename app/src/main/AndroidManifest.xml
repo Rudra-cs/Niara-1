@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.niara">
-
-    <permission android:name="my_custom_permission_name"
-        android:protectionLevel="signature" />
+    package="com.NiaraFoodJoint.niara">
 
     <application
         android:allowBackup="true"
@@ -13,31 +10,32 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Niara"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.activities.PrivacyPolicy"></activity>
-        <activity android:name=".ui.activities.TermsAndConditions" />
+        <activity android:name="com.NiaraFoodJoint.niara.ui.activities.customerFeedback2"></activity>
+        <activity android:name="com.NiaraFoodJoint.niara.ui.activities.PrivacyPolicy" />
+        <activity android:name="com.NiaraFoodJoint.niara.ui.activities.TermsAndConditions" />
         <activity
-            android:name=".ui.activities.PaymentSuccessfulActivity"
+            android:name="com.NiaraFoodJoint.niara.ui.activities.PaymentSuccessfulActivity"
             android:noHistory="true" />
         <activity
-            android:name=".ui.activities.PaymentActivity"
+            android:name="com.NiaraFoodJoint.niara.ui.activities.PaymentActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activities.CreateCusstomerInfoActivity"
+            android:name="com.NiaraFoodJoint.niara.ui.activities.CreateCusstomerInfoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activities.ChangePasswordActivity"
+            android:name="com.NiaraFoodJoint.niara.ui.activities.ChangePasswordActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activities.CustomerFeedback"
+            android:name="com.NiaraFoodJoint.niara.ui.activities.CustomerFeedback"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activities.SearchActivity"
+            android:name="com.NiaraFoodJoint.niara.ui.activities.SearchActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activities.ProductDesc"
+            android:name="com.NiaraFoodJoint.niara.ui.activities.ProductDesc"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activities.SplashActivity"
+            android:name="com.NiaraFoodJoint.niara.ui.activities.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,13 +44,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activities.MainActivity"
+            android:name="com.NiaraFoodJoint.niara.ui.activities.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activities.RegistrationActivity"
+            android:name="com.NiaraFoodJoint.niara.ui.activities.RegistrationActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activities.LoginActivity"
+            android:name="com.NiaraFoodJoint.niara.ui.activities.LoginActivity"
             android:noHistory="true"
             android:screenOrientation="portrait" />
 
@@ -60,8 +58,12 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
 
+    <permission
+        android:name="my_custom_permission_name"
+        android:protectionLevel="signature" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

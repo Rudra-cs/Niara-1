@@ -6,8 +6,17 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
+    signingConfigs {
+        release {
+            storeFile file("NiaraKeystore.jks")
+            storePassword 'Niara@123'
+            keyAlias 'key0'
+            keyPassword 'Niara@123'
+        }
+    }
+
     defaultConfig {
-        applicationId "com.example.niara"
+        applicationId "com.NiaraFoodJoint.niara"
         minSdkVersion 24
         targetSdkVersion 30
         versionCode 1
@@ -17,9 +26,9 @@ android {
 
     buildTypes {
         release {
-
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     compileOptions {

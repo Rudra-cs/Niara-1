@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/bg5"
-    tools:context=".ui.activities.PaymentActivity">
+    tools:context="com.NiaraFoodJoint.niara.ui.activities.PaymentActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"

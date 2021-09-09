@@ -7,7 +7,7 @@
     android:layout_gravity="center"
     android:orientation="vertical"
     android:background="@drawable/bg5"
-    tools:context=".ui.activities.RegistrationActivity">
+    tools:context="com.NiaraFoodJoint.niara.ui.activities.RegistrationActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
